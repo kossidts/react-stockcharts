@@ -70,13 +70,17 @@ function getDocumentationContent() {
 		<span id="iconPreload" class="glyphicon glyphicon-arrow-down"></span>
 		<div id="chart-goes-here"></div>`;
 }
+module.exports = function (params) {
+    const {
+        options: { mode, page },
+        files,
+    } = params.htmlWebpackPlugin;
 
-module.exports = function(params) {
-	const { mode, page } = params.htmlWebpackPlugin.options;
+    const { js: chunks } = files || {};
+    const pageName = page == "index" ? "home" : page;
+    const chunkPath = files.js.find((f) => f.endsWith(`${pageName}.js`));
 
-	const { chunks } = params.htmlWebpackPlugin.files;
-
-	return `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -93,26 +97,31 @@ module.exports = function(params) {
 		${getExternalAssets(mode)}
 		<script src="dist/modernizr.js"></script>
 
-		${page === "index" ? `<style type="text/css">
+		${
+            page === "index"
+                ? `<style type="text/css">
 			.dark {
 				background: #303030;
 			}
 			.light {
 				color: #FFFFFF;
 			}
-		</style>` : ""}
+		</style>`
+                : ""
+        }
 	</head>
 	<body class="${page === "index" ? "dark" : ""}">
 
 		${page === "index" ? getIndexContent() : getDocumentationContent()}
 
 		<!-- Placed at the end of the document so the pages load faster -->
-		${page === "index"
-			? `<script type="text/javascript" src="${chunks["react-stockcharts-home"].entry}"></script>`
-			: `<script type="text/javascript" src="${chunks["react-stockcharts-documentation"].entry}"></script>`}
+		${
+            !chunkPath
+                ? ""
+                : `<script type="text/javascript" src="${chunkPath}"></script>`
+        }
 
 		${getDevServerJs(mode)}
 	</body>
 </html>`;
-
 };
