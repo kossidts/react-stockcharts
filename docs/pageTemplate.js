@@ -1,15 +1,15 @@
 function getExternalAssets(mode) {
-	switch (mode) {
-	case "dev":
-	case "watch": {
-		return `<script src="react/umd/react.development.js"></script>
+    switch (mode) {
+        case "dev":
+        case "watch": {
+            return `<script src="react/umd/react.development.js"></script>
 		<script src="react-dom/umd/react-dom.development.js"></script>
 
 		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-	}
-	default:
-		return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.1.1/umd/react.production.min.js"></script>
+        }
+        default:
+            return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.1.1/umd/react.production.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.1.1/umd/react-dom.production.min.js"></script>
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -23,18 +23,18 @@ function getExternalAssets(mode) {
 			ga('create', 'UA-61247721-1', 'auto');
 			ga('send', 'pageview');
 		</script>`;
-	}
+    }
 }
 
 function getDevServerJs(mode) {
-	if (mode === "watch") {
-		return '<script type="text/javascript" src="/webpack-dev-server.js"></script>';
-	}
-	return "";
+    if (mode === "watch") {
+        return '<script type="text/javascript" src="/webpack-dev-server.js"></script>';
+    }
+    return "";
 }
 
 function getIndexContent() {
-	return `<!-- Main jumbotron for a primary marketing message or call to action -->
+    return `<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container" id="README.md">
 				<div class="row">
@@ -66,7 +66,7 @@ function getIndexContent() {
 }
 
 function getDocumentationContent() {
-	return `<span id="debug_here">.</span>
+    return `<span id="debug_here">.</span>
 		<span id="iconPreload" class="glyphicon glyphicon-arrow-down"></span>
 		<div id="chart-goes-here"></div>`;
 }
