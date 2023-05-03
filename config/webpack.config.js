@@ -22,14 +22,6 @@ function buildConfig(mode) {
         //     path.join(rootPath, "build"),
         //     path.join(rootPath, "node_modules"),
         // ],
-        // static: {
-        //     directory: path.join(rootPath),
-        //     publicPath: [
-        //         path.join(rootPath, "docs"),
-        //         path.join(rootPath, "build"),
-        //         path.join(rootPath, "node_modules"),
-        //     ],
-        // },
         static: [
             {
                 directory: path.join(rootPath, "docs", "data"),
@@ -38,11 +30,6 @@ function buildConfig(mode) {
             {
                 directory: path.join(rootPath, "build", "dist"),
                 publicPath: "/dist",
-                // publicPath: [
-                //     path.join(rootPath, "docs"),
-                //     path.join(rootPath, "build"),
-                //     path.join(rootPath, "node_modules"),
-                // ],
             },
         ],
         host: process.env.IP, // "10.0.0.106", "localhost"
@@ -57,16 +44,9 @@ function buildConfig(mode) {
             test: /\.md$/,
             use: [
                 "html-loader",
-                // {
-                //     loader: "remarkable-loader",
-                //     options: { remarkable: getRemarkable() },
-                // },
                 {
-                    loader: "remark-loader",
-                    options: {
-                        // remarkOptions: getRemarkable(),
-                        // remarkOptions: { plugins: [getRemarkable()] }
-                    },
+                    loader: "remarkable-loader",
+                    options: { remarkable: getRemarkable() },
                 },
             ],
         },
@@ -77,7 +57,6 @@ function buildConfig(mode) {
                 "css-loader",
                 "postcss-loader",
                 "sass-loader",
-                // "sass-loader?outputStyle=expanded",
             ],
         },
     ];
@@ -147,11 +126,10 @@ function buildConfig(mode) {
                 page: "documentation",
                 mode,
                 filename: "documentation.html",
-                templateParameters: { page33: "documentation" },
             }),
-            // new webpack.LoaderOptionsPlugin({
-            //     options: { remarkable: getRemarkable(), context },
-            // }),
+            new webpack.LoaderOptionsPlugin({
+                options: { remarkable: getRemarkable(), context },
+            }),
         ]),
         devServer,
         externals: {
@@ -178,15 +156,15 @@ function getRemarkable() {
     return {
         preset: "full",
         html: true,
-        // linkify: true,
-        // typographer: true,
-        // highlight: function (str, lang) {
-        //     const grammer =
-        //         lang === undefined || Prism.languages[lang] === undefined
-        //             ? Prism.languages.markup
-        //             : Prism.languages[lang];
-        //     return Prism.highlight(str, grammer, lang);
-        // },
+        linkify: true,
+        typographer: true,
+        highlight: function (str, lang) {
+            const grammer =
+                lang === undefined || Prism.languages[lang] === undefined
+                    ? Prism.languages.markup
+                    : Prism.languages[lang];
+            return Prism.highlight(str, grammer, lang);
+        },
     };
 }
 
