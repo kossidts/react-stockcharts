@@ -1,5 +1,4 @@
-[source](https://github.com/rrag/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChartGrid.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChartGrid)
-
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChartGrid.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChartGrid)
 
 ```js
 const height = 400;
@@ -10,13 +9,13 @@ var gridHeight = height - margin.top - margin.bottom;
 var gridWidth = width - margin.left - margin.right;
 
 var showGrid = true;
-var yGrid = showGrid ? { 
+var yGrid = showGrid ? {
     innerTickSize: -1 * gridWidth,
     tickStrokeDasharray: 'Solid',
     tickStrokeOpacity: 0.2,
     tickStrokeWidth: 1
 } : {};
-var xGrid = showGrid ? { 
+var xGrid = showGrid ? {
     innerTickSize: -1 * gridHeight
     tickStrokeDasharray: 'Solid',
     tickStrokeOpacity: 0.2,
@@ -24,10 +23,9 @@ var xGrid = showGrid ? {
 } : {};
 ```
 
-
 ```jsx
-<ChartCanvas 
-    width={width} 
+<ChartCanvas
+    width={width}
     height={height}
     margin={margin}
 >

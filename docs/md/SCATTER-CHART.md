@@ -1,8 +1,13 @@
-
 ```js
 import { ChartCanvas, Chart, series } from "react-stockcharts";
 
-const { LineSeries, ScatterSeries, CircleMarker, SquareMarker, TriangleMarker } = series;
+const {
+    LineSeries,
+    ScatterSeries,
+    CircleMarker,
+    SquareMarker,
+    TriangleMarker,
+} = series;
 ```
 
 ```jsx
@@ -32,29 +37,26 @@ const { LineSeries, ScatterSeries, CircleMarker, SquareMarker, TriangleMarker } 
 	markerProps={{ r: 3 }} />
 ```
 
-
-[source](https://github.com/rrag/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChart.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChart)
-
-
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChart.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChart)
 
 ### Props
 
-| props            | type          | default   | Description  |
-|------------------|:--------------|:----------|:-------------|
-| className        | string        | "line"    |
-| strokeWidth      | number        | 1         |
-| stroke           | string        | "#4682B4" |
-| strokeDasharray  | string        | "Solid"   |
-| hoverStrokeWidth | number        | 4         |
-| fill             | string        | "none"    |
-| hoverTolerance   | number        | 6         |
-| highlightOnHover | boolean       | false     |
-| connectNulls     | boolean       | false     | Whether to connect a graph line across null points.
-| yAccessor        | function      |           |
-| onClick          | function      |           |
-| onDoubleClick    | function      |           |
-| onContextMenu    | function      |           |
-| defined          | function      |           |
+| props            | type     | default   | Description                                         |
+| ---------------- | :------- | :-------- | :-------------------------------------------------- |
+| className        | string   | "line"    |
+| strokeWidth      | number   | 1         |
+| stroke           | string   | "#4682B4" |
+| strokeDasharray  | string   | "Solid"   |
+| hoverStrokeWidth | number   | 4         |
+| fill             | string   | "none"    |
+| hoverTolerance   | number   | 6         |
+| highlightOnHover | boolean  | false     |
+| connectNulls     | boolean  | false     | Whether to connect a graph line across null points. |
+| yAccessor        | function |           |
+| onClick          | function |           |
+| onDoubleClick    | function |           |
+| onContextMenu    | function |           |
+| defined          | function |           |
 
 #### strokeDasharray possible values
 

@@ -1,16 +1,15 @@
-[source](https://github.com/rrag/react-stockcharts/blob/master/docs/lib/charts/CandleStickStockScaleChart.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChart)
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickStockScaleChart.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChart)
 
 That is better. let us see how to create it
 
 `data.tsv`
 
-date       | open     | high | low | close
------------|----------| -----|-----|------
-2013-08-16 | 5705.45 | 5716.6 | 5496.05 | 5507.85
-2013-08-19 | 5497.55 | 5499.65 | 5360.65 | 5414.75
-2013-08-20 | 5353.45 | 5417.8 | 5306.35 | 5401.45
-... | ... | ... | ... | ...
-
+| date       | open    | high    | low     | close   |
+| ---------- | ------- | ------- | ------- | ------- |
+| 2013-08-16 | 5705.45 | 5716.6  | 5496.05 | 5507.85 |
+| 2013-08-19 | 5497.55 | 5499.65 | 5360.65 | 5414.75 |
+| 2013-08-20 | 5353.45 | 5417.8  | 5306.35 | 5401.45 |
+| ...        | ...     | ...     | ...     | ...     |
 
 ```js
 import { timeParse } from "d3-time-format";
@@ -30,25 +29,29 @@ tsv("path/to/data.tsv", function(err, data) {
 ```
 
 ```jsx
-<ChartCanvas width={width} height={400}
-		margin={{left: 50, right: 50, top:10, bottom: 30}} type={type}
-		seriesName="MSFT"
-		data={data}
-		xAccessor={d => d.date} xScaleProvider={discontinuousTimeScaleProvider}
-		xExtents={[new Date(2012, 0, 1), new Date(2012, 6, 2)]}>
-
-	<Chart id={1} yExtents={d => [d.high, d.low]}>
-		<XAxis axisAt="bottom" orient="bottom" ticks={6}/>
-		<YAxis axisAt="left" orient="left" ticks={5} />
-		<CandlestickSeries />
-	</Chart>
+<ChartCanvas
+    width={width}
+    height={400}
+    margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
+    type={type}
+    seriesName="MSFT"
+    data={data}
+    xAccessor={(d) => d.date}
+    xScaleProvider={discontinuousTimeScaleProvider}
+    xExtents={[new Date(2012, 0, 1), new Date(2012, 6, 2)]}
+>
+    <Chart id={1} yExtents={(d) => [d.high, d.low]}>
+        <XAxis axisAt="bottom" orient="bottom" ticks={6} />
+        <YAxis axisAt="left" orient="left" ticks={5} />
+        <CandlestickSeries />
+    </Chart>
 </ChartCanvas>
 ```
 
 Compare this with the simpler `AreaChart` example from before
 
 ```js
-xScaleProvider={discontinuousTimeScaleProvider}
+xScaleProvider = { discontinuousTimeScaleProvider };
 ```
 
 is the only difference in `<ChartCanvas>`
@@ -59,10 +62,10 @@ is the only difference in `<ChartCanvas>`
 <Chart id={1} yExtents={d => [d.high, d.low]}>
 ```
 
-- `yExtents` can accept
-	- a function which returns a number / an object / an array of numbers. The min and max value of these are used to calculate the y domain
-	- an array of functions - same as above
-	- min and max values as number. Say you always want to show the y domain between 0 and 100, you may say `yExtents={[0, 100]}`
+-   `yExtents` can accept
+    -   a function which returns a number / an object / an array of numbers. The min and max value of these are used to calculate the y domain
+    -   an array of functions - same as above
+    -   min and max values as number. Say you always want to show the y domain between 0 and 100, you may say `yExtents={[0, 100]}`
 
 ```jsx
 <XAxis axisAt="bottom" orient="bottom" ticks={6}/>
@@ -92,6 +95,10 @@ const candlesAppearance = {
 Then, make sure to rendre the CandlestickSeries component as such:
 
 ```
+
 <CandlestickSeries
-   {...candlesAppearance} />
+{...candlesAppearance} />
+
+```
+
 ```

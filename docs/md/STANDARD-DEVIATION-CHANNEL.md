@@ -4,15 +4,14 @@ from https://www.metatrader5.com/en/terminal/help/objects/channels/stddev_channe
 
 And the formula for linear regression is from http://www.metastock.com/Customer/Resources/TAAZ/?p=65
 
-- create a channel - click, mousemove, click
-- Once a channel is drawn it gets out of draw mode automatically. To get back into draw mode again - Press D
-- Get out of draw mode - Press ESC
-- Delete the last drawn channel - Press DEL
-- When not in draw mode
-	- move mouse over to hover state
-	- click the middle line to select
-	- move the edge circles
-	- Click outside to unselect
+-   create a channel - click, mousemove, click
+-   Once a channel is drawn it gets out of draw mode automatically. To get back into draw mode again - Press D
+-   Get out of draw mode - Press ESC
+-   Delete the last drawn channel - Press DEL
+-   When not in draw mode
+    -   move mouse over to hover state
+    -   click the middle line to select
+    -   move the edge circles
+    -   Click outside to unselect
 
-[source](https://github.com/rrag/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithStandardDeviationChannel.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithStandardDeviationChannel)
-
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithStandardDeviationChannel.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithStandardDeviationChannel)
