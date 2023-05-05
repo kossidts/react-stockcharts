@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { TypeChooser } from "react-stockcharts/lib/helper";
 
@@ -13,12 +11,12 @@ import PointAndFigureWithUpdatingData from "lib/charts/PointAndFigureWithUpdatin
 import RenkoWithUpdatingData from "lib/charts/RenkoWithUpdatingData";
 
 class UpdatingDataPage extends React.Component {
-	render() {
-		return (
-			<ContentSection title={UpdatingDataPage.title}>
-				{/* <Row>
+    render() {
+        return (
+            <ContentSection title={UpdatingDataPage.title}>
+                {/* <Row>
 					<Section colSpan={2}>
-						<aside dangerouslySetInnerHTML={{__html: require('md/UPDATING-DATA')}}></aside>
+						<aside dangerouslySetInnerHTML={{__html: require('md/UPDATING-DATA.md').default}}></aside>
 					</Section>
 				</Row>
 				<Row>
@@ -35,13 +33,19 @@ class UpdatingDataPage extends React.Component {
 						</TypeChooser>
 					</Section>
 				</Row>*/}
-				<Row>
-					<Section colSpan={2}>
-						<TypeChooser>
-							{(type) => <PointAndFigureWithUpdatingData data={this.props.someData} type={type} />}
-						</TypeChooser>
-					</Section>
-				</Row>{/*
+                <Row>
+                    <Section colSpan={2}>
+                        <TypeChooser>
+                            {(type) => (
+                                <PointAndFigureWithUpdatingData
+                                    data={this.props.someData}
+                                    type={type}
+                                />
+                            )}
+                        </TypeChooser>
+                    </Section>
+                </Row>
+                {/*
 				<Row>
 					<Section colSpan={2}>
 						<TypeChooser>
@@ -49,9 +53,9 @@ class UpdatingDataPage extends React.Component {
 						</TypeChooser>
 					</Section>
 				</Row>*/}
-			</ContentSection>
-		);
-	}
+            </ContentSection>
+        );
+    }
 }
 
 UpdatingDataPage.title = "Updating Data";

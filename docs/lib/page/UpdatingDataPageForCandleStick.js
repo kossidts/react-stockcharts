@@ -11,22 +11,31 @@ import PointAndFigureWithUpdatingData from "lib/charts/PointAndFigureWithUpdatin
 import RenkoWithUpdatingData from "lib/charts/RenkoWithUpdatingData";
 
 class UpdatingDataPageForCandleStick extends React.Component {
-	render() {
-		return (
-			<ContentSection title={UpdatingDataPageForCandleStick.title}>
-				<Row>
-					<Section colSpan={2}>
-						<TypeChooser>
-							{(type) => <CandleStickChartWithUpdatingData data={this.props.lotsOfData} type={type} />}
-						</TypeChooser>
-					</Section>
-				</Row>
-				<Row>
-					<Section colSpan={2}>
-						<aside dangerouslySetInnerHTML={{ __html: require("md/UPDATING-DATA") }}></aside>
-					</Section>
-				</Row>
-				{/* <Row>
+    render() {
+        return (
+            <ContentSection title={UpdatingDataPageForCandleStick.title}>
+                <Row>
+                    <Section colSpan={2}>
+                        <TypeChooser>
+                            {(type) => (
+                                <CandleStickChartWithUpdatingData
+                                    data={this.props.lotsOfData}
+                                    type={type}
+                                />
+                            )}
+                        </TypeChooser>
+                    </Section>
+                </Row>
+                <Row>
+                    <Section colSpan={2}>
+                        <aside
+                            dangerouslySetInnerHTML={{
+                                __html: require("md/UPDATING-DATA.md").default,
+                            }}
+                        ></aside>
+                    </Section>
+                </Row>
+                {/* <Row>
 					<Section colSpan={2}>
 						<TypeChooser>
 							{(type) => <KagiWithUpdatingData data={this.props.someData} type={type} />}
@@ -47,9 +56,9 @@ class UpdatingDataPageForCandleStick extends React.Component {
 						</TypeChooser>
 					</Section>
 				</Row>*/}
-			</ContentSection>
-		);
-	}
+            </ContentSection>
+        );
+    }
 }
 
 UpdatingDataPageForCandleStick.title = "Updating Data";
