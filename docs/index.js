@@ -7,10 +7,9 @@ import ReactDOM from "react-dom";
 import Chart from "./lib/charts/CandleStickChartWithDarkTheme";
 // import Chart from "./lib/charts/OHLCChartWithElderRayIndicator";
 
-const ReadME = require("md/MAIN.md");
+const ReadME = require("md/MAIN.md").default;
 
 require("stylesheets/re-stock");
-
 document.getElementById("content").innerHTML = ReadME;
 
 const parseDate = timeParse("%Y-%m-%d");
