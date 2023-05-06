@@ -42,7 +42,7 @@ function getIndexContent() {
 					</div>
 					<div class="col-md-4">
 						<div class="pull-right top-spacing">
-							<a href="https://github.com/rrag/react-stockcharts" class="btn btn-lg button"><small>View project on</small><br/> GitHub</a>
+							<a href="https://github.com/kossidts/react-stockcharts" class="btn btn-lg button"><small>View project on</small><br/> GitHub</a>
 						</div>
 					</div>
 				</div>
