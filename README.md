@@ -11,7 +11,7 @@ Create highly customizable stock charts.
 
 ### Installation & Documentation
 
-comming soon...
+coming soon...
 
 <!--
 If you like this project checkout <a href="https://gocharting.com" target="_blank">gocharting.com</a>
