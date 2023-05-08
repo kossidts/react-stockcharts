@@ -1,4 +1,4 @@
-[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithCHMousePointer.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithCHMousePointer)
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithCHMousePointer.js) <!-- , [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithCHMousePointer) -->
 
 ```js
 import { timeFormat } from "d3-time-format";

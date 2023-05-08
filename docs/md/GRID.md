@@ -1,4 +1,4 @@
-[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChartGrid.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChartGrid)
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/LineAndScatterChartGrid.js) <!-- , [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChartGrid) -->
 
 ```js
 const height = 400;

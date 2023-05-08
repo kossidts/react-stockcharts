@@ -11,4 +11,4 @@ A live example below, Here are a keys to press to see the push and alter data2
 | +     | increase the speed   |
 | -     | reduce the speed     |
 
-Look for the [source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithUpdatingData.js), [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithUpdatingData)
+Look for the [source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickChartWithUpdatingData.js) <!-- , [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithUpdatingData) -->
