@@ -14,6 +14,7 @@ open [http://localhost:8080](http://localhost:8080) in a browser
 Logging is done using the [debug](https://www.npmjs.com/package/debug) package. To see logs in the browser's development console enter this code and refresh the page: `localStorage.debug = "react-stockcharts:*"`.
 
 #### Updating documentation
+
 To update the documentation or add an example, update the files under `docs`.
 
 Most of documentation is written as markdown under the `docs/md` folder
@@ -28,4 +29,4 @@ To update the source update files under `src`
 
 #### Help needed
 
-Look for issues with the [enhancement](https://github.com/rrag/react-stockcharts/labels/enhancement), [help_wanted](https://github.com/rrag/react-stockcharts/labels/help_wanted)
+Look for issues with the [enhancement](https://github.com/kossidts/react-stockcharts/labels/enhancement), [help_wanted](https://github.com/kossidts/react-stockcharts/labels/help_wanted)
