@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
 const rootPath = path.join(__dirname, "..");
+const currentScript = process.env.npm_lifecycle_event;
+const isWatch = currentScript === "watch";
 
 function buildConfig(mode) {
     const { ifWatch, ifDocs } = getIfUtils(mode, ["docs", "watch"]);
@@ -75,6 +77,10 @@ function buildConfig(mode) {
             pathinfo: ifWatch(true, false), // since we have eval as devtool for watch, pathinfo gives line numbers which are close enough
         },
         devtool: ifWatch("cheap-source-map", "sourcemap"),
+        stats: {
+            children: isWatch,
+            errorDetails: isWatch,
+        },
         module: {
             rules: removeEmpty([
                 // { test: /\.json$/, loader: "json" },
