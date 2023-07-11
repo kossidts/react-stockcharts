@@ -12,13 +12,8 @@ import {
     rightDomainBasedZoomAnchor,
 } from "react-stockcharts/lib/utils/zoomBehavior";
 
-import {
-    Form,
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    Col,
-} from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 
 const zoomAnchor = {
     mouseBasedZoomAnchor,
@@ -85,12 +80,12 @@ class ZoomAndPanPage extends React.Component {
                 </Row>
                 <Row>
                     <Form horizontal>
-                        <FormGroup controlId="formControlsSelectMultiple">
+                        <Form.Group controlId="formControlsSelectMultiple">
                             <Col componentClass={ControlLabel} sm={4}>
                                 Zoom anchor
                             </Col>
                             <Col sm={6}>
-                                <FormControl
+                                <Form.Control
                                     componentClass="select"
                                     value={this.state.zoomAnchor}
                                     onChange={this.setZoomAnchor}
@@ -104,9 +99,9 @@ class ZoomAndPanPage extends React.Component {
                                     <option value="rightDomainBasedZoomAnchor">
                                         Right extreme point
                                     </option>
-                                </FormControl>
+                                </Form.Control>
                             </Col>
-                        </FormGroup>
+                        </Form.Group>
                     </Form>
                 </Row>
                 <Row>
