@@ -4,9 +4,7 @@ import LineSeries from "./LineSeries";
 // import AreaSeries from "./AreaSeries";
 import StraightLine from "./StraightLine";
 import SVGComponent from "./SVGComponent";
-import {
-	strokeDashTypes,
-} from "../utils";
+import { strokeDashTypes } from "../utils";
 
 class RSISeries extends Component {
 	constructor(props) {
@@ -41,18 +39,8 @@ class RSISeries extends Component {
 		const { yScale, width, height } = chartConfig;
 
 		ctx.beginPath();
-		ctx.rect(
-			0,
-			0,
-			width,
-			yScale(overSold)
-		);
-		ctx.rect(
-			0,
-			yScale(overBought),
-			width,
-			height - yScale(overBought)
-		);
+		ctx.rect(0, 0, width, yScale(overSold));
+		ctx.rect(0, yScale(overBought), width, height - yScale(overBought));
 		ctx.clip();
 	}
 	renderClip(moreProps) {
@@ -71,12 +59,7 @@ class RSISeries extends Component {
 					/>
 				</clipPath>
 				<clipPath id={this.clipPathId2}>
-					<rect
-						x={0}
-						y={0}
-						width={width}
-						height={yScale(overSold)}
-					/>
+					<rect x={0} y={0} width={width} height={yScale(overSold)} />
 					<rect
 						x={0}
 						y={yScale(overBought)}
@@ -88,18 +71,17 @@ class RSISeries extends Component {
 		);
 	}
 	render() {
-		const { className, stroke, opacity, strokeDasharray, strokeWidth } = this.props;
+		const { className, stroke, opacity, strokeDasharray, strokeWidth } =
+			this.props;
 		const { yAccessor } = this.props;
 		const { overSold, middle, overBought } = this.props;
 
-		const style1 = { "clipPath": `url(#${this.clipPathId1})` };
-		const style2 = { "clipPath": `url(#${this.clipPathId2})` };
+		const style1 = { clipPath: `url(#${this.clipPathId1})` };
+		const style2 = { clipPath: `url(#${this.clipPathId2})` };
 
 		return (
 			<g className={className}>
-				<SVGComponent>
-					{this.renderClip}
-				</SVGComponent>
+				<SVGComponent>{this.renderClip}</SVGComponent>
 				<StraightLine
 					stroke={stroke.top}
 					opacity={opacity.top}
@@ -124,7 +106,6 @@ class RSISeries extends Component {
 				<LineSeries
 					style={style1}
 					canvasClip={this.topAndBottomClip}
-
 					className={className}
 					yAccessor={yAccessor}
 					stroke={stroke.insideThreshold || stroke.line}
@@ -152,6 +133,7 @@ RSISeries.propTypes = {
 	yAccessor: PropTypes.func.isRequired,
 	stroke: PropTypes.shape({
 		top: PropTypes.string.isRequired,
+		line: PropTypes.string,
 		middle: PropTypes.string.isRequired,
 		bottom: PropTypes.string.isRequired,
 		outsideThreshold: PropTypes.string.isRequired,
@@ -193,7 +175,7 @@ RSISeries.defaultProps = {
 	opacity: {
 		top: 1,
 		middle: 1,
-		bottom: 1
+		bottom: 1,
 	},
 	strokeDasharray: {
 		line: "Solid",
