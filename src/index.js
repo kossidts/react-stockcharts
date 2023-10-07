@@ -1,5 +1,3 @@
-
-
 // common components
 export { default as ChartCanvas } from "./lib/ChartCanvas";
 export { default as Chart } from "./lib/Chart";

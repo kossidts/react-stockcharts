@@ -140,17 +140,17 @@ class Cursor extends Component {
 					ctx.beginPath();
 					xCursorShapeStrokeDasharray == null
 						? ctx.fillRect(
-							  xShape.xPos,
-							  0,
-							  xShape.shapeWidth,
-							  xShape.height
-						  )
+							xShape.xPos,
+							0,
+							xShape.shapeWidth,
+							xShape.height
+						)
 						: ctx.rect(
-							  xShape.xPos,
-							  0,
-							  xShape.shapeWidth,
-							  xShape.height
-						  );
+							xShape.xPos,
+							0,
+							xShape.shapeWidth,
+							xShape.height
+						);
 					ctx.fill();
 				} else {
 					ctx.strokeStyle = hexToRGBA(line.stroke, line.opacity);
@@ -206,9 +206,7 @@ class Cursor extends Component {
 								strokeDasharray={
 									xCursorShapeStrokeDasharray == null
 										? null
-										: getStrokeDasharray(
-											  xCursorShapeStrokeDasharray
-										  )
+										: getStrokeDasharray(xCursorShapeStrokeDasharray)
 								}
 								opacity={xCursorShapeOpacity}
 							/>

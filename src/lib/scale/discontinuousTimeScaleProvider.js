@@ -1,5 +1,3 @@
-
-
 import { timeFormat, timeFormatDefaultLocale } from "d3-time-format";
 // import { map as d3Map } from "d3-collection";
 
@@ -12,10 +10,10 @@ function evaluateLevel(d, date, i, formatters) {
 		.map((eachLevel, idx) => {
 			return {
 				level: levelDefinition.length - idx - 1,
-				format: formatters[eachLevel(d, date, i)]
+				format: formatters[eachLevel(d, date, i)],
 			};
 		})
-		.find(l => !!l.format);
+		.find((l) => !!l.format);
 }
 
 const discontinuousIndexCalculator = slidingWindow()
@@ -43,65 +41,84 @@ const discontinuousIndexCalculator = slidingWindow()
 		return { ...row, index: i, ...level };
 	});
 
-const discontinuousIndexCalculatorLocalTime = discontinuousIndexCalculator
-	.accumulator(([prevDate, nowDate], i, idx, { initialIndex, formatters }) => {
-		const startOf30Seconds = nowDate.getSeconds() % 30 === 0;
+const discontinuousIndexCalculatorLocalTime =
+	discontinuousIndexCalculator.accumulator(
+		([prevDate, nowDate], i, idx, { initialIndex, formatters }) => {
+			const startOf30Seconds = nowDate.getSeconds() % 30 === 0;
 
-		const startOfMinute = nowDate.getMinutes() !== prevDate.getMinutes();
-		const startOf5Minutes = startOfMinute && nowDate.getMinutes() % 5 <= prevDate.getMinutes() % 5;
-		const startOf15Minutes = startOfMinute && nowDate.getMinutes() % 15 <= prevDate.getMinutes() % 15;
-		const startOf30Minutes = startOfMinute && nowDate.getMinutes() % 30 <= prevDate.getMinutes() % 30;
+			const startOfMinute =
+				nowDate.getMinutes() !== prevDate.getMinutes();
+			const startOf5Minutes =
+				startOfMinute &&
+				nowDate.getMinutes() % 5 <= prevDate.getMinutes() % 5;
+			const startOf15Minutes =
+				startOfMinute &&
+				nowDate.getMinutes() % 15 <= prevDate.getMinutes() % 15;
+			const startOf30Minutes =
+				startOfMinute &&
+				nowDate.getMinutes() % 30 <= prevDate.getMinutes() % 30;
 
-		const startOfHour = nowDate.getHours() !== prevDate.getHours();
+			const startOfHour = nowDate.getHours() !== prevDate.getHours();
 
-		const startOfEighthOfADay = startOfHour && nowDate.getHours() % 3 === 0;
-		const startOfQuarterDay = startOfHour && nowDate.getHours() % 6 === 0;
-		const startOfHalfDay = startOfHour && nowDate.getHours() % 12 === 0;
+			const startOfEighthOfADay =
+				startOfHour && nowDate.getHours() % 3 === 0;
+			const startOfQuarterDay =
+				startOfHour && nowDate.getHours() % 6 === 0;
+			const startOfHalfDay = startOfHour && nowDate.getHours() % 12 === 0;
 
-		const startOfDay = nowDate.getDay() !== prevDate.getDay();
-		// According to ISO calendar
-		// Sunday = 0, Monday = 1, ... Saturday = 6
-		// day of week of today < day of week of yesterday then today is start of week
-		const startOfWeek = nowDate.getDay() < prevDate.getDay();
-		// month of today != month of yesterday then today is start of month
-		const startOfMonth = nowDate.getMonth() !== prevDate.getMonth();
-		// if start of month and month % 3 === 0 then it is start of quarter
-		const startOfQuarter = startOfMonth && (nowDate.getMonth() % 3 <= prevDate.getMonth() % 3);
-		// year of today != year of yesterday then today is start of year
-		const startOfYear = nowDate.getFullYear() !== prevDate.getFullYear();
+			const startOfDay = nowDate.getDay() !== prevDate.getDay();
+			// According to ISO calendar
+			// Sunday = 0, Monday = 1, ... Saturday = 6
+			// day of week of today < day of week of yesterday then today is start of week
+			const startOfWeek = nowDate.getDay() < prevDate.getDay();
+			// month of today != month of yesterday then today is start of month
+			const startOfMonth = nowDate.getMonth() !== prevDate.getMonth();
+			// if start of month and month % 3 === 0 then it is start of quarter
+			const startOfQuarter =
+				startOfMonth &&
+				nowDate.getMonth() % 3 <= prevDate.getMonth() % 3;
+			// year of today != year of yesterday then today is start of year
+			const startOfYear =
+				nowDate.getFullYear() !== prevDate.getFullYear();
 
-		const row = {
-			date: nowDate.getTime(),
-			startOf30Seconds,
-			startOfMinute,
-			startOf5Minutes,
-			startOf15Minutes,
-			startOf30Minutes,
-			startOfHour,
-			startOfEighthOfADay,
-			startOfQuarterDay,
-			startOfHalfDay,
-			startOfDay,
-			startOfWeek,
-			startOfMonth,
-			startOfQuarter,
-			startOfYear,
-		};
-		const level = evaluateLevel(row, nowDate, i, formatters);
-		if (level == null) {
-			console.log(row);
+			const row = {
+				date: nowDate.getTime(),
+				startOf30Seconds,
+				startOfMinute,
+				startOf5Minutes,
+				startOf15Minutes,
+				startOf30Minutes,
+				startOfHour,
+				startOfEighthOfADay,
+				startOfQuarterDay,
+				startOfHalfDay,
+				startOfDay,
+				startOfWeek,
+				startOfMonth,
+				startOfQuarter,
+				startOfYear,
+			};
+			const level = evaluateLevel(row, nowDate, i, formatters);
+			if (level == null) {
+				// console.log(row);
+			}
+			return { ...row, index: i + initialIndex, ...level };
 		}
-		return { ...row, index: i + initialIndex, ...level };
-	});
+	);
 
-function doStuff(realDateAccessor, inputDateAccessor, initialIndex, formatters) {
+function doStuff(
+	realDateAccessor,
+	inputDateAccessor,
+	initialIndex,
+	formatters
+) {
 	return function(data) {
 		const dateAccessor = realDateAccessor(inputDateAccessor);
 		const calculate = discontinuousIndexCalculatorLocalTime
 			.source(dateAccessor)
 			.misc({ initialIndex, formatters });
 
-		const index = calculate(data).map(each => {
+		const index = calculate(data).map((each) => {
 			const { format } = each;
 			return {
 				// ...each,
@@ -141,9 +158,10 @@ function doStuff(realDateAccessor, inputDateAccessor, initialIndex, formatters) 
 }
 
 export function discontinuousTimeScaleProviderBuilder() {
-	let initialIndex = 0, realDateAccessor = identity;
-	let inputDateAccessor = d => d.date,
-		indexAccessor = d => d.idx,
+	let initialIndex = 0,
+		realDateAccessor = identity;
+	let inputDateAccessor = (d) => d.date,
+		indexAccessor = (d) => d.idx,
 		indexMutator = (d, idx) => ({ ...d, idx }),
 		withIndex;
 
@@ -175,19 +193,16 @@ export function discontinuousTimeScaleProviderBuilder() {
 		// console.log(interval, entries[0].key);
 
 		const inputIndex = index;
-		const xScale = financeDiscontinuousScale(
-			inputIndex,
-		);
+		const xScale = financeDiscontinuousScale(inputIndex);
 
-		const mergedData = zipper()
-			.combine(indexMutator);
+		const mergedData = zipper().combine(indexMutator);
 
 		const finalData = mergedData(data, inputIndex);
 
 		return {
 			data: finalData,
 			xScale,
-			xAccessor: d => d && indexAccessor(d).index,
+			xAccessor: (d) => d && indexAccessor(d).index,
 			displayXAccessor: realDateAccessor(inputDateAccessor),
 		};
 	};
@@ -228,7 +243,7 @@ export function discontinuousTimeScaleProviderBuilder() {
 		return discontinuousTimeScaleProvider;
 	};
 	discontinuousTimeScaleProvider.utc = function() {
-		realDateAccessor = dateAccessor => d => {
+		realDateAccessor = (dateAccessor) => (d) => {
 			const date = dateAccessor(d);
 			// The getTimezoneOffset() method returns the time-zone offset from UTC, in minutes, for the current locale.
 			const offsetInMillis = date.getTimezoneOffset() * 60 * 1000;
@@ -236,7 +251,10 @@ export function discontinuousTimeScaleProviderBuilder() {
 		};
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.setLocale = function(locale, formatters = null) {
+	discontinuousTimeScaleProvider.setLocale = function(
+		locale,
+		formatters = null
+	) {
 		if (locale) {
 			timeFormatDefaultLocale(locale);
 		}
@@ -247,13 +265,16 @@ export function discontinuousTimeScaleProviderBuilder() {
 	};
 
 	discontinuousTimeScaleProvider.indexCalculator = function() {
-		return doStuff(realDateAccessor, inputDateAccessor, initialIndex, currentFormatters);
+		return doStuff(
+			realDateAccessor,
+			inputDateAccessor,
+			initialIndex,
+			currentFormatters
+		);
 	};
 
 	return discontinuousTimeScaleProvider;
 }
-
-
 
 /* discontinuousTimeScaleProvider.utc = function(data,
 		dateAccessor,

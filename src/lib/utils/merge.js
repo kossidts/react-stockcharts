@@ -33,19 +33,18 @@ import { isNotDefined } from "./index";
 // applies an algorithm to an array, merging the result back into
 // the source array using the given merge function.
 export default function() {
-
 	let algorithm = identity,
 		skipUndefined = true,
 		merge = noop;
 
 	function mergeCompute(data) {
-		const zip = zipper()
-			.combine((datum, indicator) => {
-				const result = (skipUndefined && isNotDefined(indicator))
+		const zip = zipper().combine((datum, indicator) => {
+			const result =
+				skipUndefined && isNotDefined(indicator)
 					? datum
 					: merge(datum, indicator);
-				return isNotDefined(result) ? datum : result;
-			});
+			return isNotDefined(result) ? datum : result;
+		});
 
 		// console.log(data);
 		return zip(data, algorithm(data));

@@ -354,8 +354,8 @@ Tick.propTypes = {
 	fontSize: PropTypes.number,
 	fontFamily: PropTypes.string,
 	fontWeight: PropTypes.oneOfType([
-	  PropTypes.string,
-	  PropTypes.number
+		PropTypes.string,
+		PropTypes.number
 	]),
 };
 

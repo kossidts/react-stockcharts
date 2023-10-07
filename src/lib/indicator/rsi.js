@@ -1,5 +1,3 @@
-
-
 import { rebind, merge } from "../utils";
 
 import { rsi } from "../calculator";
@@ -11,17 +9,22 @@ const ALGORITHM_TYPE = "RSI";
 export default function() {
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE)
-		.accessor(d => d.rsi);
+		.accessor((d) => d.rsi);
 
 	const underlyingAlgorithm = rsi();
 
 	const mergedAlgorithm = merge()
 		.algorithm(underlyingAlgorithm)
-		.merge((datum, indicator) => { datum.rsi = indicator; });
+		.merge((datum, indicator) => {
+			datum.rsi = indicator;
+		});
 
 	const indicator = function(data, options = { merge: true }) {
 		if (options.merge) {
-			if (!base.accessor()) throw new Error(`Set an accessor to ${ALGORITHM_TYPE} before calculating`);
+			if (!base.accessor())
+				throw new Error(
+					`Set an accessor to ${ALGORITHM_TYPE} before calculating`
+				);
 			return mergedAlgorithm(data);
 		}
 		return underlyingAlgorithm(data);

@@ -1,5 +1,3 @@
-
-
 /*
 
 Taken from https://github.com/ScottLogic/d3fc/blob/master/src/indicator/algorithm/calculator/slidingWindow.js
@@ -32,7 +30,6 @@ import noop from "./noop";
 import { path, functor } from "./index";
 
 export default function() {
-
 	let undefinedValue = undefined,
 		windowSize = 10,
 		accumulator = noop,
@@ -46,16 +43,18 @@ export default function() {
 		const sourceFunction = source || path(sourcePath);
 
 		const size = functor(windowSize).apply(this, arguments);
-		const windowData = data.slice(skipInitial, size + skipInitial).map(sourceFunction);
+		const windowData = data
+			.slice(skipInitial, size + skipInitial)
+			.map(sourceFunction);
 		let accumulatorIdx = 0;
 		const undef = functor(undefinedValue);
 		// console.log(skipInitial, size, data.length, windowData.length);
 		return data.map(function(d, i) {
 			// console.log(d, i);
-			if (i < (skipInitial + size - 1)) {
+			if (i < skipInitial + size - 1) {
 				return undef(sourceFunction(d), i, misc);
 			}
-			if (i >= (skipInitial + size)) {
+			if (i >= skipInitial + size) {
 				// Treat windowData as FIFO rolling buffer
 				windowData.shift();
 				windowData.push(sourceFunction(d, i));

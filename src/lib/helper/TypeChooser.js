@@ -20,7 +20,7 @@ class TypeChooser extends Component {
 	render() {
 		return (
 			<div>
-				<label>Type: </label>
+				<label htmlFor="type">Type: </label>
 				<select name="type" id="type" onChange={this.handleTypeChange} value={this.state.type} >
 					<option value="svg">svg</option>
 					<option value="hybrid">canvas + svg</option>

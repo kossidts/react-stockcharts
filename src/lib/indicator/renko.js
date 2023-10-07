@@ -1,5 +1,3 @@
-
-
 import { rebind } from "../utils";
 
 import { renko } from "../calculator";
@@ -8,9 +6,7 @@ import baseIndicator from "./baseIndicator";
 const ALGORITHM_TYPE = "Renko";
 
 export default function() {
-
-	const base = baseIndicator()
-		.type(ALGORITHM_TYPE);
+	const base = baseIndicator().type(ALGORITHM_TYPE);
 
 	const underlyingAlgorithm = renko();
 

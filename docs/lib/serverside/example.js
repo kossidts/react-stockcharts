@@ -1,5 +1,3 @@
-
-
 const React = require("react");
 const ReactServer = require("react-dom/server");
 const { timeParse } = "d3-time-format";
@@ -40,25 +38,23 @@ var fs = require("fs"),
 
 const delimiter = "\t";
 
-var fs = require("fs"),
-	readline = require("readline");
-
 const rd = readline.createInterface({
 	input: fs.createReadStream(path.join("..", "..", "data", "MSFT.tsv")),
 	output: process.stdout,
-	terminal: false
+	terminal: false,
 });
 
 const MSFT = new Array();
 
-let length = 0, head;
-rd.on("line", function(line) {
+let length = 0,
+	head;
+rd.on("line", function (line) {
 	if (length === 0) {
 		head = line.split(delimiter);
 	} else {
 		const item = {};
 		const each = line.split(delimiter);
-		head.forEach(function(key, i) {
+		head.forEach(function (key, i) {
 			item[key] = each[i];
 		});
 		MSFT.push(item);
@@ -66,8 +62,8 @@ rd.on("line", function(line) {
 	length++;
 });
 
-rd.on("close", function() {
-	MSFT.forEach(function(d) {
+rd.on("close", function () {
+	MSFT.forEach(function (d) {
 		d.date = new Date(parseDate(d.date).getTime());
 		d.open = +d.open;
 		d.high = +d.high;
@@ -76,7 +72,9 @@ rd.on("close", function() {
 		d.volume = +d.volume;
 		// console.log(d);
 	});
-	const svg = ReactServer.renderToString(React.createElement(Chart, { data: MSFT, type: "svg", width: 1000 }));
+	const svg = ReactServer.renderToString(
+		React.createElement(Chart, { data: MSFT, type: "svg", width: 1000 })
+	);
 
 	fs.writeFileSync(path.join("output.html"), svg);
 });

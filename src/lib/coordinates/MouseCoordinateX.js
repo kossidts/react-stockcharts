@@ -110,7 +110,7 @@ function helper(props, moreProps) {
 	const {
 		x,
 		coordinate
-	 } = customX(props, moreProps);
+	} = customX(props, moreProps);
 
 	const type = "vertical";
 	const y1 = 0, y2 = height;

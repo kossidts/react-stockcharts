@@ -1,5 +1,3 @@
-
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { line as d3Line } from "d3-shape";
@@ -29,19 +27,26 @@ class LineSeries extends Component {
 		if (!highlightOnHover) return false;
 
 		const { mouseXY, currentItem, xScale, plotData } = moreProps;
-		const { chartConfig: { yScale, origin } } = moreProps;
+		const {
+			chartConfig: { yScale, origin },
+		} = moreProps;
 
 		const { xAccessor } = moreProps;
 
 		const [x, y] = mouseXY;
 		const radius = hoverTolerance;
 
-		const { left, right } = getClosestItemIndexes(plotData, xScale.invert(x), xAccessor);
+		const { left, right } = getClosestItemIndexes(
+			plotData,
+			xScale.invert(x),
+			xAccessor
+		);
 		if (left === right) {
 			const cy = yScale(yAccessor(currentItem)) + origin[1];
 			const cx = xScale(xAccessor(currentItem)) + origin[0];
 
-			const hovering1 = Math.pow(x - cx, 2) + Math.pow(y - cy, 2) < Math.pow(radius, 2);
+			const hovering1 =
+				Math.pow(x - cx, 2) + Math.pow(y - cy, 2) < Math.pow(radius, 2);
 
 			return hovering1;
 		} else {
@@ -79,7 +84,12 @@ class LineSeries extends Component {
 		const { connectNulls } = this.props;
 
 		const { xAccessor } = moreProps;
-		const { xScale, chartConfig: { yScale }, plotData, hovering } = moreProps;
+		const {
+			xScale,
+			chartConfig: { yScale },
+			plotData,
+			hovering,
+		} = moreProps;
 
 		if (canvasClip) {
 			ctx.save();
@@ -92,14 +102,14 @@ class LineSeries extends Component {
 		ctx.setLineDash(getStrokeDasharray(strokeDasharray).split(","));
 
 		const dataSeries = d3Line()
-			.x(d => Math.round(xScale(xAccessor(d))))
-			.y(d => Math.round(yScale(yAccessor(d))));
+			.x((d) => Math.round(xScale(xAccessor(d))))
+			.y((d) => Math.round(yScale(yAccessor(d))));
 
 		if (isDefined(interpolation)) {
 			dataSeries.curve(interpolation);
 		}
 		if (!connectNulls) {
-			dataSeries.defined(d => defined(yAccessor(d)));
+			dataSeries.defined((d) => defined(yAccessor(d)));
 		}
 
 		ctx.beginPath();
@@ -111,7 +121,15 @@ class LineSeries extends Component {
 		}
 	}
 	renderSVG(moreProps) {
-		const { yAccessor, stroke, strokeOpacity, strokeWidth, hoverStrokeWidth, defined, strokeDasharray } = this.props;
+		const {
+			yAccessor,
+			stroke,
+			strokeOpacity,
+			strokeWidth,
+			hoverStrokeWidth,
+			defined,
+			strokeDasharray,
+		} = this.props;
 		const { connectNulls } = this.props;
 		const { interpolation, style } = this.props;
 		const { xAccessor, chartConfig } = moreProps;
@@ -120,14 +138,14 @@ class LineSeries extends Component {
 
 		const { yScale } = chartConfig;
 		const dataSeries = d3Line()
-			.x(d => Math.round(xScale(xAccessor(d))))
-			.y(d => Math.round(yScale(yAccessor(d))));
+			.x((d) => Math.round(xScale(xAccessor(d))))
+			.y((d) => Math.round(yScale(yAccessor(d))));
 
 		if (isDefined(interpolation)) {
 			dataSeries.curve(interpolation);
 		}
 		if (!connectNulls) {
-			dataSeries.defined(d => defined(yAccessor(d)));
+			dataSeries.defined((d) => defined(yAccessor(d)));
 		}
 		const d = dataSeries(plotData);
 
@@ -148,29 +166,30 @@ class LineSeries extends Component {
 	}
 	render() {
 		const { highlightOnHover, onHover, onUnHover } = this.props;
-		const hoverProps = (highlightOnHover || onHover || onUnHover)
-			? {
-				isHover: this.isHover,
-				drawOn: ["mousemove", "pan"],
-				canvasToDraw: getMouseCanvas
-			}
-			: {
-				drawOn: ["pan"],
-				canvasToDraw: getAxisCanvas
-			};
+		const hoverProps =
+			highlightOnHover || onHover || onUnHover
+				? {
+					isHover: this.isHover,
+					drawOn: ["mousemove", "pan"],
+					canvasToDraw: getMouseCanvas,
+				}
+				: {
+					drawOn: ["pan"],
+					canvasToDraw: getAxisCanvas,
+				};
 
-		return <GenericChartComponent
-			svgDraw={this.renderSVG}
-
-			canvasDraw={this.drawOnCanvas}
-
-			onClickWhenHover={this.props.onClick}
-			onDoubleClickWhenHover={this.props.onDoubleClick}
-			onContextMenuWhenHover={this.props.onContextMenu}
-			onHover={this.props.onHover}
-			onUnHover={this.props.onUnHover}
-			{...hoverProps}
-		/>;
+		return (
+			<GenericChartComponent
+				svgDraw={this.renderSVG}
+				canvasDraw={this.drawOnCanvas}
+				onClickWhenHover={this.props.onClick}
+				onDoubleClickWhenHover={this.props.onDoubleClick}
+				onContextMenuWhenHover={this.props.onContextMenu}
+				onHover={this.props.onHover}
+				onUnHover={this.props.onUnHover}
+				{...hoverProps}
+			/>
+		);
 	}
 }
 
@@ -220,13 +239,19 @@ LineSeries.defaultProps = {
 	fill: "none",
 	stroke: "#4682B4",
 	strokeDasharray: "Solid",
-	defined: d => !isNaN(d),
+	defined: (d) => !isNaN(d),
 	hoverTolerance: 6,
 	highlightOnHover: false,
 	connectNulls: false,
-	onClick: function(e) { console.log("Click", e); },
-	onDoubleClick: function(e) { console.log("Double Click", e); },
-	onContextMenu: function(e) { console.log("Right Click", e); },
+	onClick: function(e) {
+		console.info("Click", e);
+	},
+	onDoubleClick: function(e) {
+		console.info("Double Click", e);
+	},
+	onContextMenu: function(e) {
+		console.info("Right Click", e);
+	},
 };
 
 export default LineSeries;

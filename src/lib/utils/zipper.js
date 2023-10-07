@@ -1,5 +1,3 @@
-
-
 /* an extension to d3.zip so we call a function instead of an array */
 
 import { min } from "d3-array";
@@ -15,9 +13,11 @@ export default function zipper() {
 		const m = min(arguments, d3_zipLength);
 
 		// eslint-disable-next-line prefer-const
-		let i, zips = new Array(m);
+		let zips = new Array(m),
+			i;
+
 		for (i = -1; ++i < m; ) {
-			for (let j = -1, zip = zips[i] = new Array(n); ++j < n; ) {
+			for (let j = -1, zip = (zips[i] = new Array(n)); ++j < n; ) {
 				zip[j] = arguments[j][i];
 			}
 			zips[i] = combine.apply(this, zips[i]);

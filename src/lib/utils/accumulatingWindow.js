@@ -1,5 +1,3 @@
-
-
 /*
 
 Taken from https://github.com/ScottLogic/d3fc/blob/master/src/indicator/algorithm/calculator/slidingWindow.js
@@ -33,7 +31,6 @@ import identity from "./identity";
 import { functor } from "./index";
 
 export default function() {
-
 	let accumulateTill = functor(false),
 		accumulator = noop,
 		value = identity,
@@ -49,14 +46,18 @@ export default function() {
 		for (i = 0; i < data.length; i++) {
 			const d = data[i];
 			// console.log(d, accumulateTill(d));
-			if (accumulateTill(d, i, (accumulatedWindow || []))) {
-				if (accumulatedWindow && accumulatedWindow.length > 0) response.push(accumulator(accumulatedWindow, i, accumulatorIdx++));
+			if (accumulateTill(d, i, accumulatedWindow || [])) {
+				if (accumulatedWindow && accumulatedWindow.length > 0)
+					response.push(
+						accumulator(accumulatedWindow, i, accumulatorIdx++)
+					);
 				accumulatedWindow = [value(d)];
 			} else {
 				if (accumulatedWindow) accumulatedWindow.push(value(d));
 			}
 		}
-		if (!discardTillEnd) response.push(accumulator(accumulatedWindow, i, accumulatorIdx));
+		if (!discardTillEnd)
+			response.push(accumulator(accumulatedWindow, i, accumulatorIdx));
 		return response;
 	};
 

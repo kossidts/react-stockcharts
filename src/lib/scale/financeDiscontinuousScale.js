@@ -1,5 +1,3 @@
-
-
 import { set, map } from "d3-collection";
 import { ascending } from "d3-array";
 import { scaleLinear } from "d3-scale";
@@ -14,9 +12,10 @@ export default function financeDiscontinuousScale(
 	futureProvider,
 	backingLinearScale = scaleLinear()
 ) {
-
 	if (isNotDefined(index))
-		throw new Error("Use the discontinuousTimeScaleProvider to create financeDiscontinuousScale");
+		throw new Error(
+			"Use the discontinuousTimeScaleProvider to create financeDiscontinuousScale"
+		);
 
 	function scale(x) {
 		return backingLinearScale(x);
@@ -54,20 +53,24 @@ export default function financeDiscontinuousScale(
 
 		const [domainStart, domainEnd] = backingLinearScale.domain();
 
-		const start = Math.max(Math.ceil(domainStart), head(index).index) + Math.abs(head(index).index);
-		const end = Math.min(Math.floor(domainEnd), last(index).index) + Math.abs(head(index).index);
+		const start =
+			Math.max(Math.ceil(domainStart), head(index).index) +
+			Math.abs(head(index).index);
+		const end =
+			Math.min(Math.floor(domainEnd), last(index).index) +
+			Math.abs(head(index).index);
 
 		if (Math.floor(domainEnd) > end) {
 			// console.log(end, domainEnd, index);
 		}
 
-		const desiredTickCount = Math.ceil((end - start) / (domainEnd - domainStart) * backingTicks.length);
+		const desiredTickCount = Math.ceil(
+			((end - start) / (domainEnd - domainStart)) * backingTicks.length
+		);
 
 		for (let i = MAX_LEVEL; i >= 0; i--) {
 			const ticksAtLevel = ticksMap.get(i);
-			const temp = isNotDefined(ticksAtLevel)
-				? []
-				: ticksAtLevel.slice();
+			const temp = isNotDefined(ticksAtLevel) ? [] : ticksAtLevel.slice();
 
 			for (let j = start; j <= end; j++) {
 				if (index[j].level === i) {
@@ -80,8 +83,14 @@ export default function financeDiscontinuousScale(
 
 		let unsortedTicks = [];
 		for (let i = MAX_LEVEL; i >= 0; i--) {
-			if ((ticksMap.get(i).length + unsortedTicks.length) > desiredTickCount * 1.5) break;
-			unsortedTicks = unsortedTicks.concat(ticksMap.get(i).map(d => d.index));
+			if (
+				ticksMap.get(i).length + unsortedTicks.length >
+				desiredTickCount * 1.5
+			)
+				break;
+			unsortedTicks = unsortedTicks.concat(
+				ticksMap.get(i).map((d) => d.index)
+			);
 		}
 
 		const ticks = unsortedTicks.sort(ascending);
@@ -96,18 +105,24 @@ export default function financeDiscontinuousScale(
 			// ignore ticks within this distance
 			const distance = Math.ceil(
 				(backingTicks.length > 0
-					? (last(backingTicks) - head(backingTicks)) / (backingTicks.length) / 4
-					: 1) * 1.5);
+					? (last(backingTicks) - head(backingTicks)) / backingTicks.length / 4
+					: 1) * 1.5
+			);
 
 			for (let i = 0; i < ticks.length - 1; i++) {
 				for (let j = i + 1; j < ticks.length; j++) {
 					if (ticks[j] - ticks[i] <= distance) {
-						ticksSet.remove(index[ticks[i] + d].level >= index[ticks[j] + d].level ? ticks[j] : ticks[i]);
+						ticksSet.remove(
+							index[ticks[i] + d].level >=
+								index[ticks[j] + d].level
+								? ticks[j]
+								: ticks[i]
+						);
 					}
 				}
 			}
 
-			const tickValues = ticksSet.values().map(d => parseInt(d, 10));
+			const tickValues = ticksSet.values().map((d) => parseInt(d, 10));
 
 			// console.log(ticks.length, tickValues, level);
 			// console.log(ticks, tickValues, distance);
@@ -141,7 +156,11 @@ export default function financeDiscontinuousScale(
 		return scale;
 	};
 	scale.copy = function() {
-		return financeDiscontinuousScale(index, futureProvider, backingLinearScale.copy());
+		return financeDiscontinuousScale(
+			index,
+			futureProvider,
+			backingLinearScale.copy()
+		);
 	};
 	return scale;
 }

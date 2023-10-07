@@ -19,9 +19,8 @@ export function getStrokeDasharrayCanvas(type) {
 	if (a.length === 1) return [];
 
 	return a.map(d => Number(d));
-
 }
-export const getStrokeDasharray = (type) => {
+export const getStrokeDasharray = type => {
 	switch (type) {
 		default:
 		case "Solid":

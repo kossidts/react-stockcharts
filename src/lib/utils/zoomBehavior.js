@@ -1,10 +1,6 @@
-import {
-	getCurrentItem
-} from "./ChartDataUtil";
+import { getCurrentItem } from "./ChartDataUtil";
 
-import {
-	last
-} from "./index";
+import { last } from "./index";
 /* eslint-disable no-unused-vars */
 
 export function mouseBasedZoomAnchor({

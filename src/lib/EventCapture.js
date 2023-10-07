@@ -536,10 +536,10 @@ class EventCapture extends Component {
 			this.state.cursorOverrideClass != null
 				? this.state.cursorOverrideClass
 				: !useCrossHairStyleCursor
-				? ""
-				: this.state.panInProgress
-				? "react-stockcharts-grabbing-cursor"
-				: "react-stockcharts-crosshair-cursor";
+					? ""
+					: this.state.panInProgress
+						? "react-stockcharts-grabbing-cursor"
+						: "react-stockcharts-crosshair-cursor";
 
 		const interactionProps = disableInteraction || {
 			onWheel: this.handleWheel,

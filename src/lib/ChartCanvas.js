@@ -1061,7 +1061,7 @@ class ChartCanvas extends Component {
 		const cursorStyle = useCrossHairStyleCursor && interaction;
 		const cursor = getCursorStyle();
 		return (
-			<div style={{ position: "relative", width, height }} className={className} onClick={onSelect}>
+			<div style={{ position: "relative", width, height }} className={className} onClick={onSelect} role="presentation">
 				<CanvasContainer ref={this.saveCanvasContainerNode}
 					type={type}
 					ratio={ratio}

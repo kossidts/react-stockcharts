@@ -1,11 +1,8 @@
-
-
 import noop from "./noop";
 import identity from "./identity";
 import { functor } from "./index";
 
 export default function() {
-
 	let undefinedValue = undefined,
 		windowSize = 10,
 		accumulator = noop,
@@ -23,13 +20,13 @@ export default function() {
 		data.forEach(function(d, i) {
 			// console.log(d, i, windowData.length);
 			let mapped;
-			if (i < (skipInitial + size - 1)) {
+			if (i < skipInitial + size - 1) {
 				mapped = undef(d, i);
 				result.push(mapped);
 				windowData.push(mapped);
 				return;
 			}
-			if (i >= (skipInitial + size)) {
+			if (i >= skipInitial + size) {
 				// Treat windowData as FIFO rolling buffer
 				windowData.shift();
 			}

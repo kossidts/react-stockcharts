@@ -1,7 +1,4 @@
-
-
-
-import { scaleOrdinal, schemeCategory10 } from  "d3-scale";
+import { scaleOrdinal, schemeCategory10 } from "d3-scale";
 import { bisector } from "d3-array";
 import noop from "./noop";
 import identity from "./identity";
@@ -45,7 +42,7 @@ export function path(loc = []) {
 		while (obj != null && index < length) {
 			obj = obj[key[index++]];
 		}
-		return (index === length) ? obj : defaultValue;
+		return index === length ? obj : defaultValue;
 	};
 }
 
@@ -55,10 +52,12 @@ export function functor(v) {
 
 export function createVerticalLinearGradient(stops) {
 	return function(moreProps, ctx) {
-		const { chartConfig: { height } } = moreProps;
+		const {
+			chartConfig: { height },
+		} = moreProps;
 
 		const grd = ctx.createLinearGradient(0, height, 0, 0);
-		stops.forEach(each => {
+		stops.forEach((each) => {
 			grd.addColorStop(each.stop, each.color);
 		});
 
@@ -78,19 +77,21 @@ export function getClosestItemIndexes2(array, value, accessor) {
 }
 
 export function degrees(radians) {
-	return radians * 180 / Math.PI;
+	return (radians * 180) / Math.PI;
 }
 
 export function radians(degrees) {
-	return degrees * Math.PI / 180;
+	return (degrees * Math.PI) / 180;
 }
 
 export function getClosestValue(inputValue, currentValue) {
 	const values = isArray(inputValue) ? inputValue : [inputValue];
 
 	const diff = values
-		.map(each => each - currentValue)
-		.reduce((diff1, diff2) => Math.abs(diff1) < Math.abs(diff2) ? diff1 : diff2);
+		.map((each) => each - currentValue)
+		.reduce((diff1, diff2) =>
+			Math.abs(diff1) < Math.abs(diff2) ? diff1 : diff2
+		);
 	return currentValue + diff;
 }
 
@@ -104,10 +105,11 @@ export function find(list, predicate, context = this) {
 }
 
 export function d3Window(node) {
-	const d3win = node
-		&& (node.ownerDocument && node.ownerDocument.defaultView
-			|| node.document && node
-			|| node.defaultView);
+	const d3win =
+		node &&
+		((node.ownerDocument && node.ownerDocument.defaultView) ||
+			(node.document && node) ||
+			node.defaultView);
 	return d3win;
 }
 
@@ -118,19 +120,19 @@ export const MOUSEUP = "mouseup.pan";
 export const TOUCHMOVE = "touchmove.pan";
 export const TOUCHEND = "touchend.pan touchcancel.pan";
 
-
 export function getTouchProps(touch) {
 	if (!touch) return {};
 	return {
 		pageX: touch.pageX,
 		pageY: touch.pageY,
 		clientX: touch.clientX,
-		clientY: touch.clientY
+		clientY: touch.clientY,
 	};
 }
 
 export function getClosestItemIndexes(array, value, accessor, log) {
-	let lo = 0, hi = array.length - 1;
+	let lo = 0,
+		hi = array.length - 1;
 	while (hi - lo > 1) {
 		const mid = Math.round((lo + hi) / 2);
 		if (accessor(array[mid]) <= value) {
@@ -166,11 +168,13 @@ export function getClosestItem(array, value, accessor, log) {
 		return array[left];
 	}
 
-	const closest = (Math.abs(accessor(array[left]) - value) < Math.abs(accessor(array[right]) - value))
-		? array[left]
-		: array[right];
+	const closest =
+		Math.abs(accessor(array[left]) - value) <
+		Math.abs(accessor(array[right]) - value)
+			? array[left]
+			: array[right];
 	if (log) {
-		console.log(array[left], array[right], closest, left, right);
+		console.info(array[left], array[right], closest, left, right);
 	}
 	return closest;
 }
@@ -243,9 +247,8 @@ export function mousePosition(e, defaultRect) {
 	return xy;
 }
 
-
 export function clearCanvas(canvasList, ratio) {
-	canvasList.forEach(each => {
+	canvasList.forEach((each) => {
 		each.setTransform(1, 0, 0, 1, 0, 0);
 		each.clearRect(-1, -1, each.canvas.width + 2, each.canvas.height + 2);
 		each.scale(ratio, ratio);
@@ -259,14 +262,13 @@ export function capitalizeFirst(str) {
 export function hexToRGBA(inputHex, opacity) {
 	const hex = inputHex.replace("#", "");
 	if (inputHex.indexOf("#") > -1 && (hex.length === 3 || hex.length === 6)) {
-
-		const multiplier = (hex.length === 3) ? 1 : 2;
+		const multiplier = hex.length === 3 ? 1 : 2;
 
 		const r = parseInt(hex.substring(0, 1 * multiplier), 16);
 		const g = parseInt(hex.substring(1 * multiplier, 2 * multiplier), 16);
 		const b = parseInt(hex.substring(2 * multiplier, 3 * multiplier), 16);
 
-		const result = `rgba(${ r }, ${ g }, ${ b }, ${ opacity })`;
+		const result = `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
 		return result;
 	}
@@ -278,7 +280,7 @@ export function toObject(array, iteratee = identity) {
 		const [key, value] = iteratee(a);
 		return {
 			...returnObj,
-			[key]: value
+			[key]: value,
 		};
 	}, {});
 }
@@ -289,7 +291,7 @@ export function mapValue(object, iteratee) {
 	// eslint-disable-next-line prefer-const
 	let result = {};
 
-	Object.keys(object).forEach(key => {
+	Object.keys(object).forEach((key) => {
 		const mappedValue = iteratee(object[key], key, object);
 
 		if (isDefined(mappedValue)) {
@@ -314,7 +316,8 @@ export function mapObject(object = {}, iteratee = identity) {
 
 export function replaceAtIndex(array, index, value) {
 	if (isDefined(array) && array.length > index) {
-		return array.slice(0, index)
+		return array
+			.slice(0, index)
 			.concat(value)
 			.concat(array.slice(index + 1));
 	}
@@ -324,6 +327,5 @@ export function replaceAtIndex(array, index, value) {
 // copied from https://github.com/lodash/lodash/blob/master/forOwn.js
 export function forOwn(obj, iteratee) {
 	const object = Object(obj);
-	Object.keys(object)
-		.forEach(key => iteratee(object[key], key, object));
+	Object.keys(object).forEach((key) => iteratee(object[key], key, object));
 }
