@@ -12,9 +12,6 @@ import {
     rightDomainBasedZoomAnchor,
 } from "react-stockcharts/lib/utils/zoomBehavior";
 
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-
 const zoomAnchor = {
     mouseBasedZoomAnchor,
     lastVisibleItemBasedZoomAnchor,
@@ -49,6 +46,7 @@ class ZoomAndPanPage extends React.Component {
         });
     }
     setZoomAnchor(e) {
+        console.log(e.target.value)
         this.setState({
             zoomAnchor: e.target.value,
         });
@@ -79,30 +77,18 @@ class ZoomAndPanPage extends React.Component {
                     </Section>
                 </Row>
                 <Row>
-                    <Form horizontal>
-                        <Form.Group controlId="formControlsSelectMultiple">
-                            <Col componentClass={ControlLabel} sm={4}>
-                                Zoom anchor
-                            </Col>
-                            <Col sm={6}>
-                                <Form.Control
-                                    componentClass="select"
-                                    value={this.state.zoomAnchor}
-                                    onChange={this.setZoomAnchor}
-                                >
-                                    <option value="mouseBasedZoomAnchor">
-                                        Mouse position
-                                    </option>
-                                    <option value="lastVisibleItemBasedZoomAnchor">
-                                        Last visible candle
-                                    </option>
-                                    <option value="rightDomainBasedZoomAnchor">
-                                        Right extreme point
-                                    </option>
-                                </Form.Control>
-                            </Col>
-                        </Form.Group>
-                    </Form>
+                    <label>Zoom anchor</label>
+                    <select value={this.state.zoomAnchor} onChange={this.setZoomAnchor}>
+                        <option value="mouseBasedZoomAnchor">
+                            Mouse position
+                        </option>
+                        <option value="lastVisibleItemBasedZoomAnchor">
+                            Last visible candle
+                        </option>
+                        <option value="rightDomainBasedZoomAnchor">
+                            Right extreme point
+                        </option>
+                    </select>
                 </Row>
                 <Row>
                     <div style={{ textAlign: "center" }}>
