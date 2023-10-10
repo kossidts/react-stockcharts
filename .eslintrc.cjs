@@ -1,4 +1,5 @@
-{
+
+module.exports = {
 	"plugins": [
 		"import",
 		"flowtype",
@@ -32,7 +33,8 @@
 		"import/resolver": {
 			"node": {
 				"extensions": [".js", ".jsx", ".json"]
-			}
+			},
+			"react-stockcharts": "./src"
 		},
 		"flowtype": {
 			"onlyFilesWithFlowAnnotation": true
