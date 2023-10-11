@@ -1,9 +1,6 @@
-
 import React from "react";
 import PropTypes from "prop-types";
-
 import { scaleOrdinal, schemeCategory10, scalePoint } from  "d3-scale";
-import { set } from "d3-collection";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
 import {
@@ -17,9 +14,11 @@ class GroupedBarChart extends React.Component {
 		const { data, type, width, ratio } = this.props;
 
 		const f = scaleOrdinal(schemeCategory10)
-			.domain(set(data.map(d => d.region)));
+			.domain(new Set(data.map(d => d.region)));
 
 		const fill = (d, i) => f(i);
+		// const fill = (d, i) => {console.log(d, i, f(i)); return f(i)};
+
 		return (
 			<ChartCanvas ratio={ratio} width={width} height={400}
 					margin={{ left: 40, right: 10, top: 20, bottom: 30 }} type={type}

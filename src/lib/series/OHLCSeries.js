@@ -1,8 +1,7 @@
-
-
-import { nest } from "d3-collection";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { groups } from "d3-array";
+
 import GenericChartComponent from "../GenericChartComponent";
 import { getAxisCanvas } from "../GenericComponent";
 
@@ -77,14 +76,10 @@ function drawOnCanvas(ctx, barData) {
 
 	const { strokeWidth, bars } = barData;
 
-	const wickNest = nest()
-		.key(d => d.stroke)
-		.entries(bars);
-
 	ctx.lineWidth = strokeWidth;
-
-	wickNest.forEach(outer => {
-		const { key, values } = outer;
+	
+	const wickNest = groups(bars, d => d.stroke);
+	for (const [key, values] of wickNest) {
 		ctx.strokeStyle = key;
 		values.forEach(d => {
 			ctx.beginPath();
@@ -99,7 +94,7 @@ function drawOnCanvas(ctx, barData) {
 
 			ctx.stroke();
 		});
-	});
+	}
 }
 
 function getOHLCBars(props, xAccessor, yAccessor, xScale, yScale, plotData) {

@@ -1,9 +1,6 @@
-
-
-import { nest } from "d3-collection";
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { groups } from "d3-array";
 
 import GenericChartComponent from "../GenericChartComponent";
 import { getAxisCanvas } from "../GenericComponent";
@@ -147,12 +144,8 @@ function drawOnCanvas(ctx, props, moreProps) {
 	// const wickData = getWickData(props, xAccessor, xScale, yScale, plotData);
 	const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
 
-	const wickNest = nest()
-		.key(d => d.wick.stroke)
-		.entries(candleData);
-
-	wickNest.forEach(outer => {
-		const { key, values } = outer;
+	const wickNest = groups(candleData, d => d.wick.stroke);
+	for (const [key, values] of wickNest) {
 		ctx.strokeStyle = key;
 		ctx.fillStyle = key;
 		values.forEach(each => {
@@ -169,24 +162,19 @@ function drawOnCanvas(ctx, props, moreProps) {
 			ctx.fillRect(d.x - 0.5, d.y1, 1, d.y2 - d.y1);
 			ctx.fillRect(d.x - 0.5, d.y3, 1, d.y4 - d.y3);
 		});
-	});
+	}
+
 
 	// const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
 
-	const candleNest = nest()
-		.key(d => d.stroke)
-		.key(d => d.fill)
-		.entries(candleData);
-
-
-	candleNest.forEach(outer => {
-		const { key: strokeKey, values: strokeValues } = outer;
+	const candleNest = groups(candleData, d => d.stroke, d => d.fill);
+	
+	for (const [strokeKey, strokeValues] of candleNest) {
 		if (strokeKey !== "none") {
 			ctx.strokeStyle = strokeKey;
 			ctx.lineWidth = candleStrokeWidth;
 		}
-		strokeValues.forEach(inner => {
-			const { key, values } = inner;
+		for (const [key, values] of strokeValues) {
 			const fillStyle = head(values).width <= 1
 				? key
 				: hexToRGBA(key, opacity);
@@ -223,8 +211,8 @@ function drawOnCanvas(ctx, props, moreProps) {
 					if (strokeKey !== "none") ctx.strokeRect(d.x, d.y, d.width, d.height);
 				}
 			});
-		});
-	});
+		}
+	}
 }
 /*
 function getWickData(props, xAccessor, xScale, yScale, plotData) {

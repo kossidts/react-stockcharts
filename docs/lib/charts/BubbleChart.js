@@ -1,11 +1,8 @@
-
-import { set } from "d3-collection";
+import React from "react";
+import PropTypes from "prop-types";
 import { scaleOrdinal, schemeCategory10, scaleLinear, scaleLog } from  "d3-scale";
 import { format } from "d3-format";
 import { extent } from "d3-array";
-
-import React from "react";
-import PropTypes from "prop-types";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
 import { ScatterSeries, CircleMarker } from "react-stockcharts/lib/series";
@@ -28,7 +25,7 @@ class BubbleChart extends React.Component {
 			.domain(extent(data, d => d.population));
 
 		const f = scaleOrdinal(schemeCategory10)
-			.domain(set(data.map(d => d.region)));
+			.domain(new Set(data.map(d => d.region)));
 
 		const fill = d => f(d.region);
 		const radius = d => r(d.population);

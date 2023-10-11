@@ -1,10 +1,7 @@
-
-import { scaleOrdinal, schemeCategory10, scaleLinear, scalePoint } from  "d3-scale";
-import { set } from "d3-collection";
-import { max } from "d3-array";
-
 import React from "react";
 import PropTypes from "prop-types";
+import { scaleOrdinal, schemeCategory10, scaleLinear, scalePoint } from  "d3-scale";
+import { max } from "d3-array";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
 import {
@@ -18,7 +15,7 @@ class HorizontalStackedBarChart extends React.Component {
 		const { data, type, width, ratio } = this.props;
 
 		const f = scaleOrdinal(schemeCategory10)
-			.domain(set(data.map(d => d.region)));
+			.domain(new Set(data.map(d => d.region)));
 
 		const fill = (d, i) => f(i);
 		return (

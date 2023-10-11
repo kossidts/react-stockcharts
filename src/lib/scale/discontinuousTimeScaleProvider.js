@@ -1,6 +1,4 @@
 import { timeFormat, timeFormatDefaultLocale } from "d3-time-format";
-// import { map as d3Map } from "d3-collection";
-
 import financeDiscontinuousScale from "./financeDiscontinuousScale";
 import { slidingWindow, zipper, identity, isNotDefined } from "../utils";
 import { defaultFormatters, levelDefinition } from "./levels";
@@ -129,7 +127,7 @@ function doStuff(
 			};
 		});
 		/*
-		var map = d3Map();
+		var map = new Map();
 		for (var i = 0; i < data.length - 1; i++) {
 
 			var nextDate = dateAccessor(data[i + 1]);
