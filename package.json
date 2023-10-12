@@ -32,8 +32,7 @@
 	},
 	"dependencies": {
 		"@babel/eslint-parser": "^7.22.15",
-		"d3-array": "^1.2.4",
-		"d3-collection": "^1.0.7",
+		"d3-array": "^2.12.1",
 		"d3-force": "^1.2.1",
 		"d3-format": "^1.4.5",
 		"d3-interpolate": "^1.4.0",

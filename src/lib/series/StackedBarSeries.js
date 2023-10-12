@@ -1,10 +1,7 @@
-
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import { nest as d3Nest } from "d3-collection";
-import { merge } from "d3-array";
+import { merge, groups } from "d3-array";
 import { stack as d3Stack } from "d3-shape";
 
 import GenericChartComponent from "../GenericChartComponent";
@@ -174,12 +171,8 @@ export function getBarsSVG2(props, bars) {
 export function drawOnCanvas2(props, ctx, bars) {
 	const { stroke } = props;
 
-	const nest = d3Nest()
-		.key(d => d.fill)
-		.entries(bars);
-
-	nest.forEach(outer => {
-		const { key, values } = outer;
+	const nest = groups(bars, d => d.fill);
+	for (const [key, values] of nest) {
 		if (head(values).width > 1) {
 			ctx.strokeStyle = key;
 		}
@@ -218,9 +211,9 @@ export function drawOnCanvas2(props, ctx, bars) {
 				ctx.fillRect(d.x, d.y, d.width, d.height);
 				if (stroke) ctx.strokeRect(d.x, d.y, d.width, d.height);
 			}
+		});		
+	}
 
-		});
-	});
 }
 
 export function getBars(props, xAccessor, yAccessor, xScale, yScale, plotData, stack = identityStack, after = identity) {

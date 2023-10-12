@@ -1,8 +1,6 @@
-
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { nest as d3Nest } from "d3-collection";
+import { groups } from "d3-array";
 
 import GenericChartComponent from "../GenericChartComponent";
 import { getAxisCanvas } from "../GenericComponent";
@@ -88,28 +86,19 @@ function drawOnCanvas(ctx, props, points) {
 
 	const { markerProps } = props;
 
-	const nest = d3Nest()
-		.key(d => d.fill)
-		.key(d => d.stroke)
-		.entries(points);
-
-	nest.forEach(fillGroup => {
-		const { key: fillKey, values: fillValues } = fillGroup;
-
+	const nest = groups(points, d => d.fill, d => d.stroke);
+	for (const [fillKey, fillValues] of nest) {
 		if (fillKey !== "none") {
 			ctx.fillStyle = fillKey;
 		}
-
-		fillValues.forEach(strokeGroup => {
-			// var { key: strokeKey, values: strokeValues } = strokeGroup;
-			const { values: strokeValues } = strokeGroup;
-
+		
+		for (const [, strokeValues] of fillValues) {
 			strokeValues.forEach(point => {
 				const { marker } = point;
 				marker.drawOnCanvas({ ...marker.defaultProps, ...markerProps, fill: fillKey }, point, ctx);
 			});
-		});
-	});
+		}
+	}
 }
 
 export default ScatterSeries;

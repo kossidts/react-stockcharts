@@ -1,10 +1,6 @@
-
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-import { ascending, descending, sum, max, merge, zip, histogram as d3Histogram } from "d3-array";
-import { nest } from "d3-collection";
+import { ascending, descending, sum, max, merge, zip, histogram as d3Histogram, rollups } from "d3-array";
 import { scaleLinear } from "d3-scale";
 
 import GenericChartComponent from "../GenericChartComponent";
@@ -127,25 +123,38 @@ function helper(props, moreProps, xAccessor, width) {
 			.value(source)
 			.thresholds(bins);
 
-		// console.log(bins, histogram(session))
-		// console.log(bins, histogram2(session))
-		const rollup = nest()
-			.key(d => d.direction)
-			.sortKeys(orient === "right" ? descending : ascending)
-			.rollup(leaves => sum(leaves, d => d.volume));
-
 		const values = histogram2(session);
 		// console.log("values", values)
+		const _volumeInBins = values
+			.map(arr => arr.map(d => absoluteChange(d) > 0 ? { direction: "up", volume: volume(d) } : { direction: "down", volume: volume(d) }));
 
-		const volumeInBins = values
-			.map(arr => arr.map(d => absoluteChange(d) > 0 ? { direction: "up", volume: volume(d) } : { direction: "down", volume: volume(d) }))
-			.map(arr => rollup.entries(arr));
-
+		// console.log(bins, histogram(session))
+		// console.log(bins, histogram2(session))
+		// const _rollup = nest() // using nest from archived d3-collection
+		// 	.key(d => d.direction)
+		// 	.sortKeys(orient === "right" ? descending : ascending)
+		// 	.rollup(leaves => sum(leaves, d => d.volume));
+			
+		// const volumeInBins = _volumeInBins
+		// 	.map(arr => _rollup.entries(arr));
+				
+		
+		const volumeInBins = _volumeInBins
+			.map(bins => {
+				return rollups(bins, d => sum(d, d=> d.volume), d => d.direction)
+					// Transform the [string, number] tuple from rollup into an object of [{key: string, value: number}]
+					.map(d => ({key: d[0], value: d[1]}))
+					// Sort by direction "up", "down" depending on whether the volume profile will be display left or right
+					// we allways want to display up first.
+					.sort((a, b) => orient === "right" ? descending(a.key, b.key) : ascending(a.key, b.key));
+			});
+		
 		// console.log("volumeInBins", volumeInBins)
-		const volumeValues = volumeInBins
-			.map(each => sum(each.map(d => d.value)));
 
+		const volumeValues = volumeInBins
+			.map(each => sum(each, d => d.value));
 		// console.log("volumeValues", volumeValues)
+
 		const base = xScale => head(xScale.range());
 
 		const [start, end] = orient === "right"
@@ -159,7 +168,6 @@ function helper(props, moreProps, xAccessor, width) {
 		// console.log(xScale.domain())
 
 		const totalVolumes = volumeInBins.map(volumes => {
-
 			const totalVolume = sum(volumes, d => d.value);
 			const totalVolumeX = xScale(totalVolume);
 			const width = base(xScale) - totalVolumeX;

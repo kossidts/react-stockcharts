@@ -1,8 +1,5 @@
-
-
 import React from "react";
 import { extent } from "d3-array";
-import { set } from "d3-collection";
 import flattenDeep from "lodash.flattendeep";
 
 import Chart from "../Chart";
@@ -166,7 +163,7 @@ function yDomainFromYExtents(yExtents, yScale, plotData) {
 	// console.log(allYValues)
 	const realYDomain = (yScale.invert)
 		? extent(allYValues)
-		: set(allYValues).values();
+		: [...new Set(allYValues)];
 
 	return realYDomain;
 }
