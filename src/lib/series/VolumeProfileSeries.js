@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ascending, descending, sum, max, merge, zip, histogram as d3Histogram, rollups } from "d3-array";
+import { ascending, descending, sum, max, merge, zip, bin, rollups } from "d3-array";
 import { scaleLinear } from "d3-scale";
 
 import GenericChartComponent from "../GenericChartComponent";
@@ -118,7 +118,8 @@ function helper(props, moreProps, xAccessor, width) {
 				.value(source)
 				.bins(bins);*/
 
-		const histogram2 = d3Histogram()
+		// const histogram2 = d3Histogram()
+		const histogram2 = bin()
 			// .domain(xScale.domain())
 			.value(source)
 			.thresholds(bins);
