@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { scaleOrdinal, schemeCategory10, scaleLinear, scalePoint } from  "d3-scale";
+import { scaleOrdinal, scaleLinear, scalePoint } from  "d3-scale";
+import { schemeCategory10 } from "d3-scale-chromatic";
 import { max } from "d3-array";
 
 import { ChartCanvas, Chart } from "react-stockcharts";

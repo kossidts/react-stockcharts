@@ -1,4 +1,5 @@
-import { scaleOrdinal, schemeCategory10 } from "d3-scale";
+import { scaleOrdinal } from "d3-scale";
+import { schemeCategory10 } from "d3-scale-chromatic";
 import { bisector } from "d3-array";
 import noop from "./noop";
 import identity from "./identity";
