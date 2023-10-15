@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { select, event as d3Event, mouse, touches } from "d3-selection";
+import { select, pointer, pointers } from "d3-selection";
 
 import {
 	isDefined,
@@ -76,8 +76,8 @@ class EventCapture extends Component {
 			select(win).on(MOUSEMOVE, null);
 		}
 	}
-	handleEnter() {
-		const e = d3Event;
+	handleEnter(e) {
+		// const e = d3Event;
 
 		const { onMouseEnter } = this.props;
 		this.mouseInside = true;
@@ -155,13 +155,11 @@ class EventCapture extends Component {
 			this.handlePanEnd();
 		}, 100);
 	}
-	handleMouseMove() {
-		const e = d3Event;
-
+	handleMouseMove(e) {
 		const { onMouseMove, mouseMove } = this.props;
 
 		if (this.mouseInteraction && mouseMove && !this.state.panInProgress) {
-			const newPos = mouse(this.node);
+			const newPos = pointer(e, this.node);
 
 			onMouseMove(newPos, "mouse", e);
 		}
@@ -210,11 +208,10 @@ class EventCapture extends Component {
 		onContextMenu(mouseXY, e);
 	}
 
-	handleDrag() {
-		const e = d3Event;
+	handleDrag(e) {
 		if (this.props.onDrag) {
 			this.dragHappened = true;
-			const mouseXY = mouse(this.node);
+			const mouseXY = pointer(e, this.node);
 			this.props.onDrag(
 				{ startPos: this.state.dragStartPosition, mouseXY },
 				e
@@ -232,9 +229,8 @@ class EventCapture extends Component {
 		});
 		this.mouseInteraction = true;
 	}
-	handleDragEnd() {
-		const e = d3Event;
-		const mouseXY = mouse(this.node);
+	handleDragEnd(e) {
+		const mouseXY = pointer(e, this.node);
 
 		const win = d3Window(this.node);
 		select(win)
@@ -332,18 +328,16 @@ class EventCapture extends Component {
 		const { pan: panEnabled, onPan } = this.props;
 		return panEnabled && onPan && isDefined(this.state.panStart);
 	}
-	handlePan() {
-		const e = d3Event;
-
+	handlePan(e) {
 		if (this.shouldPan()) {
 			this.panHappened = true;
 
 			const { panStartXScale, panOrigin, chartsToPan } =
 				this.state.panStart;
-
+			
 			const mouseXY = this.mouseInteraction
-				? mouse(this.node)
-				: touches(this.node)[0];
+				? pointer(e, this.node)
+				: pointers(e, this.node)[0];
 
 			this.lastNewPos = mouseXY;
 			const dx = mouseXY[0] - panOrigin[0];
@@ -361,8 +355,7 @@ class EventCapture extends Component {
 			);
 		}
 	}
-	handlePanEnd() {
-		const e = d3Event;
+	handlePanEnd(e) {
 		const { pan: panEnabled, onPanEnd } = this.props;
 
 		if (isDefined(this.state.panStart)) {
@@ -483,9 +476,8 @@ class EventCapture extends Component {
 			}
 		}
 	}
-	handlePinchZoom() {
-		const e = d3Event;
-		const [touch1Pos, touch2Pos] = touches(this.node);
+	handlePinchZoom(e) {
+		const [touch1Pos, touch2Pos] = pinters(e, this.node);
 		const { xScale, zoom: zoomEnabled, onPinchZoom } = this.props;
 
 		// eslint-disable-next-line no-unused-vars
@@ -503,9 +495,7 @@ class EventCapture extends Component {
 			);
 		}
 	}
-	handlePinchZoomEnd() {
-		const e = d3Event;
-
+	handlePinchZoomEnd(e) {
 		const win = d3Window(this.node);
 		select(win).on(TOUCHMOVE, null).on(TOUCHEND, null);
 

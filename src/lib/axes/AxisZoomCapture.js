@@ -1,8 +1,6 @@
-
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { select, event as d3Event, mouse, touches } from "d3-selection";
+import { select, pointer, pointers } from "d3-selection";
 import { mean } from "d3-array";
 
 import {
@@ -101,7 +99,7 @@ class AxisZoomCapture extends Component {
 			});
 		}
 	}
-	handleDrag() {
+	handleDrag(e) {
 		const { startPosition } = this.state;
 		const { getMouseDelta, inverted } = this.props;
 
@@ -111,8 +109,8 @@ class AxisZoomCapture extends Component {
 			const { startXY } = startPosition;
 
 			const mouseXY = this.mouseInteraction
-				? mouse(this.node)
-				: touches(this.node)[0];
+				? pointer(e, this.node)
+				: pointers(e, this.node)[0];
 
 			const diff = getMouseDelta(startXY, mouseXY);
 
@@ -131,14 +129,12 @@ class AxisZoomCapture extends Component {
 			}
 		}
 	}
-	handleDragEnd() {
-
+	handleDragEnd(e) {
 		if (!this.dragHappened) {
 			if (this.clicked) {
-				const e = d3Event;
 				const mouseXY = this.mouseInteraction
-					? mouse(this.node)
-					: touches(this.node)[0];
+					? pointer(e, this.node)
+					: pointers(e, this.node)[0];
 				const { onDoubleClick } = this.props;
 
 				onDoubleClick(mouseXY, e);
