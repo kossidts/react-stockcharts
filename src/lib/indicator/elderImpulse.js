@@ -7,7 +7,7 @@ import baseIndicator from "./baseIndicator";
 
 const ALGORITHM_TYPE = "ElderImpulse";
 
-export default function() {
+export default function () {
 
 	let macdSource, emaSource;
 
@@ -45,19 +45,19 @@ export default function() {
 		.merge((datum, indicator) => { datum.elderImpulse = indicator; });
 
 	// eslint-disable-next-line prefer-const
-	let indicator = function(data, options = { merge: true }) {
+	let indicator = function (data, options = { merge: true }) {
 		const newData = options.merge
 			? mergedAlgorithm(data)
 			: underlyingAlgorithm(data);
 
 		return newData;
 	};
-	indicator.macdSource = function(x) {
+	indicator.macdSource = function (x) {
 		if (!arguments.length) return macdSource;
 		macdSource = x;
 		return indicator;
 	};
-	indicator.emaSource = function(x) {
+	indicator.emaSource = function (x) {
 		if (!arguments.length) return emaSource;
 		emaSource = x;
 		return indicator;

@@ -8,7 +8,7 @@ import baseIndicator from "./baseIndicator";
 
 const ALGORITHM_TYPE = "Change";
 
-export default function() {
+export default function () {
 
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE);
@@ -22,7 +22,7 @@ export default function() {
 			datum.percentChange = indicator.percentChange;
 		});
 
-	const indicator = function(data, options = { merge: true }) {
+	const indicator = function (data, options = { merge: true }) {
 		if (options.merge) {
 			return mergedAlgorithm(data);
 		}

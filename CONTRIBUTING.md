@@ -6,7 +6,7 @@ fork or clone the repo
 $ git clone <git url>
 $ cd react-stockcharts
 $ npm install
-$ npm run watch
+$ npm run dev
 ```
 
 open [http://localhost:8080](http://localhost:8080) in a browser

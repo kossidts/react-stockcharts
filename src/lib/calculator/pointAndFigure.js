@@ -1,5 +1,3 @@
-
-
 import { isNotDefined } from "../utils";
 import { PointAndFigure as defaultOptions } from "./defaultOptionsForComputation";
 
@@ -11,14 +9,14 @@ function createBox(d, dateAccessor, dateMutator) {
 		startOfYear: d.startOfYear,
 		startOfQuarter: d.startOfQuarter,
 		startOfMonth: d.startOfMonth,
-		startOfWeek: d.startOfWeek
+		startOfWeek: d.startOfWeek,
 	};
 	dateMutator(box, dateAccessor(d));
 	return box;
 }
 
 function updateColumns(columnData, dateAccessor, dateMutator) {
-	columnData.forEach(function(d) {
+	columnData.forEach(function (d) {
 		// var lastBox = d.boxes[d.boxes.length - 1];
 
 		d.startOfYear = false;
@@ -26,7 +24,7 @@ function updateColumns(columnData, dateAccessor, dateMutator) {
 		d.startOfMonth = false;
 		d.startOfWeek = false;
 
-		d.boxes.forEach(function(eachBox) {
+		d.boxes.forEach(function (eachBox) {
 			if (isNotDefined(d.open)) d.open = eachBox.open;
 			d.close = eachBox.close;
 			d.high = Math.max(d.open, d.close);
@@ -63,7 +61,6 @@ function updateColumns(columnData, dateAccessor, dateMutator) {
 				dateMutator(d, dateAccessor(eachBox));
 			}
 		});
-
 	});
 
 	// console.table(columnData);
@@ -71,31 +68,37 @@ function updateColumns(columnData, dateAccessor, dateMutator) {
 	return columnData;
 }
 
-
-export default function() {
+export default function () {
 	let options = defaultOptions;
 	let dateAccessor = d => d.date;
-	let dateMutator = (d, date) => { d.date = date; };
+	let dateMutator = (d, date) => {
+		d.date = date;
+	};
 
 	function calculator(rawData) {
 		const { reversal, boxSize, sourcePath } = options;
 
-		const source = sourcePath === "high/low"
-			? d => { return { high: d.high, low: d.low }; }
-			: d => { return { high: d.close, low: d.close }; };
-
+		const source =
+			sourcePath === "high/low"
+				? d => {
+						return { high: d.high, low: d.low };
+				  }
+				: d => {
+						return { high: d.close, low: d.close };
+				  };
 
 		const pricingMethod = source;
 		const columnData = [];
 
 		let column = {
 				boxes: [],
-				open: rawData[0].open
-			}, box = createBox(rawData[0], dateAccessor, dateMutator);
+				open: rawData[0].open,
+			},
+			box = createBox(rawData[0], dateAccessor, dateMutator);
 
 		columnData.push(column);
 
-		rawData.forEach(function(d) {
+		rawData.forEach(function (d) {
 			column.volume = (column.volume || 0) + d.volume;
 
 			if (!box.startOfYear) {
@@ -130,17 +133,17 @@ export default function() {
 			}
 
 			if (columnData.length === 1 && column.boxes.length === 0) {
-				const upwardMovement = (Math.max((pricingMethod(d).high - column.open), 0)); // upward movement
-				const downwardMovement = Math.abs(Math.min((column.open - pricingMethod(d).low), 0)); // downward movement
+				const upwardMovement = Math.max(pricingMethod(d).high - column.open, 0); // upward movement
+				const downwardMovement = Math.abs(Math.min(column.open - pricingMethod(d).low, 0)); // downward movement
 				column.direction = upwardMovement > downwardMovement ? 1 : -1;
-				if (boxSize * reversal < upwardMovement
-					|| boxSize * reversal < downwardMovement) {
+				if (boxSize * reversal < upwardMovement || boxSize * reversal < downwardMovement) {
 					// enough movement to trigger a reversal
 					box.toDate = dateAccessor(d);
 					box.open = column.open;
-					const noOfBoxes = column.direction > 0
-						? Math.floor(upwardMovement / boxSize)
-						: Math.floor(downwardMovement / boxSize);
+					const noOfBoxes =
+						column.direction > 0
+							? Math.floor(upwardMovement / boxSize)
+							: Math.floor(downwardMovement / boxSize);
 					for (let i = 0; i < noOfBoxes; i++) {
 						box.close = box.open + column.direction * boxSize;
 						const prevBoxClose = box.close;
@@ -154,11 +157,13 @@ export default function() {
 				}
 			} else {
 				// one or more boxes already formed in the current column
-				const upwardMovement = (Math.max((pricingMethod(d).high - box.open), 0)); // upward movement
-				const downwardMovement = Math.abs(Math.min((pricingMethod(d).low - box.open), 0)); // downward movement
+				const upwardMovement = Math.max(pricingMethod(d).high - box.open, 0); // upward movement
+				const downwardMovement = Math.abs(Math.min(pricingMethod(d).low - box.open, 0)); // downward movement
 
-				if ((column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */
-						|| (column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */ ) {
+				if (
+					(column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */ ||
+					(column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */
+				) {
 					// form another box
 					box.close = box.open + column.direction * boxSize;
 					box.toDate = dateAccessor(d);
@@ -168,8 +173,16 @@ export default function() {
 					box.open = prevBoxClose;
 					box.fromDate = dateAccessor(d);
 					dateMutator(box, dateAccessor(d));
-				} else if ((column.direction > 0 && downwardMovement > boxSize * reversal) /* rising column and there is downward movement to trigger a reversal */
-						|| (column.direction < 0 && upwardMovement > boxSize * reversal)/* falling column and there is downward movement to trigger a reversal */) {
+				} else if (
+					(column.direction > 0 &&
+						downwardMovement >
+							boxSize *
+								reversal) /* rising column and there is downward movement to trigger a reversal */ ||
+					(column.direction < 0 &&
+						upwardMovement >
+							boxSize *
+								reversal) /* falling column and there is downward movement to trigger a reversal */
+				) {
 					// reversal
 
 					box.open = box.open + -1 * column.direction * boxSize;
@@ -185,11 +198,12 @@ export default function() {
 					column = {
 						boxes: [],
 						volume: 0,
-						direction: -1 * column.direction
+						direction: -1 * column.direction,
 					};
-					const noOfBoxes = column.direction > 0
-						? Math.floor(upwardMovement / boxSize)
-						: Math.floor(downwardMovement / boxSize);
+					const noOfBoxes =
+						column.direction > 0
+							? Math.floor(upwardMovement / boxSize)
+							: Math.floor(downwardMovement / boxSize);
 					for (let i = 0; i < noOfBoxes; i++) {
 						box.close = box.open + column.direction * boxSize;
 						const prevBoxClose = box.close;
@@ -206,19 +220,19 @@ export default function() {
 
 		return columnData;
 	}
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}
 		options = { ...defaultOptions, ...x };
 		return calculator;
 	};
-	calculator.dateMutator = function(x) {
+	calculator.dateMutator = function (x) {
 		if (!arguments.length) return dateMutator;
 		dateMutator = x;
 		return calculator;
 	};
-	calculator.dateAccessor = function(x) {
+	calculator.dateAccessor = function (x) {
 		if (!arguments.length) return dateAccessor;
 		dateAccessor = x;
 		return calculator;

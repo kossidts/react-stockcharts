@@ -243,13 +243,13 @@ LineSeries.defaultProps = {
 	hoverTolerance: 6,
 	highlightOnHover: false,
 	connectNulls: false,
-	onClick: function(e) {
+	onClick: function (e) {
 		console.info("Click", e);
 	},
-	onDoubleClick: function(e) {
+	onDoubleClick: function (e) {
 		console.info("Double Click", e);
 	},
-	onContextMenu: function(e) {
+	onContextMenu: function (e) {
 		console.info("Right Click", e);
 	},
 };

@@ -131,13 +131,13 @@ SARSeries.defaultProps = {
 	},
 	highlightOnHover: true,
 	opacity: 0.2,
-	onClick: function(e) {
+	onClick: function (e) {
 		console.info("Click", e);
 	},
-	onDoubleClick: function(e) {
+	onDoubleClick: function (e) {
 		console.info("Double Click", e);
 	},
-	onContextMenu: function(e) {
+	onContextMenu: function (e) {
 		console.info("Right Click", e);
 	},
 };

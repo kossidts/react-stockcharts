@@ -31,7 +31,7 @@ import { mean } from "d3-array";
 import { isDefined, last, slidingWindow, path } from "../utils";
 import { RSI as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 
@@ -80,12 +80,12 @@ export default function() {
 
 		return rsiData;
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { windowSize } = options;
 
 		return windowSize - 1;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

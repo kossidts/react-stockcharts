@@ -5,7 +5,7 @@ import atr from "./atr";
 
 import { Kagi as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 	let dateAccessor = d => d.date;
@@ -36,7 +36,7 @@ export default function() {
 		let prevPeak, prevTrough, direction;
 		let line = {};
 
-		data.forEach(function(d) {
+		data.forEach(function (d) {
 			if (isNotDefined(line.from)) {
 				dateMutator(line, dateAccessor(d));
 				line.from = dateAccessor(d);
@@ -168,19 +168,19 @@ export default function() {
 
 		return kagiData;
 	}
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}
 		options = { ...defaultOptions, ...x };
 		return calculator;
 	};
-	calculator.dateMutator = function(x) {
+	calculator.dateMutator = function (x) {
 		if (!arguments.length) return dateMutator;
 		dateMutator = x;
 		return calculator;
 	};
-	calculator.dateAccessor = function(x) {
+	calculator.dateAccessor = function (x) {
 		if (!arguments.length) return dateAccessor;
 		dateAccessor = x;
 		return calculator;

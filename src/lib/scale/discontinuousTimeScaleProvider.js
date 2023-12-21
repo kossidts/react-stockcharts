@@ -110,7 +110,7 @@ function doStuff(
 	initialIndex,
 	formatters
 ) {
-	return function(data) {
+	return function (data) {
 		const dateAccessor = realDateAccessor(inputDateAccessor);
 		const calculate = discontinuousIndexCalculatorLocalTime
 			.source(dateAccessor)
@@ -166,7 +166,7 @@ export function discontinuousTimeScaleProviderBuilder() {
 	let currentFormatters = defaultFormatters;
 
 	// eslint-disable-next-line prefer-const
-	let discontinuousTimeScaleProvider = function(data) {
+	let discontinuousTimeScaleProvider = function (data) {
 		/*
 		console.warn("Are you sure you want to use a discontinuousTimeScale?"
 			+ " Use this only if you have discontinuous data which"
@@ -205,42 +205,42 @@ export function discontinuousTimeScaleProviderBuilder() {
 		};
 	};
 
-	discontinuousTimeScaleProvider.initialIndex = function(x) {
+	discontinuousTimeScaleProvider.initialIndex = function (x) {
 		if (!arguments.length) {
 			return initialIndex;
 		}
 		initialIndex = x;
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.inputDateAccessor = function(x) {
+	discontinuousTimeScaleProvider.inputDateAccessor = function (x) {
 		if (!arguments.length) {
 			return inputDateAccessor;
 		}
 		inputDateAccessor = x;
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.indexAccessor = function(x) {
+	discontinuousTimeScaleProvider.indexAccessor = function (x) {
 		if (!arguments.length) {
 			return indexAccessor;
 		}
 		indexAccessor = x;
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.indexMutator = function(x) {
+	discontinuousTimeScaleProvider.indexMutator = function (x) {
 		if (!arguments.length) {
 			return indexMutator;
 		}
 		indexMutator = x;
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.withIndex = function(x) {
+	discontinuousTimeScaleProvider.withIndex = function (x) {
 		if (!arguments.length) {
 			return withIndex;
 		}
 		withIndex = x;
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.utc = function() {
+	discontinuousTimeScaleProvider.utc = function () {
 		realDateAccessor = (dateAccessor) => (d) => {
 			const date = dateAccessor(d);
 			// The getTimezoneOffset() method returns the time-zone offset from UTC, in minutes, for the current locale.
@@ -249,7 +249,7 @@ export function discontinuousTimeScaleProviderBuilder() {
 		};
 		return discontinuousTimeScaleProvider;
 	};
-	discontinuousTimeScaleProvider.setLocale = function(
+	discontinuousTimeScaleProvider.setLocale = function (
 		locale,
 		formatters = null
 	) {
@@ -262,7 +262,7 @@ export function discontinuousTimeScaleProviderBuilder() {
 		return discontinuousTimeScaleProvider;
 	};
 
-	discontinuousTimeScaleProvider.indexCalculator = function() {
+	discontinuousTimeScaleProvider.indexCalculator = function () {
 		return doStuff(
 			realDateAccessor,
 			inputDateAccessor,

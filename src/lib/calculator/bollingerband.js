@@ -33,7 +33,7 @@ import { last, slidingWindow, zipper, path } from "../utils";
 
 import { BollingerBand as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 	let options = defaultOptions;
 
 	function calculator(data) {
@@ -63,11 +63,11 @@ export default function() {
 		const tuples = zip(data, meanAlgorithm(data));
 		return bollingerBandAlgorithm(tuples);
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { windowSize } = options;
 		return windowSize - 1;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

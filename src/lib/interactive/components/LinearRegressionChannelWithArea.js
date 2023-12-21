@@ -132,14 +132,14 @@ class LinearRegressionChannelWithArea extends Component {
 }
 
 export function edge1Provider(props) {
-	return function(moreProps) {
+	return function (moreProps) {
 		const { x1, y1 } = helper(props, moreProps);
 		return [x1, y1];
 	};
 }
 
 export function edge2Provider(props) {
-	return function(moreProps) {
+	return function (moreProps) {
 		const { x2, y2 } = helper(props, moreProps);
 		return [x2, y2];
 	};

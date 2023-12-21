@@ -31,7 +31,7 @@ import { max, min, mean } from "d3-array";
 import { last, slidingWindow, zipper } from "../utils";
 import { FullStochasticOscillator as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 
@@ -77,18 +77,18 @@ export default function() {
 
 		return indicatorData;
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { windowSize, kWindowSize, dWindowSize } = options;
 		return windowSize + kWindowSize + dWindowSize;
 	};
-	calculator.source = function(x) {
+	calculator.source = function (x) {
 		if (!arguments.length) {
 			return source;
 		}
 		source = x;
 		return calculator;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

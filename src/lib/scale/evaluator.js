@@ -153,7 +153,7 @@ function getFilteredResponse(data, left, right, xAccessor) {
 	return filteredData;
 }
 
-export default function({
+export default function ({
 	xScale, useWholeData, clamp,
 	pointsPerPxThreshold, minPointsPerPxThreshold,
 	flipXScale

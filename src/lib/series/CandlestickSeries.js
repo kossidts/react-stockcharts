@@ -5,9 +5,7 @@ import { groups } from "d3-array";
 import GenericChartComponent from "../GenericChartComponent";
 import { getAxisCanvas } from "../GenericComponent";
 
-import {
-	hexToRGBA, isDefined, functor, plotDataLengthBarWidth, head
-} from "../utils";
+import { hexToRGBA, isDefined, functor, plotDataLengthBarWidth, head } from "../utils";
 
 class CandlestickSeries extends Component {
 	constructor(props) {
@@ -20,29 +18,38 @@ class CandlestickSeries extends Component {
 	}
 	renderSVG(moreProps) {
 		const { className, wickClassName, candleClassName } = this.props;
-		const { xScale, chartConfig: { yScale }, plotData, xAccessor } = moreProps;
+		const {
+			xScale,
+			chartConfig: { yScale },
+			plotData,
+			xAccessor,
+		} = moreProps;
 
 		const candleData = getCandleData(this.props, xAccessor, xScale, yScale, plotData);
 
-		return <g className={className}>
-			<g className={wickClassName} key="wicks">
-				{getWicksSVG(candleData)}
+		return (
+			<g className={className}>
+				<g className={wickClassName} key="wicks">
+					{getWicksSVG(candleData)}
+				</g>
+				<g className={candleClassName} key="candles">
+					{getCandlesSVG(this.props, candleData)}
+				</g>
 			</g>
-			<g className={candleClassName} key="candles">
-				{getCandlesSVG(this.props, candleData)}
-			</g>
-		</g>;
+		);
 	}
 
 	render() {
 		const { clip } = this.props;
-		return <GenericChartComponent
-			clip={clip}
-			svgDraw={this.renderSVG}
-			canvasDraw={this.drawOnCanvas}
-			canvasToDraw={getAxisCanvas}
-			drawOn={["pan"]}
-		/>;
+		return (
+			<GenericChartComponent
+				clip={clip}
+				svgDraw={this.renderSVG}
+				canvasDraw={this.drawOnCanvas}
+				canvasToDraw={getAxisCanvas}
+				drawOn={["pan"]}
+			/>
+		);
 	}
 }
 
@@ -51,26 +58,11 @@ CandlestickSeries.propTypes = {
 	wickClassName: PropTypes.string,
 	candleClassName: PropTypes.string,
 	widthRatio: PropTypes.number,
-	width: PropTypes.oneOfType([
-		PropTypes.number,
-		PropTypes.func
-	]),
-	classNames: PropTypes.oneOfType([
-		PropTypes.func,
-		PropTypes.string
-	]),
-	fill: PropTypes.oneOfType([
-		PropTypes.func,
-		PropTypes.string
-	]),
-	stroke: PropTypes.oneOfType([
-		PropTypes.func,
-		PropTypes.string
-	]),
-	wickStroke: PropTypes.oneOfType([
-		PropTypes.func,
-		PropTypes.string
-	]),
+	width: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+	classNames: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	fill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	stroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	wickStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 	yAccessor: PropTypes.func,
 	clip: PropTypes.bool,
 };
@@ -80,11 +72,11 @@ CandlestickSeries.defaultProps = {
 	wickClassName: "react-stockcharts-candlestick-wick",
 	candleClassName: "react-stockcharts-candlestick-candle",
 	yAccessor: d => ({ open: d.open, high: d.high, low: d.low, close: d.close }),
-	classNames: d => d.close > d.open ? "up" : "down",
+	classNames: d => (d.close > d.open ? "up" : "down"),
 	width: plotDataLengthBarWidth,
 	wickStroke: "#000000",
 	// wickStroke: d => d.close > d.open ? "#6BA583" : "#FF0000",
-	fill: d => d.close > d.open ? "#6BA583" : "#FF0000",
+	fill: d => (d.close > d.open ? "#6BA583" : "#FF0000"),
 	// stroke: d => d.close > d.open ? "#6BA583" : "#FF0000",
 	stroke: "#000000",
 	candleStrokeWidth: 0.5,
@@ -95,21 +87,22 @@ CandlestickSeries.defaultProps = {
 };
 
 function getWicksSVG(candleData) {
-
-	const wicks = candleData
-		.map((each, idx) => {
-			const d = each.wick;
-			return <path key={idx}
+	const wicks = candleData.map((each, idx) => {
+		const d = each.wick;
+		return (
+			<path
+				key={idx}
 				className={each.className}
 				stroke={d.stroke}
-				d={`M${d.x},${d.y1} L${d.x},${d.y2} M${d.x},${d.y3} L${d.x},${d.y4}`} />;
-		});
+				d={`M${d.x},${d.y1} L${d.x},${d.y2} M${d.x},${d.y3} L${d.x},${d.y4}`}
+			/>
+		);
+	});
 
 	return wicks;
 }
 
 function getCandlesSVG(props, candleData) {
-
 	/* eslint-disable react/prop-types */
 	const { opacity, candleStrokeWidth } = props;
 	/* eslint-enable react/prop-types */
@@ -117,21 +110,31 @@ function getCandlesSVG(props, candleData) {
 	const candles = candleData.map((d, idx) => {
 		if (d.width <= 1)
 			return (
-				<line className={d.className} key={idx}
-					x1={d.x} y1={d.y} x2={d.x} y2={d.y + d.height}
-					stroke={d.fill} />
+				<line
+					className={d.className}
+					key={idx}
+					x1={d.x}
+					y1={d.y}
+					x2={d.x}
+					y2={d.y + d.height}
+					stroke={d.fill}
+				/>
 			);
 		else if (d.height === 0)
-			return (
-				<line key={idx}
-					x1={d.x} y1={d.y} x2={d.x + d.width} y2={d.y + d.height}
-					stroke={d.fill} />
-			);
+			return <line key={idx} x1={d.x} y1={d.y} x2={d.x + d.width} y2={d.y + d.height} stroke={d.fill} />;
 		return (
-			<rect key={idx} className={d.className}
+			<rect
+				key={idx}
+				className={d.className}
 				fillOpacity={opacity}
-				x={d.x} y={d.y} width={d.width} height={d.height}
-				fill={d.fill} stroke={d.stroke} strokeWidth={candleStrokeWidth} />
+				x={d.x}
+				y={d.y}
+				width={d.width}
+				height={d.height}
+				fill={d.fill}
+				stroke={d.stroke}
+				strokeWidth={candleStrokeWidth}
+			/>
 		);
 	});
 	return candles;
@@ -139,7 +142,12 @@ function getCandlesSVG(props, candleData) {
 
 function drawOnCanvas(ctx, props, moreProps) {
 	const { opacity, candleStrokeWidth } = props;
-	const { xScale, chartConfig: { yScale }, plotData, xAccessor } = moreProps;
+	const {
+		xScale,
+		chartConfig: { yScale },
+		plotData,
+		xAccessor,
+	} = moreProps;
 
 	// const wickData = getWickData(props, xAccessor, xScale, yScale, plotData);
 	const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
@@ -164,20 +172,21 @@ function drawOnCanvas(ctx, props, moreProps) {
 		});
 	}
 
-
 	// const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
 
-	const candleNest = groups(candleData, d => d.stroke, d => d.fill);
-	
+	const candleNest = groups(
+		candleData,
+		d => d.stroke,
+		d => d.fill
+	);
+
 	for (const [strokeKey, strokeValues] of candleNest) {
 		if (strokeKey !== "none") {
 			ctx.strokeStyle = strokeKey;
 			ctx.lineWidth = candleStrokeWidth;
 		}
 		for (const [key, values] of strokeValues) {
-			const fillStyle = head(values).width <= 1
-				? key
-				: hexToRGBA(key, opacity);
+			const fillStyle = head(values).width <= 1 ? key : hexToRGBA(key, opacity);
 			ctx.fillStyle = fillStyle;
 
 			values.forEach(d => {
@@ -248,7 +257,6 @@ function getWickData(props, xAccessor, xScale, yScale, plotData) {
 */
 
 function getCandleData(props, xAccessor, xScale, yScale, plotData) {
-
 	const { wickStroke: wickStrokeProp } = props;
 	const wickStroke = functor(wickStrokeProp);
 
@@ -262,7 +270,7 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 	const width = widthFunctor(props, {
 		xScale,
 		xAccessor,
-		plotData
+		plotData,
 	});
 
 	/*
@@ -270,9 +278,7 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 	const offset = Math.round(candleWidth === 1 ? 0 : 0.5 * width);
 	*/
 	const trueOffset = 0.5 * width;
-	const offset = trueOffset > 0.7
-		? Math.round(trueOffset)
-		: Math.floor(trueOffset);
+	const offset = trueOffset > 0.7 ? Math.round(trueOffset) : Math.floor(trueOffset);
 
 	// eslint-disable-next-line prefer-const
 	let candles = [];
@@ -304,7 +310,7 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 				className: className(ohlc),
 				fill: fill(ohlc),
 				stroke: stroke(ohlc),
-				direction: (ohlc.close - ohlc.open),
+				direction: ohlc.close - ohlc.open,
 			});
 		}
 	}

@@ -31,7 +31,7 @@ import ema from "./ema";
 import { isDefined, zipper } from "../utils";
 import { MACD as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 	let options = defaultOptions;
 
 	function calculator(data) {
@@ -66,11 +66,11 @@ export default function() {
 		return macd;
 	}
 
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { slow, signal } = options;
 		return slow + signal - 1;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

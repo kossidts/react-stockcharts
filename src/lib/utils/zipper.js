@@ -27,7 +27,7 @@ export default function zipper() {
 	function d3_zipLength(d) {
 		return d.length;
 	}
-	zip.combine = function(x) {
+	zip.combine = function (x) {
 		if (!arguments.length) {
 			return combine;
 		}

@@ -1,46 +1,36 @@
-
 module.exports = {
-	"plugins": [
-		"import",
-		"flowtype",
-		"jsx-a11y",
-		"react",
-		"eslint-plugin-prettier"
-	],
-	"parser": "@babel/eslint-parser",
-	"parserOptions": {
-		"ecmaVersion": 2018,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
-		}
-	},
-	"env": {
-		"browser": true,
-		"node": true,
-		"es6": true,
-		"jest": true
-	},
-	"settings": {
-		"react": {
-			"version": "16.0"
+	plugins: ["import", "flowtype", "jsx-a11y", "react", "eslint-plugin-prettier"],
+	parser: "@babel/eslint-parser",
+	parserOptions: {
+		ecmaVersion: 2018,
+		sourceType: "module",
+		ecmaFeatures: {
+			jsx: true,
 		},
-		"import/ignore": [
-			"node_modules",
-			"\\.(json|css|jpg|png|gif|eot|svg|ttf|woff|woff2|mp4|webm)$"
-		],
+	},
+	env: {
+		browser: true,
+		node: true,
+		es6: true,
+		jest: true,
+	},
+	settings: {
+		react: {
+			version: "16.0",
+		},
+		"import/ignore": ["node_modules", "\\.(json|css|jpg|png|gif|eot|svg|ttf|woff|woff2|mp4|webm)$"],
 		"import/extensions": [".js", ".jsx"],
 		"import/resolver": {
-			"node": {
-				"extensions": [".js", ".jsx", ".json"]
+			node: {
+				extensions: [".js", ".jsx", ".json"],
 			},
-			"react-stockcharts": "./src"
+			"react-stockcharts": "./src",
 		},
-		"flowtype": {
-			"onlyFilesWithFlowAnnotation": true
-		}
+		flowtype: {
+			onlyFilesWithFlowAnnotation: true,
+		},
 	},
-	"extends": [
+	extends: [
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
@@ -50,9 +40,9 @@ module.exports = {
 		"plugin:import/errors",
 		"plugin:import/warnings",
 		// "plugin:prettier/recommended",
-		"eslint-config-prettier"
+		"eslint-config-prettier",
 	],
-	"rules": {
+	rules: {
 		// "prettier/prettier": "warn",
 		"jsx-a11y/aria-role": "warn",
 		"jsx-a11y/img-redundant-alt": "warn",
@@ -74,39 +64,38 @@ module.exports = {
 		"prefer-const": "error",
 		"array-bracket-spacing": ["error", "never"],
 		"block-scoped-var": "error",
-		"brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-		"comma-spacing": ["error", { "before": false, "after": true }],
-		"eqeqeq": ["error", "smart"],
-		"key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
-		"indent": [
+		"brace-style": ["error", "1tbs", { allowSingleLine: true }],
+		"comma-spacing": ["error", { before: false, after: true }],
+		eqeqeq: ["error", "smart"],
+		"key-spacing": ["error", { beforeColon: false, afterColon: true }],
+		indent: [
 			"error",
 			"tab",
 			{
-				"SwitchCase": 1,
-				"flatTernaryExpressions": false
-			}
+				SwitchCase: 1,
+				flatTernaryExpressions: false,
+				// offsetTernaryExpressions: false,
+			},
 		],
+		// "multiline-ternary": ["error", "always"],
 		// "comma-dangle": 0,
 		"jsx-quotes": ["error", "prefer-double"],
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
-		"no-trailing-spaces": ["error", { "skipBlankLines": false }],
+		"no-trailing-spaces": ["error", { skipBlankLines: false }],
 		"no-undef": 2,
-		"no-console": ["warn", { "allow": ["info", "warn", "error"] }],
+		"no-console": ["warn", { allow: ["info", "warn", "error"] }],
 		"no-unused-vars": "warn",
 		"object-curly-spacing": ["error", "always"],
-		"quotes": ["error", "double", { "avoidEscape": true }],
-		"semi": ["error", "always"],
-		"semi-spacing": ["error", { "before": false, "after": true }],
-		"keyword-spacing": [
-			"error",
-			{ "before": true, "after": true, "overrides": {} }
-		],
+		quotes: ["error", "double", { avoidEscape: true }],
+		semi: ["error", "always"],
+		"semi-spacing": ["error", { before: false, after: true }],
+		"keyword-spacing": ["error", { before: true, after: true, overrides: {} }],
 		"space-before-blocks": "error",
 		"space-before-function-paren": [
 			"error",
-			{ "named": "never", "anonymous": "never", "asyncArrow": "always" }
+			{ named: "never", anonymous: "always", asyncArrow: "always" },
 		],
-		"space-infix-ops": ["error", { "int32Hint": false }],
-		"spaced-comment": ["error", "always", { "exceptions": ["-"] }]
-	}
-}
+		"space-infix-ops": ["error", { int32Hint: false }],
+		"spaced-comment": ["error", "always", { exceptions: ["-"] }],
+	},
+};

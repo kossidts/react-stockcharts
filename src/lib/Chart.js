@@ -72,7 +72,7 @@ Chart.propTypes = {
 		PropTypes.array,
 		PropTypes.func
 	]),
-	yExtentsCalculator: function(props, propName, componentName) {
+	yExtentsCalculator: function (props, propName, componentName) {
 		if (isNotDefined(props.yExtents) && typeof props.yExtentsCalculator !== "function")
 			return new Error("yExtents or yExtentsCalculator must"
 				+ ` be present on ${componentName}. Validation failed.`);

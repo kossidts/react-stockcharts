@@ -1164,7 +1164,7 @@ ChartCanvas.propTypes = {
 	defaultFocus: PropTypes.bool,
 	zoomMultiplier: PropTypes.number,
 	onLoadMore: PropTypes.func,
-	displayXAccessor: function(props, propName/* , componentName */) {
+	displayXAccessor: function (props, propName/* , componentName */) {
 		if (isNotDefined(props[propName])) {
 			console.warn("`displayXAccessor` is not defined,"
 				+ " will use the value from `xAccessor` as `displayXAccessor`."

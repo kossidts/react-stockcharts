@@ -1,5 +1,3 @@
-
-
 import { head } from "../utils";
 
 /**
@@ -32,7 +30,7 @@ export function plotDataLengthBarWidth(props, moreProps) {
  * @return {Function} the width function.
  */
 export function timeIntervalBarWidth(interval) {
-	return function(props, moreProps) {
+	return function (props, moreProps) {
 		const { widthRatio } = props;
 		const { xScale, xAccessor, plotData } = moreProps;
 

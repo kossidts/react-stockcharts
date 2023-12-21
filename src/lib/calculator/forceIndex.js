@@ -3,7 +3,7 @@
 import { slidingWindow, path } from "../utils";
 import { ForceIndex as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 
@@ -21,10 +21,10 @@ export default function() {
 
 		return forceIndex;
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		return 2;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

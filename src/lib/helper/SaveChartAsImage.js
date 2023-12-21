@@ -8,10 +8,10 @@ const dy = 0;
 
 const SaveChartAsImage = {
 	save(doc, container, background, cb) {
-		saveAsPng.svgAsDataUri(container.getElementsByTagName("svg")[0], {}, function(uri) {
+		saveAsPng.svgAsDataUri(container.getElementsByTagName("svg")[0], {}, function (uri) {
 			// eslint-disable-next-line prefer-const
 			let image = new Image();
-			image.onload = function() {
+			image.onload = function () {
 
 				// eslint-disable-next-line prefer-const
 				let canvas = doc.createElement("canvas");
@@ -51,13 +51,13 @@ const SaveChartAsImage = {
 		return this.save(doc, container, background, cb);
 	},
 	saveChartAsImage(container) {
-		this.saveWithWhiteBG(document, container, function(src) {
+		this.saveWithWhiteBG(document, container, function (src) {
 			const a = document.createElement("a");
 			a.setAttribute("href", src);
 			a.setAttribute("download", "Chart.png");
 
 			document.body.appendChild(a);
-			a.addEventListener("click", function(/* e */) {
+			a.addEventListener("click", function (/* e */) {
 				a.parentNode.removeChild(a);
 			});
 

@@ -7,7 +7,7 @@ import baseIndicator from "./baseIndicator";
 
 const ALGORITHM_TYPE = "Kagi";
 
-export default function() {
+export default function () {
 
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE);

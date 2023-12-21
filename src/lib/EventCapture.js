@@ -61,9 +61,7 @@ class EventCapture extends Component {
 	}
 	componentDidMount() {
 		if (this.node) {
-			select(this.node)
-				.on(MOUSEENTER, this.handleEnter)
-				.on(MOUSELEAVE, this.handleLeave);
+			select(this.node).on(MOUSEENTER, this.handleEnter).on(MOUSELEAVE, this.handleLeave);
 		}
 	}
 	componentDidUpdate() {
@@ -100,8 +98,7 @@ class EventCapture extends Component {
 		const { zoom, onZoom } = this.props;
 		const { panInProgress } = this.state;
 
-		const yZoom =
-			Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 0;
+		const yZoom = Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 0;
 		// const xPan = Math.abs(e.deltaY) < Math.abs(e.deltaX) && Math.abs(e.deltaX) > 0;
 		const mouseXY = mousePosition(e);
 		// TODO either remove the `e.preventDefault()` line or use ref to make the event non passive
@@ -191,8 +188,7 @@ class EventCapture extends Component {
 		const mouseXY = mousePosition(e, this.node.getBoundingClientRect());
 
 		if (isDefined(this.state.panStart)) {
-			const { panStartXScale, panOrigin, chartsToPan } =
-				this.state.panStart;
+			const { panStartXScale, panOrigin, chartsToPan } = this.state.panStart;
 			if (this.panHappened) {
 				onPanEnd(mouseXY, panStartXScale, panOrigin, chartsToPan, e);
 			}
@@ -212,10 +208,7 @@ class EventCapture extends Component {
 		if (this.props.onDrag) {
 			this.dragHappened = true;
 			const mouseXY = pointer(e, this.node);
-			this.props.onDrag(
-				{ startPos: this.state.dragStartPosition, mouseXY },
-				e
-			);
+			this.props.onDrag({ startPos: this.state.dragStartPosition, mouseXY }, e);
 		}
 	}
 	cancelDrag() {
@@ -255,19 +248,18 @@ class EventCapture extends Component {
 		const { getAllPanConditions } = this.props;
 		const { pan: initialPanEnabled } = this.props;
 
-		const { panEnabled, draggable: somethingSelected } =
-			getAllPanConditions().reduce(
-				(returnObj, a) => {
-					return {
-						draggable: returnObj.draggable || a.draggable,
-						panEnabled: returnObj.panEnabled && a.panEnabled,
-					};
-				},
-				{
-					draggable: false,
-					panEnabled: initialPanEnabled,
-				}
-			);
+		const { panEnabled, draggable: somethingSelected } = getAllPanConditions().reduce(
+			(returnObj, a) => {
+				return {
+					draggable: returnObj.draggable || a.draggable,
+					panEnabled: returnObj.panEnabled && a.panEnabled,
+				};
+			},
+			{
+				draggable: false,
+				panEnabled: initialPanEnabled,
+			}
+		);
 
 		return {
 			panEnabled,
@@ -301,9 +293,7 @@ class EventCapture extends Component {
 				});
 
 				const win = d3Window(this.node);
-				select(win)
-					.on(MOUSEMOVE, this.handlePan)
-					.on(MOUSEUP, this.handlePanEnd);
+				select(win).on(MOUSEMOVE, this.handlePan).on(MOUSEUP, this.handlePanEnd);
 			} else if (somethingSelected) {
 				this.setState({
 					panInProgress: false,
@@ -315,9 +305,7 @@ class EventCapture extends Component {
 				// this.mouseInteraction = false;
 
 				const win = d3Window(this.node);
-				select(win)
-					.on(MOUSEMOVE, this.handleDrag)
-					.on(MOUSEUP, this.handleDragEnd);
+				select(win).on(MOUSEMOVE, this.handleDrag).on(MOUSEUP, this.handleDragEnd);
 			}
 
 			onMouseDown(mouseXY, currentCharts, e);
@@ -332,12 +320,9 @@ class EventCapture extends Component {
 		if (this.shouldPan()) {
 			this.panHappened = true;
 
-			const { panStartXScale, panOrigin, chartsToPan } =
-				this.state.panStart;
-			
-			const mouseXY = this.mouseInteraction
-				? pointer(e, this.node)
-				: pointers(e, this.node)[0];
+			const { panStartXScale, panOrigin, chartsToPan } = this.state.panStart;
+
+			const mouseXY = this.mouseInteraction ? pointer(e, this.node) : pointers(e, this.node)[0];
 
 			this.lastNewPos = mouseXY;
 			const dx = mouseXY[0] - panOrigin[0];
@@ -346,13 +331,7 @@ class EventCapture extends Component {
 			this.dx = dx;
 			this.dy = dy;
 
-			this.props.onPan(
-				mouseXY,
-				panStartXScale,
-				{ dx, dy },
-				chartsToPan,
-				e
-			);
+			this.props.onPan(mouseXY, panStartXScale, { dx, dy }, chartsToPan, e);
 		}
 	}
 	handlePanEnd(e) {
@@ -379,13 +358,7 @@ class EventCapture extends Component {
 				// console.log(dx, dy)
 				delete this.dx;
 				delete this.dy;
-				onPanEnd(
-					this.lastNewPos,
-					panStartXScale,
-					{ dx, dy },
-					chartsToPan,
-					e
-				);
+				onPanEnd(this.lastNewPos, panStartXScale, { dx, dy }, chartsToPan, e);
 			}
 
 			this.setState({
@@ -423,9 +396,7 @@ class EventCapture extends Component {
 				});
 
 				const win = d3Window(this.node);
-				select(win)
-					.on(TOUCHMOVE, this.handlePan, false)
-					.on(TOUCHEND, this.handlePanEnd, false);
+				select(win).on(TOUCHMOVE, this.handlePan, false).on(TOUCHEND, this.handlePanEnd, false);
 			}
 		} else if (e.touches.length === 2) {
 			// pinch zoom begin
@@ -437,10 +408,7 @@ class EventCapture extends Component {
 
 				const win = d3Window(this.node);
 				select(win)
-					.on(
-						MOUSEMOVE,
-						this.mouseInside ? this.handleMouseMove : null
-					)
+					.on(MOUSEMOVE, this.mouseInside ? this.handleMouseMove : null)
 					.on(MOUSEUP, null)
 					.on(TOUCHMOVE, this.handlePinchZoom, false)
 					.on(TOUCHEND, this.handlePinchZoomEnd, false);
@@ -454,13 +422,7 @@ class EventCapture extends Component {
 					panEnabled &&
 					onPanEnd
 				) {
-					onPanEnd(
-						this.lastNewPos,
-						panStartXScale,
-						panOrigin,
-						chartsToPan,
-						e
-					);
+					onPanEnd(this.lastNewPos, panStartXScale, panOrigin, chartsToPan, e);
 				}
 
 				this.setState({
@@ -477,7 +439,7 @@ class EventCapture extends Component {
 		}
 	}
 	handlePinchZoom(e) {
-		const [touch1Pos, touch2Pos] = pinters(e, this.node);
+		const [touch1Pos, touch2Pos] = pointers(e, this.node);
 		const { xScale, zoom: zoomEnabled, onPinchZoom } = this.props;
 
 		// eslint-disable-next-line no-unused-vars
@@ -520,8 +482,8 @@ class EventCapture extends Component {
 		}
 	}
 	render() {
-		const { height, width, disableInteraction, useCrossHairStyleCursor } =
-			this.props;
+		const { height, width, disableInteraction, useCrossHairStyleCursor } = this.props;
+		// prettier-ignore
 		const className =
 			this.state.cursorOverrideClass != null
 				? this.state.cursorOverrideClass

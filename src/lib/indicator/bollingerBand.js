@@ -7,7 +7,7 @@ import { bollingerband } from "../calculator";
 
 const ALGORITHM_TYPE = "BollingerBand";
 
-export default function() {
+export default function () {
 
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE);
@@ -18,7 +18,7 @@ export default function() {
 		.algorithm(underlyingAlgorithm)
 		.merge((datum, indicator) => { datum.bollingerBand = indicator; });
 
-	const indicator = function(data, options = { merge: true }) {
+	const indicator = function (data, options = { merge: true }) {
 		if (options.merge) {
 			if (!base.accessor()) throw new Error(`Set an accessor to ${ALGORITHM_TYPE} before calculating`);
 			return mergedAlgorithm(data);

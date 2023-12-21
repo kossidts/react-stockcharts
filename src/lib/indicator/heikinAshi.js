@@ -7,7 +7,7 @@ import { rebind, merge } from "../utils";
 
 const ALGORITHM_TYPE = "HeikinAshi";
 
-export default function() {
+export default function () {
 
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE)
@@ -21,7 +21,7 @@ export default function() {
 			return { ...datum, ...indicator };
 		});
 
-	const indicator = function(data, options = { merge: true }) {
+	const indicator = function (data, options = { merge: true }) {
 		if (options.merge) {
 			if (!base.accessor()) throw new Error(`Set an accessor to ${ALGORITHM_TYPE} before calculating`);
 			return mergedAlgorithm(data);

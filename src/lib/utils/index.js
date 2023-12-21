@@ -36,7 +36,7 @@ export function path(loc = []) {
 	const key = Array.isArray(loc) ? loc : [loc];
 	const length = key.length;
 
-	return function(obj, defaultValue) {
+	return function (obj, defaultValue) {
 		if (length === 0) return isDefined(obj) ? obj : defaultValue;
 
 		let index = 0;
@@ -52,13 +52,13 @@ export function functor(v) {
 }
 
 export function createVerticalLinearGradient(stops) {
-	return function(moreProps, ctx) {
+	return function (moreProps, ctx) {
 		const {
 			chartConfig: { height },
 		} = moreProps;
 
 		const grd = ctx.createLinearGradient(0, height, 0, 0);
-		stops.forEach((each) => {
+		stops.forEach(each => {
 			grd.addColorStop(each.stop, each.color);
 		});
 
@@ -89,10 +89,8 @@ export function getClosestValue(inputValue, currentValue) {
 	const values = isArray(inputValue) ? inputValue : [inputValue];
 
 	const diff = values
-		.map((each) => each - currentValue)
-		.reduce((diff1, diff2) =>
-			Math.abs(diff1) < Math.abs(diff2) ? diff1 : diff2
-		);
+		.map(each => each - currentValue)
+		.reduce((diff1, diff2) => (Math.abs(diff1) < Math.abs(diff2) ? diff1 : diff2));
 	return currentValue + diff;
 }
 
@@ -108,9 +106,7 @@ export function find(list, predicate, context = this) {
 export function d3Window(node) {
 	const d3win =
 		node &&
-		((node.ownerDocument && node.ownerDocument.defaultView) ||
-			(node.document && node) ||
-			node.defaultView);
+		((node.ownerDocument && node.ownerDocument.defaultView) || (node.document && node) || node.defaultView);
 	return d3win;
 }
 
@@ -170,8 +166,7 @@ export function getClosestItem(array, value, accessor, log) {
 	}
 
 	const closest =
-		Math.abs(accessor(array[left]) - value) <
-		Math.abs(accessor(array[right]) - value)
+		Math.abs(accessor(array[left]) - value) < Math.abs(accessor(array[right]) - value)
 			? array[left]
 			: array[right];
 	if (log) {
@@ -249,7 +244,7 @@ export function mousePosition(e, defaultRect) {
 }
 
 export function clearCanvas(canvasList, ratio) {
-	canvasList.forEach((each) => {
+	canvasList.forEach(each => {
 		each.setTransform(1, 0, 0, 1, 0, 0);
 		each.clearRect(-1, -1, each.canvas.width + 2, each.canvas.height + 2);
 		each.scale(ratio, ratio);
@@ -292,7 +287,7 @@ export function mapValue(object, iteratee) {
 	// eslint-disable-next-line prefer-const
 	let result = {};
 
-	Object.keys(object).forEach((key) => {
+	Object.keys(object).forEach(key => {
 		const mappedValue = iteratee(object[key], key, object);
 
 		if (isDefined(mappedValue)) {
@@ -328,5 +323,5 @@ export function replaceAtIndex(array, index, value) {
 // copied from https://github.com/lodash/lodash/blob/master/forOwn.js
 export function forOwn(obj, iteratee) {
 	const object = Object(obj);
-	Object.keys(object).forEach((key) => iteratee(object[key], key, object));
+	Object.keys(object).forEach(key => iteratee(object[key], key, object));
 }

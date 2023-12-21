@@ -26,20 +26,24 @@ class ScatterSeries extends Component {
 
 		const points = helper(this.props, moreProps, xAccessor);
 
-		return <g className={className}>
-			{points.map((point, idx) => {
-				const { marker: Marker } = point;
-				return <Marker key={idx} {...markerProps} point={point} />;
-			})}
-		</g>;
+		return (
+			<g className={className}>
+				{points.map((point, idx) => {
+					const { marker: Marker } = point;
+					return <Marker key={idx} {...markerProps} point={point} />;
+				})}
+			</g>
+		);
 	}
 	render() {
-		return <GenericChartComponent
-			svgDraw={this.renderSVG}
-			canvasDraw={this.drawOnCanvas}
-			canvasToDraw={getAxisCanvas}
-			drawOn={["pan"]}
-		/>;
+		return (
+			<GenericChartComponent
+				svgDraw={this.renderSVG}
+				canvasDraw={this.drawOnCanvas}
+				canvasToDraw={getAxisCanvas}
+				drawOn={["pan"]}
+			/>
+		);
 	}
 }
 
@@ -58,12 +62,15 @@ ScatterSeries.defaultProps = {
 function helper(props, moreProps, xAccessor) {
 	const { yAccessor, markerProvider, markerProps } = props;
 	let { marker: Marker } = props;
-	const { xScale, chartConfig: { yScale }, plotData } = moreProps;
+	const {
+		xScale,
+		chartConfig: { yScale },
+		plotData,
+	} = moreProps;
 
 	if (!(markerProvider || Marker)) throw new Error("required prop, either marker or markerProvider missing");
 
 	return plotData.map(d => {
-
 		if (markerProvider) Marker = markerProvider(d);
 
 		const mProps = { ...Marker.defaultProps, ...markerProps };
@@ -83,15 +90,18 @@ function helper(props, moreProps, xAccessor) {
 }
 
 function drawOnCanvas(ctx, props, points) {
-
 	const { markerProps } = props;
 
-	const nest = groups(points, d => d.fill, d => d.stroke);
+	const nest = groups(
+		points,
+		d => d.fill,
+		d => d.stroke
+	);
 	for (const [fillKey, fillValues] of nest) {
 		if (fillKey !== "none") {
 			ctx.fillStyle = fillKey;
 		}
-		
+
 		for (const [, strokeValues] of fillValues) {
 			strokeValues.forEach(point => {
 				const { marker } = point;

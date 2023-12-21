@@ -21,12 +21,14 @@ class VolumeProfileSeries extends Component {
 		drawOnCanvas(ctx, this.props, rects, sessionBg);
 	}
 	render() {
-		return <GenericChartComponent
-			svgDraw={this.renderSVG}
-			canvasDraw={this.drawOnCanvas}
-			canvasToDraw={getAxisCanvas}
-			drawOn={["pan"]}
-		/>;
+		return (
+			<GenericChartComponent
+				svgDraw={this.renderSVG}
+				canvasDraw={this.drawOnCanvas}
+				canvasToDraw={getAxisCanvas}
+				drawOn={["pan"]}
+			/>
+		);
 	}
 	renderSVG(moreProps) {
 		const { className, opacity } = this.props;
@@ -36,20 +38,38 @@ class VolumeProfileSeries extends Component {
 		const { rects, sessionBg } = helper(this.props, moreProps, xAccessor, width);
 
 		const sessionBgSvg = showSessionBackground
-			? sessionBg.map((d, idx) => <rect key={idx} {...d} opacity={sessionBackGroundOpacity} fill={sessionBackGround} />)
+			? sessionBg.map((d, idx) => (
+					<rect key={idx} {...d} opacity={sessionBackGroundOpacity} fill={sessionBackGround} />
+			  ))
 			: null;
 
-		return <g className={className}>
-			{sessionBgSvg}
-			{rects.map((d, i) => <g key={i}>
-				<rect x={d.x} y={d.y}
-					width={d.w1} height={d.height}
-					fill={d.fill1} stroke={d.stroke1} fillOpacity={opacity} />
-				<rect x={d.x + d.w1} y={d.y}
-					width={d.w2} height={d.height}
-					fill={d.fill2} stroke={d.stroke2} fillOpacity={opacity} />
-			</g>)}
-		</g>;
+		return (
+			<g className={className}>
+				{sessionBgSvg}
+				{rects.map((d, i) => (
+					<g key={i}>
+						<rect
+							x={d.x}
+							y={d.y}
+							width={d.w1}
+							height={d.height}
+							fill={d.fill1}
+							stroke={d.stroke1}
+							fillOpacity={opacity}
+						/>
+						<rect
+							x={d.x + d.w1}
+							y={d.y}
+							width={d.w2}
+							height={d.height}
+							fill={d.fill2}
+							stroke={d.stroke2}
+							fillOpacity={opacity}
+						/>
+					</g>
+				))}
+			</g>
+		);
 	}
 }
 
@@ -61,13 +81,12 @@ VolumeProfileSeries.propTypes = {
 	sessionBackGroundOpacity: PropTypes.number,
 };
 
-
 VolumeProfileSeries.defaultProps = {
 	className: "line ",
 	bins: 20,
 	opacity: 0.5,
 	maxProfileWidthPercent: 50,
-	fill: ({ type }) => type === "up" ? "#6BA583" : "#FF0000",
+	fill: ({ type }) => (type === "up" ? "#6BA583" : "#FF0000"),
 	stroke: "#FFFFFF",
 	showSessionBackground: false,
 	sessionBackGround: "#4682B4",
@@ -89,7 +108,11 @@ VolumeProfileSeries.defaultProps = {
 };
 
 function helper(props, moreProps, xAccessor, width) {
-	const { xScale: realXScale, chartConfig: { yScale }, plotData } = moreProps;
+	const {
+		xScale: realXScale,
+		chartConfig: { yScale },
+		plotData,
+	} = moreProps;
 
 	const { sessionStart, bySession, partialStartOK, partialEndOK } = props;
 	const { bins, maxProfileWidthPercent, source, volume, absoluteChange, orient, fill, stroke } = props;
@@ -102,12 +125,12 @@ function helper(props, moreProps, xAccessor, width) {
 		})
 		.accumulator(identity);
 
-	const dx = plotData.length > 1 ? realXScale(xAccessor(plotData[1])) - realXScale(xAccessor(head(plotData))) : 0;
+	const dx =
+		plotData.length > 1 ? realXScale(xAccessor(plotData[1])) - realXScale(xAccessor(head(plotData))) : 0;
 
 	const sessions = bySession ? sessionBuilder(plotData) : [plotData];
 
 	const allRects = sessions.map(session => {
-
 		const begin = bySession ? realXScale(xAccessor(head(session))) : 0;
 		const finish = bySession ? realXScale(xAccessor(last(session))) : width;
 		const sessionWidth = finish - begin + dx;
@@ -126,8 +149,13 @@ function helper(props, moreProps, xAccessor, width) {
 
 		const values = histogram2(session);
 		// console.log("values", values)
-		const _volumeInBins = values
-			.map(arr => arr.map(d => absoluteChange(d) > 0 ? { direction: "up", volume: volume(d) } : { direction: "down", volume: volume(d) }));
+		const _volumeInBins = values.map(arr =>
+			arr.map(d =>
+				absoluteChange(d) > 0
+					? { direction: "up", volume: volume(d) }
+					: { direction: "down", volume: volume(d) }
+			)
+		);
 
 		// console.log(bins, histogram(session))
 		// console.log(bins, histogram2(session))
@@ -135,32 +163,36 @@ function helper(props, moreProps, xAccessor, width) {
 		// 	.key(d => d.direction)
 		// 	.sortKeys(orient === "right" ? descending : ascending)
 		// 	.rollup(leaves => sum(leaves, d => d.volume));
-			
+
 		// const volumeInBins = _volumeInBins
 		// 	.map(arr => _rollup.entries(arr));
-				
-		
-		const volumeInBins = _volumeInBins
-			.map(bins => {
-				return rollups(bins, d => sum(d, d=> d.volume), d => d.direction)
+
+		const volumeInBins = _volumeInBins.map(bins => {
+			return (
+				rollups(
+					bins,
+					d => sum(d, d => d.volume),
+					d => d.direction
+				)
 					// Transform the [string, number] tuple from rollup into an object of [{key: string, value: number}]
-					.map(d => ({key: d[0], value: d[1]}))
+					.map(d => ({ key: d[0], value: d[1] }))
 					// Sort by direction "up", "down" depending on whether the volume profile will be display left or right
 					// we allways want to display up first.
-					.sort((a, b) => orient === "right" ? descending(a.key, b.key) : ascending(a.key, b.key));
-			});
-		
+					.sort((a, b) => (orient === "right" ? descending(a.key, b.key) : ascending(a.key, b.key)))
+			);
+		});
+
 		// console.log("volumeInBins", volumeInBins)
 
-		const volumeValues = volumeInBins
-			.map(each => sum(each, d => d.value));
+		const volumeValues = volumeInBins.map(each => sum(each, d => d.value));
 		// console.log("volumeValues", volumeValues)
 
 		const base = xScale => head(xScale.range());
 
-		const [start, end] = orient === "right"
-			? [begin, begin + sessionWidth * maxProfileWidthPercent / 100]
-			: [finish, finish - sessionWidth * (100 - maxProfileWidthPercent) / 100];
+		const [start, end] =
+			orient === "right"
+				? [begin, begin + (sessionWidth * maxProfileWidthPercent) / 100]
+				: [finish, finish - (sessionWidth * (100 - maxProfileWidthPercent)) / 100];
 
 		const xScale = scaleLinear()
 			.domain([0, max(volumeValues)])
@@ -177,7 +209,7 @@ function helper(props, moreProps, xAccessor, width) {
 			const ws = volumes.map(d => {
 				return {
 					type: d.key,
-					width: d.value * Math.abs(width) / totalVolume,
+					width: (d.value * Math.abs(width)) / totalVolume,
 				};
 			});
 
@@ -185,26 +217,25 @@ function helper(props, moreProps, xAccessor, width) {
 		});
 		// console.log("totalVolumes", totalVolumes)
 
-		const rects = zip(values, totalVolumes)
-			.map(([d, { x, ws }]) => {
-				const w1 = ws[0] || { type: "up", width: 0 };
-				const w2 = ws[1] || { type: "down", width: 0 };
+		const rects = zip(values, totalVolumes).map(([d, { x, ws }]) => {
+			const w1 = ws[0] || { type: "up", width: 0 };
+			const w2 = ws[1] || { type: "down", width: 0 };
 
-				return {
-					// y: yScale(d.x + d.dx),
-					y: yScale(d.x1),
-					// height: yScale(d.x - d.dx) - yScale(d.x),
-					height: yScale(d.x1) - yScale(d.x0),
-					x,
-					width,
-					w1: w1.width,
-					w2: w2.width,
-					stroke1: functor(stroke)(w1),
-					stroke2: functor(stroke)(w2),
-					fill1: functor(fill)(w1),
-					fill2: functor(fill)(w2),
-				};
-			});
+			return {
+				// y: yScale(d.x + d.dx),
+				y: yScale(d.x1),
+				// height: yScale(d.x - d.dx) - yScale(d.x),
+				height: yScale(d.x1) - yScale(d.x0),
+				x,
+				width,
+				w1: w1.width,
+				w2: w2.width,
+				stroke1: functor(stroke)(w1),
+				stroke2: functor(stroke)(w2),
+				fill1: functor(fill)(w1),
+				fill2: functor(fill)(w2),
+			};
+		});
 
 		// console.log("rects", rects)
 
@@ -223,7 +254,6 @@ function helper(props, moreProps, xAccessor, width) {
 		sessionBg: allRects.map(d => d.sessionBg),
 	};
 }
-
 
 function drawOnCanvas(ctx, props, rects, sessionBg) {
 	const { opacity, sessionBackGround, sessionBackGroundOpacity, showSessionBackground } = props;
@@ -245,7 +275,6 @@ function drawOnCanvas(ctx, props, rects, sessionBg) {
 
 	rects.forEach(each => {
 		const { x, y, height, w1, w2, stroke1, stroke2, fill1, fill2 } = each;
-
 
 		if (w1 > 0) {
 			ctx.fillStyle = hexToRGBA(fill1, opacity);
@@ -270,7 +299,6 @@ function drawOnCanvas(ctx, props, rects, sessionBg) {
 
 			if (stroke2 !== "none") ctx.stroke();
 		}
-
 	});
 }
 

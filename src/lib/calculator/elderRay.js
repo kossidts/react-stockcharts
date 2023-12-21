@@ -33,7 +33,7 @@ import ema from "./ema";
 import { ElderRay as defaultOptions } from "./defaultOptionsForComputation";
 import { isDefined, zipper, slidingWindow } from "../utils";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 	let ohlc = d => ({ open: d.open, high: d.high, low: d.low, close: d.close });
@@ -55,18 +55,18 @@ export default function() {
 		const newData = zip(data, meanAlgorithm(data));
 		return newData;
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { windowSize } = options;
 		return windowSize - 1;
 	};
-	calculator.ohlc = function(x) {
+	calculator.ohlc = function (x) {
 		if (!arguments.length) {
 			return ohlc;
 		}
 		ohlc = x;
 		return calculator;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

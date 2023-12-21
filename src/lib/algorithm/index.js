@@ -2,7 +2,7 @@
 
 import { merge, slidingWindow, identity } from "../utils";
 
-export default function() {
+export default function () {
 
 	let windowSize = 1,
 		accumulator = identity,
@@ -23,7 +23,7 @@ export default function() {
 		return newData;
 	}
 
-	algorithm.accumulator = function(x) {
+	algorithm.accumulator = function (x) {
 		if (!arguments.length) {
 			return accumulator;
 		}
@@ -31,14 +31,14 @@ export default function() {
 		return algorithm;
 	};
 
-	algorithm.windowSize = function(x) {
+	algorithm.windowSize = function (x) {
 		if (!arguments.length) {
 			return windowSize;
 		}
 		windowSize = x;
 		return algorithm;
 	};
-	algorithm.merge = function(x) {
+	algorithm.merge = function (x) {
 		if (!arguments.length) {
 			return mergeAs;
 		}

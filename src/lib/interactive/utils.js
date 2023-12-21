@@ -29,7 +29,7 @@ export function saveNodeType(type) {
 	};
 }
 export function isHoverForInteractiveType(interactiveType) {
-	return function(moreProps) { // this has to be function as it is bound to this
+	return function (moreProps) { // this has to be function as it is bound to this
 
 		if (isDefined(this.nodes)) {
 			const selecedNodes = this.nodes

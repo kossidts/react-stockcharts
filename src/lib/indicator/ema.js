@@ -5,7 +5,7 @@ import baseIndicator from "./baseIndicator";
 
 const ALGORITHM_TYPE = "EMA";
 
-export default function() {
+export default function () {
 	const base = baseIndicator()
 		.type(ALGORITHM_TYPE)
 		.accessor((d) => d.ema);
@@ -18,7 +18,7 @@ export default function() {
 			datum.ema = indicator;
 		});
 
-	const indicator = function(data, options = { merge: true }) {
+	const indicator = function (data, options = { merge: true }) {
 		if (options.merge) {
 			if (!base.accessor())
 				throw new Error(

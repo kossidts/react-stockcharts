@@ -2,7 +2,7 @@
 
 import { mappedSlidingWindow, identity } from "../utils";
 
-export default function() {
+export default function () {
 
 	let source = identity;
 
@@ -25,7 +25,7 @@ export default function() {
 
 		return algorithm(data);
 	}
-	calculator.source = function(x) {
+	calculator.source = function (x) {
 		if (!arguments.length) {
 			return source;
 		}

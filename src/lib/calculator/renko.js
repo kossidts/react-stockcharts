@@ -6,7 +6,7 @@ import atr from "./atr";
 
 import { Renko as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 	let options = defaultOptions;
 
 	let dateAccessor = d => d.date;
@@ -41,7 +41,7 @@ export default function() {
 		let index = 0, prevBrickClose = rawData[index].open, prevBrickOpen = rawData[index].open;
 		let brick = {}, direction = 0;
 
-		rawData.forEach(function(d, idx) {
+		rawData.forEach(function (d, idx) {
 			if (isNotDefined(brick.from)) {
 				brick.high = d.high;
 				brick.low = d.low;
@@ -164,7 +164,7 @@ export default function() {
 		return renkoData;
 
 	}
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}
@@ -172,12 +172,12 @@ export default function() {
 		return calculator;
 	};
 
-	calculator.dateMutator = function(x) {
+	calculator.dateMutator = function (x) {
 		if (!arguments.length) return dateMutator;
 		dateMutator = x;
 		return calculator;
 	};
-	calculator.dateAccessor = function(x) {
+	calculator.dateAccessor = function (x) {
 		if (!arguments.length) return dateAccessor;
 		dateAccessor = x;
 		return calculator;

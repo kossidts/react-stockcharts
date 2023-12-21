@@ -6,7 +6,7 @@ import sma from "./sma";
 import { zipper } from "../utils";
 import { SmoothedForceIndex as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	const underlyingAlgorithm = forceIndex();
 	const merge = zipper()
@@ -35,11 +35,11 @@ export default function() {
 		return merge(force, smoothed);
 	}
 
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { smoothingWindow } = options;
 		return underlyingAlgorithm.undefinedLength() + smoothingWindow - 1;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

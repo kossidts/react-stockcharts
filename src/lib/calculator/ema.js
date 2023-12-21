@@ -29,7 +29,7 @@ THE SOFTWARE.
 import { isNotDefined, path } from "../utils";
 import { EMA as defaultOptions } from "./defaultOptionsForComputation";
 
-export default function() {
+export default function () {
 
 	let options = defaultOptions;
 
@@ -42,7 +42,7 @@ export default function() {
 		let initialAccumulator = 0;
 		let skip = 0;
 
-		return data.map(function(d, i) {
+		return data.map(function (d, i) {
 			const v = source(d, i);
 			if (isNotDefined(previous) && isNotDefined(v)) {
 				skip++;
@@ -62,11 +62,11 @@ export default function() {
 			}
 		});
 	}
-	calculator.undefinedLength = function() {
+	calculator.undefinedLength = function () {
 		const { windowSize } = options;
 		return windowSize - 1;
 	};
-	calculator.options = function(x) {
+	calculator.options = function (x) {
 		if (!arguments.length) {
 			return options;
 		}

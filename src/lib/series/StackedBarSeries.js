@@ -29,39 +29,31 @@ class StackedBarSeries extends Component {
 	render() {
 		const { clip } = this.props;
 
-		return <GenericChartComponent
-			clip={clip}
-			svgDraw={this.renderSVG}
-			canvasDraw={this.drawOnCanvas}
-			canvasToDraw={getAxisCanvas}
-			drawOn={["pan"]}
-		/>;
+		return (
+			<GenericChartComponent
+				clip={clip}
+				svgDraw={this.renderSVG}
+				canvasDraw={this.drawOnCanvas}
+				canvasToDraw={getAxisCanvas}
+				drawOn={["pan"]}
+			/>
+		);
 	}
 }
 
 StackedBarSeries.propTypes = {
-	baseAt: PropTypes.oneOfType([
-		PropTypes.number,
-		PropTypes.func,
-	]).isRequired,
+	baseAt: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
 	direction: PropTypes.oneOf(["up", "down"]).isRequired,
 	stroke: PropTypes.bool.isRequired,
-	width: PropTypes.oneOfType([
-		PropTypes.number,
-		PropTypes.func
-	]).isRequired,
+	width: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
 	opacity: PropTypes.number.isRequired,
-	fill: PropTypes.oneOfType([
-		PropTypes.func, PropTypes.string
-	]).isRequired,
-	className: PropTypes.oneOfType([
-		PropTypes.func, PropTypes.string
-	]).isRequired,
+	fill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+	className: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
 	clip: PropTypes.bool.isRequired,
 };
 
 StackedBarSeries.defaultProps = {
-	baseAt: (xScale, yScale/* , d*/) => head(yScale.range()),
+	baseAt: (xScale, yScale /* , d*/) => head(yScale.range()),
 	direction: "up",
 	className: "bar",
 	stroke: true,
@@ -90,7 +82,7 @@ export function identityStack() {
 		});
 		return response;
 	}
-	stack.keys = function(x) {
+	stack.keys = function (x) {
 		if (!arguments.length) {
 			return keys;
 		}
@@ -100,9 +92,20 @@ export function identityStack() {
 	return stack;
 }
 
-
-export function drawOnCanvasHelper(ctx, props, moreProps, xAccessor, stackFn, defaultPostAction = identity, postRotateAction = rotateXY) {
-	const { xScale, chartConfig: { yScale }, plotData } = moreProps;
+export function drawOnCanvasHelper(
+	ctx,
+	props,
+	moreProps,
+	xAccessor,
+	stackFn,
+	defaultPostAction = identity,
+	postRotateAction = rotateXY
+) {
+	const {
+		xScale,
+		chartConfig: { yScale },
+		plotData,
+	} = moreProps;
 
 	const bars = doStuff(props, xAccessor, plotData, xScale, yScale, stackFn, postRotateAction, defaultPostAction);
 
@@ -113,8 +116,19 @@ function convertToArray(item) {
 	return Array.isArray(item) ? item : [item];
 }
 
-export function svgHelper(props, moreProps, xAccessor, stackFn, defaultPostAction = identity, postRotateAction = rotateXY) {
-	const { xScale, chartConfig: { yScale }, plotData } = moreProps;
+export function svgHelper(
+	props,
+	moreProps,
+	xAccessor,
+	stackFn,
+	defaultPostAction = identity,
+	postRotateAction = rotateXY
+) {
+	const {
+		xScale,
+		chartConfig: { yScale },
+		plotData,
+	} = moreProps;
 	const bars = doStuff(props, xAccessor, plotData, xScale, yScale, stackFn, postRotateAction, defaultPostAction);
 	return getBarsSVG2(props, bars);
 }
@@ -128,22 +142,32 @@ function doStuff(props, xAccessor, plotData, xScale, yScale, stackFn, postRotate
 	const modifiedXScale = swapScales ? yScale : xScale;
 	const modifiedYScale = swapScales ? xScale : yScale;
 
-	const postProcessor =  swapScales ? postRotateAction : defaultPostAction;
+	const postProcessor = swapScales ? postRotateAction : defaultPostAction;
 
-	const bars = getBars(props, modifiedXAccessor, modifiedYAccessor, modifiedXScale, modifiedYScale, plotData, stackFn, postProcessor);
+	const bars = getBars(
+		props,
+		modifiedXAccessor,
+		modifiedYAccessor,
+		modifiedXScale,
+		modifiedYScale,
+		plotData,
+		stackFn,
+		postProcessor
+	);
 
 	return bars;
 }
 
-export const rotateXY = (array) => array.map(each => {
-	return {
-		...each,
-		x: each.y,
-		y: each.x,
-		height: each.width,
-		width: each.height
-	};
-});
+export const rotateXY = array =>
+	array.map(each => {
+		return {
+			...each,
+			x: each.y,
+			y: each.x,
+			height: each.width,
+			width: each.height,
+		};
+	});
 
 export function getBarsSVG2(props, bars) {
 	/* eslint-disable react/prop-types */
@@ -152,19 +176,31 @@ export function getBarsSVG2(props, bars) {
 
 	return bars.map((d, idx) => {
 		if (d.width <= 1) {
-			return <line key={idx} className={d.className}
-				stroke={d.fill}
-				x1={d.x} y1={d.y}
-				x2={d.x} y2={d.y + d.height} />;
+			return (
+				<line
+					key={idx}
+					className={d.className}
+					stroke={d.fill}
+					x1={d.x}
+					y1={d.y}
+					x2={d.x}
+					y2={d.y + d.height}
+				/>
+			);
 		}
-		return <rect key={idx} className={d.className}
-			stroke={d.stroke}
-			fill={d.fill}
-			x={d.x}
-			y={d.y}
-			width={d.width}
-			fillOpacity={opacity}
-			height={d.height} />;
+		return (
+			<rect
+				key={idx}
+				className={d.className}
+				stroke={d.stroke}
+				fill={d.fill}
+				x={d.x}
+				y={d.y}
+				width={d.width}
+				fillOpacity={opacity}
+				height={d.height}
+			/>
+		);
 	});
 }
 
@@ -176,9 +212,7 @@ export function drawOnCanvas2(props, ctx, bars) {
 		if (head(values).width > 1) {
 			ctx.strokeStyle = key;
 		}
-		const fillStyle = head(values).width <= 1
-			? key
-			: hexToRGBA(key, props.opacity);
+		const fillStyle = head(values).width <= 1 ? key : hexToRGBA(key, props.opacity);
 		ctx.fillStyle = fillStyle;
 
 		values.forEach(d => {
@@ -211,12 +245,20 @@ export function drawOnCanvas2(props, ctx, bars) {
 				ctx.fillRect(d.x, d.y, d.width, d.height);
 				if (stroke) ctx.strokeRect(d.x, d.y, d.width, d.height);
 			}
-		});		
+		});
 	}
-
 }
 
-export function getBars(props, xAccessor, yAccessor, xScale, yScale, plotData, stack = identityStack, after = identity) {
+export function getBars(
+	props,
+	xAccessor,
+	yAccessor,
+	xScale,
+	yScale,
+	plotData,
+	stack = identityStack,
+	after = identity
+) {
 	const { baseAt, className, fill, stroke, spaceBetweenBar = 0 } = props;
 
 	const getClassName = functor(className);
@@ -227,35 +269,33 @@ export function getBars(props, xAccessor, yAccessor, xScale, yScale, plotData, s
 	const width = widthFunctor(props, {
 		xScale,
 		xAccessor,
-		plotData
+		plotData,
 	});
 
 	const barWidth = Math.round(width);
 
 	const eachBarWidth = (barWidth - spaceBetweenBar * (yAccessor.length - 1)) / yAccessor.length;
 
-	const offset = (barWidth === 1 ? 0 : 0.5 * width);
+	const offset = barWidth === 1 ? 0 : 0.5 * width;
 
-	const ds = plotData
-		.map(each => {
-			// eslint-disable-next-line prefer-const
-			let d = {
-				appearance: {
-				},
-				x: xAccessor(each),
+	const ds = plotData.map(each => {
+		// eslint-disable-next-line prefer-const
+		let d = {
+			appearance: {},
+			x: xAccessor(each),
+		};
+		yAccessor.forEach((eachYAccessor, i) => {
+			const key = `y${i}`;
+			d[key] = eachYAccessor(each);
+			const appearance = {
+				className: getClassName(each, i),
+				stroke: stroke ? getFill(each, i) : "none",
+				fill: getFill(each, i),
 			};
-			yAccessor.forEach((eachYAccessor, i) => {
-				const key = `y${i}`;
-				d[key] = eachYAccessor(each);
-				const appearance = {
-					className: getClassName(each, i),
-					stroke: stroke ? getFill(each, i) : "none",
-					fill: getFill(each, i),
-				};
-				d.appearance[key] = appearance;
-			});
-			return d;
+			d.appearance[key] = appearance;
 		});
+		return d;
+	});
 
 	const keys = yAccessor.map((_, i) => `y${i}`);
 
@@ -267,13 +307,13 @@ export function getBars(props, xAccessor, yAccessor, xScale, yScale, plotData, s
 
 	const newData = data.map((each, i) => {
 		const key = each.key;
-		return each.map((d) => {
+		return each.map(d => {
 			// eslint-disable-next-line prefer-const
 			let array = [d[0], d[1]];
 			array.data = {
 				x: d.data.x,
 				i,
-				appearance: d.data.appearance[key]
+				appearance: d.data.appearance[key],
 			};
 			return array;
 		});
