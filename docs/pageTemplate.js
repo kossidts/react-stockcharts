@@ -1,15 +1,15 @@
 function getExternalAssets(mode) {
-    switch (mode) {
-        case "dev":
-        case "watch": {
-            return `<script src="react/umd/react.development.js"></script>
+	switch (mode) {
+		case "dev":
+		case "watch": {
+			return `<script src="react/umd/react.development.js"></script>
 		<script src="react-dom/umd/react-dom.development.js"></script>
 
 		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-        }
-        default:
-            return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
+		}
+		default:
+			return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -23,18 +23,18 @@ function getExternalAssets(mode) {
 			ga('create', 'UA-61247721-1', 'auto');
 			ga('send', 'pageview');
 		</script-->`;
-    }
+	}
 }
 
 function getDevServerJs(mode) {
-    if (mode === "watch") {
-        return '<script type="text/javascript" src="/webpack-dev-server.js"></script>';
-    }
-    return "";
+	if (mode === "watch") {
+		return '<script type="text/javascript" src="/webpack-dev-server.js"></script>';
+	}
+	return "";
 }
 
 function getIndexContent() {
-    return `<!-- Main jumbotron for a primary marketing message or call to action -->
+	return `<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container" id="README.md">
 				<div class="row">
@@ -66,21 +66,21 @@ function getIndexContent() {
 }
 
 function getDocumentationContent() {
-    return `<span id="debug_here">.</span>
+	return `<span id="debug_here">.</span>
 		<span id="iconPreload" class="glyphicon glyphicon-arrow-down"></span>
 		<div id="chart-goes-here"></div>`;
 }
 module.exports = function (params) {
-    const {
-        options: { mode, page },
-        files,
-    } = params.htmlWebpackPlugin;
+	const {
+		options: { mode, page },
+		files,
+	} = params.htmlWebpackPlugin;
 
-    const { js: chunks } = files || {};
-    const pageName = page == "index" ? "home" : page;
-    const chunkPath = files.js.find((f) => f.endsWith(`${pageName}.js`));
+	const { js: chunks } = files || {};
+	const pageName = page == "index" ? "home" : page;
+	const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
 
-    return `<!DOCTYPE html>
+	return `<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -95,11 +95,10 @@ module.exports = function (params) {
 		<link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAACAAIAACQAAAoODgAEAAQAAiQCAAwWCgAEJAQADggIAAQSHgAODhAAAA4AAAwIBAAmJCgAABQIACQkJAAmJCYAKCQoAAAcAAAEHAQABhwGAAgcCAAmJCQAACoAAAQGBAAGBgYAFgIAAAAMCAAKKgoABAYCAAA4AAAEFAQAAjgCAAQ4BAAAAhoAHAICABQUFAAAIgAACgwMAAwGBAAEDAQADg4AAA4GBgAGDAYADDAMACQiJAAmIiYAABoAAAoMCAAAPgAABBoEAAg+CAAABAAAAgQCAAAoAAAACggACigKAAwoDAAEBAIAABIAAAA2AAAKKAgAAAAaAAYgCAAaAAAAAA4cAAogDAASEhIABgoKACgoKAAAIAAAChIIAAQgBAAAAggAAgIKABISEAAENgAAAiAAAAAuAAAMBAQABAoEAAAQCAAKCgoAABgAAAoKCAACGAIAADwAAAIGHAAAAgAAAgICAAAmAAAEAgQAAiYCAAoKAgAANAAAChAKACYmJgAGCAoAAB4AAAAACAAADBoAAgAKAAYICAAoJiYACAgKAAgQBAAMAgQAAiwCAAgICAAADggACggKAAA6AgAMAgIABAgCAAIWAgAMEAQAAjoCAAgWCAAMCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ0VgYGBgYGBgYGBgYGBFQ0UkbGxsbGxsbGxsbGwZJEUPREREREREaGFEREREZgNFZyNAQEBAQCkaQEBAQEAjFmAqT09PaidMXXNqDHNwCGAPJlJSUlJCbz8cbl84aApFYDUAAFgAPE5eJQA7HjRZDy5IclpiU2tIIV4BLzw2FBAuBTN0AjF1XzkgFVxGXiwRLgdWYgtGNAAAYhc2U1pVLS4TBRgEE1BbWzIfMihiK2AuTWlUVDBUVFQwRz12EgZFDQkiPj4+Ij4+Pj5kPkFXEGBlY2NJNw5RGxttY2NjSmBFSzo6OnEdcXFxcTo6OktFQ0VgYGBgYBAQEBBgYGBFQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" rel="icon" type="image/x-icon" />
 		<title>React Stockcharts - Home</title>
 		${getExternalAssets(mode)}
-		<script src="dist/modernizr.js"></script>
 
 		${
-            page === "index"
-                ? `<style type="text/css">
+			page === "index"
+				? `<style type="text/css">
 			.dark {
 				background: #303030;
 			}
@@ -107,19 +106,15 @@ module.exports = function (params) {
 				color: #FFFFFF;
 			}
 		</style>`
-                : ""
-        }
+				: ""
+		}
 	</head>
 	<body class="${page === "index" ? "dark" : ""}">
 
 		${page === "index" ? getIndexContent() : getDocumentationContent()}
 
 		<!-- Placed at the end of the document so the pages load faster -->
-		${
-            !chunkPath
-                ? ""
-                : `<script type="text/javascript" src="${chunkPath}"></script>`
-        }
+		${!chunkPath ? "" : `<script type="text/javascript" src="${chunkPath}"></script>`}
 
 		${getDevServerJs(mode)}
 	</body>
