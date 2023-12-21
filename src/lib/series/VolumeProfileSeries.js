@@ -37,9 +37,10 @@ class VolumeProfileSeries extends Component {
 		const { xAccessor, width } = moreProps;
 		const { rects, sessionBg } = helper(this.props, moreProps, xAccessor, width);
 
+		// prettier-ignore
 		const sessionBgSvg = showSessionBackground
 			? sessionBg.map((d, idx) => (
-					<rect key={idx} {...d} opacity={sessionBackGroundOpacity} fill={sessionBackGround} />
+				<rect key={idx} {...d} opacity={sessionBackGroundOpacity} fill={sessionBackGround} />
 			  ))
 			: null;
 

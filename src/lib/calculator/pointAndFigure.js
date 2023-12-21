@@ -80,12 +80,8 @@ export default function () {
 
 		const source =
 			sourcePath === "high/low"
-				? d => {
-						return { high: d.high, low: d.low };
-				  }
-				: d => {
-						return { high: d.close, low: d.close };
-				  };
+				? d => ({ high: d.high, low: d.low })
+				: d => ({ high: d.close, low: d.close });
 
 		const pricingMethod = source;
 		const columnData = [];
