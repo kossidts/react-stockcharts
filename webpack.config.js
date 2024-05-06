@@ -6,7 +6,8 @@ const { getIfUtils, removeEmpty } = require("webpack-config-utils");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
-const rootPath = path.join(__dirname, "..");
+// const rootPath = path.join(__dirname);
+const rootPath = __dirname;
 // const currentScript = process.env.npm_lifecycle_event;
 // const isWatch = currentScript === "watch";
 
