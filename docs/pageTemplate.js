@@ -1,15 +1,14 @@
 function getExternalAssets(mode) {
-	switch (mode) {
-		case "dev":
-		case "watch": {
-			return `<script src="react/umd/react.development.js"></script>
+	if (!mode.watch) {
+		// dev / watch
+		return `<script src="react/umd/react.development.js"></script>
 		<script src="react-dom/umd/react-dom.development.js"></script>
 
 		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-		}
-		default:
-			return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
+	}
+
+	return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -23,46 +22,6 @@ function getExternalAssets(mode) {
 			ga('create', 'UA-61247721-1', 'auto');
 			ga('send', 'pageview');
 		</script-->`;
-	}
-}
-
-function getDevServerJs(mode) {
-	if (mode === "watch") {
-		return '<script type="text/javascript" src="/webpack-dev-server.js"></script>';
-	}
-	return "";
-}
-
-function getIndexContent() {
-	return `<!-- Main jumbotron for a primary marketing message or call to action -->
-		<div class="jumbotron">
-			<div class="container" id="README.md">
-				<div class="row">
-					<div class="col-md-8" id="content">
-					</div>
-					<div class="col-md-4">
-						<div class="pull-right top-spacing">
-							<a href="https://github.com/kossidts/react-stockcharts" class="btn btn-lg button"><small>View project on</small><br/> GitHub</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container light">
-			<!-- Example row of columns -->
-			<div class="row">
-				<div class="col-md-12">
-					<a class="btn btn-primary" href="documentation.html" role="button">Documentation</a>
-					<h3>Click on the chart, zoom with scroll, pan with drag</h3>
-					<div id="chart" class="react-stockchart"></div>
-				</div>
-			</div>
-			<hr>
-			<footer>
-				<p>MIT license</p>
-			</footer>
-		</div> <!-- /container -->`;
 }
 
 function getDocumentationContent() {
@@ -70,14 +29,14 @@ function getDocumentationContent() {
 		<span id="iconPreload" class="glyphicon glyphicon-arrow-down"></span>
 		<div id="chart-goes-here"></div>`;
 }
+
 module.exports = function (params) {
 	const {
 		options: { mode, page },
 		files,
 	} = params.htmlWebpackPlugin;
 
-	const { js: chunks } = files || {};
-	const pageName = page == "index" ? "home" : page;
+	const pageName = page == "index" ? "docs" : page;
 	const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
 
 	return `<!DOCTYPE html>
@@ -96,27 +55,29 @@ module.exports = function (params) {
 		<title>React Stockcharts - Home</title>
 		${getExternalAssets(mode)}
 
-		${
-			page === "index"
-				? `<style type="text/css">
+		<style type="text/css">
 			.dark {
 				background: #303030;
 			}
 			.light {
 				color: #FFFFFF;
 			}
-		</style>`
-				: ""
-		}
+		</style>
 	</head>
-	<body class="${page === "index" ? "dark" : ""}">
-
-		${page === "index" ? getIndexContent() : getDocumentationContent()}
+	<body>
+		${getDocumentationContent()}
 
 		<!-- Placed at the end of the document so the pages load faster -->
 		${!chunkPath ? "" : `<script type="text/javascript" src="${chunkPath}"></script>`}
+		
+		${!mode.watch ? "" : `<script type="text/javascript" src="/webpack-dev-server.js"></script>`}
 
-		${getDevServerJs(mode)}
+		<script type="text/javascript">
+			console.log(${JSON.stringify(mode)});
+			console.log(${JSON.stringify(page)}, ${JSON.stringify(pageName)});
+			console.log(${JSON.stringify(files)});
+			console.log(${JSON.stringify(params.htmlWebpackPlugin)});
+		</script>
 	</body>
 </html>`;
 };

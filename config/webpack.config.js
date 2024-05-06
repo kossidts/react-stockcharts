@@ -13,11 +13,6 @@ const rootPath = path.join(__dirname, "..");
 function buildConfig(mode) {
 	const { ifWatch, ifDocs } = getIfUtils(mode, ["docs", "watch"]);
 
-	const docsEntry = {
-		"react-stockcharts-home": "./docs/index.js",
-		"react-stockcharts-documentation": "./docs/documentation.js",
-	};
-
 	const devServer = {
 		// contentBase: [
 		//     path.join(rootPath, "docs"),
@@ -54,19 +49,16 @@ function buildConfig(mode) {
 		},
 		{
 			test: /\.scss$/,
-			use: [
-				"style-loader",
-				"css-loader",
-				"postcss-loader",
-				"sass-loader",
-			],
+			use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
 		},
 	];
 
 	console.log("MODE", mode);
 	return {
 		context,
-		entry: docsEntry,
+		entry: {
+			"react-stockcharts-docs": "./docs/index.js",
+		},
 		mode: ifDocs("production", "development"),
 		output: {
 			path: path.join(rootPath, "build/"),
@@ -123,13 +115,6 @@ function buildConfig(mode) {
 				page: "index",
 				mode,
 				filename: "index.html",
-			}),
-			new HtmlWebpackPlugin({
-				template: "./docs/pageTemplate.js",
-				inject: false,
-				page: "documentation",
-				mode,
-				filename: "documentation.html",
 			}),
 			new webpack.LoaderOptionsPlugin({
 				options: { remarkable: getRemarkable(), context },
