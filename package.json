@@ -85,7 +85,7 @@
 		"react-dom": "^16.14.0",
 		"remarkable-loader": "^0.2.1",
 		"rimraf": "^5.0.5",
-		"sass": "^1.76.0",
+		"sass": "^1.77.0",
 		"sass-loader": "^13.3.3",
 		"shelljs": "^0.8.5",
 		"shortid": "^2.2.16",
