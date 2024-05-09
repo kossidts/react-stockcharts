@@ -12,9 +12,6 @@ import { TypeChooser } from "react-stockcharts/lib/helper";
 import "./stylesheets/re-stock.scss";
 
 import Navbar from "./lib/Navbar.js";
-import Sidebar from "./lib/sidebar.js";
-import MainContainer from "./lib/main-container.js";
-import MenuGroup from "./lib/menu-group.js";
 import MenuItem from "./lib/MenuItem.js";
 
 const DOCUMENTATION = {
@@ -279,16 +276,17 @@ function renderPage(
 			window.addEventListener("hashchange", this.handleRouteChange, false);
 		}
 		render() {
+			console.log(this.state);
 			const Page = this.state.selectedPage;
 			return (
 				<div>
 					<Navbar />
-					<MainContainer>
-						<Sidebar>
+					<div className="container-fluid">
+						<div className="col-sm-3 col-md-2 sidebar">
 							{ALL_PAGES.map((eachGroup, i) => (
 								<div key={i}>
 									<h4>{eachGroup.head}</h4>
-									<MenuGroup>
+									<ul className="nav nav-sidebar">
 										{eachGroup.pages.map((eachPage, idx) => (
 											<MenuItem
 												key={idx}
@@ -297,10 +295,10 @@ function renderPage(
 												anchor={compressString(eachPage.title)}
 											/>
 										))}
-									</MenuGroup>
+									</ul>
 								</div>
 							))}
-						</Sidebar>
+						</div>
 						<Page
 							someData={data}
 							intraDayContinuousData={intraDayContinuous}
@@ -313,7 +311,7 @@ function renderPage(
 							horizontalBarData={horizontalBarData}
 							horizontalGroupedBarData={horizontalGroupedBarData}
 						/>
-					</MainContainer>
+					</div>
 				</div>
 			);
 		}
