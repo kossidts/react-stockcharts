@@ -1,12 +1,12 @@
 function getExternalAssets(mode) {
-	if (!mode.watch) {
-		// dev / watch
-		return `<script src="react/umd/react.development.js"></script>
-		<script src="react-dom/umd/react-dom.development.js"></script>
+	// if (!mode.watch) {
+	// 	// dev / watch
+	// 	return `<script src="react/umd/react.development.js"></script>
+	// 	<script src="react-dom/umd/react-dom.development.js"></script>
 
-		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-	}
+	// 	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	// 	<link href="prismjs/themes/prism.css" rel="stylesheet">`;
+	// }
 
 	return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
@@ -37,7 +37,8 @@ module.exports = function (params) {
 	} = params.htmlWebpackPlugin;
 
 	const pageName = page == "index" ? "docs" : page;
-	const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
+	// const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
+	const chunkPath = files.js.find(f => f.includes(`-${pageName}.`));
 
 	return `<!DOCTYPE html>
 <html lang="en">
@@ -73,10 +74,11 @@ module.exports = function (params) {
 		${!mode.watch ? "" : `<script type="text/javascript" src="/webpack-dev-server.js"></script>`}
 
 		<script type="text/javascript">
-			console.log(${JSON.stringify(mode)});
-			console.log(${JSON.stringify(page)}, ${JSON.stringify(pageName)});
-			console.log(${JSON.stringify(files)});
-			console.log(${JSON.stringify(params.htmlWebpackPlugin)});
+			// console.log(${JSON.stringify(mode)});
+			// console.log(${JSON.stringify(page)}, ${JSON.stringify(pageName)});
+			// console.log(${JSON.stringify(files)});
+			// console.log(${JSON.stringify(params.htmlWebpackPlugin)});
+			// console.log(${JSON.stringify(chunkPath)});
 		</script>
 	</body>
 </html>`;

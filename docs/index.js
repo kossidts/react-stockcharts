@@ -276,7 +276,6 @@ function renderPage(
 			window.addEventListener("hashchange", this.handleRouteChange, false);
 		}
 		render() {
-			console.log(this.state);
 			const Page = this.state.selectedPage;
 			return (
 				<div>
