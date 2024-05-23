@@ -273,6 +273,10 @@ function renderPage(
 			}
 		}
 		componentDidMount() {
+			const $mainNav = document.querySelector("#main-nav");
+			if ($mainNav) {
+				document.body.style = `--padding-top:${$mainNav.getBoundingClientRect().height}px`;
+			}
 			window.addEventListener("hashchange", this.handleRouteChange, false);
 		}
 		render() {
@@ -285,7 +289,7 @@ function renderPage(
 							{ALL_PAGES.map((eachGroup, i) => (
 								<div key={i}>
 									<h4>{eachGroup.head}</h4>
-									<ul className="nav nav-sidebar">
+									<ul className="nav nav-sidebar flex-column">
 										{eachGroup.pages.map((eachPage, idx) => (
 											<MenuItem
 												key={idx}
