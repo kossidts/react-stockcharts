@@ -29,6 +29,22 @@ function buildConfig(mode) {
 				directory: path.join(rootPath, "build", "dist"),
 				publicPath: "/dist",
 			},
+			{
+				directory: path.join(rootPath, "node_modules", "react"),
+				publicPath: "/react",
+			},
+			{
+				directory: path.join(rootPath, "node_modules", "react-dom"),
+				publicPath: "/react-dom",
+			},
+			{
+				directory: path.join(rootPath, "node_modules", "prismjs"),
+				publicPath: "/prismjs",
+			},
+			{
+				directory: path.join(rootPath, "node_modules", "bootstrap"),
+				publicPath: "/bootstrap",
+			},
 		],
 		host: process.env.IP, // "10.0.0.106", "localhost"
 		port: parseInt(process.env.PORT),
@@ -41,7 +57,7 @@ function buildConfig(mode) {
 		{
 			test: /\.md$/,
 			use: [
-				"html-loader",
+				{ loader: "html-loader" },
 				{
 					loader: "remarkable-loader",
 					options: { remarkable: getRemarkable() },
@@ -153,6 +169,7 @@ function getRemarkable() {
 				lang === undefined || Prism.languages[lang] === undefined
 					? Prism.languages.markup
 					: Prism.languages[lang];
+
 			return Prism.highlight(str, grammer, lang);
 		},
 	};

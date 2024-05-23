@@ -1,12 +1,11 @@
 function getExternalAssets(mode) {
-	// if (!mode.watch) {
-	// 	// dev / watch
-	// 	return `<script src="react/umd/react.development.js"></script>
-	// 	<script src="react-dom/umd/react-dom.development.js"></script>
+	if (mode.watch) {
+		return `<script src="react/umd/react.development.js"></script>
+		<script src="react-dom/umd/react-dom.development.js"></script>
 
-	// 	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	// 	<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-	// }
+		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
+	}
 
 	return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
