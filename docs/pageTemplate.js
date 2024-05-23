@@ -7,11 +7,12 @@ function getExternalAssets(mode) {
 		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
 	}
 
-	return `<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
+	return `<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+		<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 
 		<link href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https:/unpkg.com/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+		<!-- ${JSON.stringify(mode)} -->
 		<!--script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -70,7 +71,7 @@ module.exports = function (params) {
 		<!-- Placed at the end of the document so the pages load faster -->
 		${!chunkPath ? "" : `<script type="text/javascript" src="${chunkPath}"></script>`}
 		
-		${!mode.watch ? "" : `<script type="text/javascript" src="/webpack-dev-server.js"></script>`}
+		<!-- ${!mode.watch ? "" : `<script type="text/javascript" src="/webpack-dev-server.js"></script>`} -->
 
 		<script type="text/javascript">
 			// console.log(${JSON.stringify(mode)});

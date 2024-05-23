@@ -16,7 +16,7 @@ module.exports = {
 	},
 	settings: {
 		react: {
-			version: "16.0",
+			version: "17.0",
 		},
 		"import/ignore": ["node_modules", "\\.(json|css|jpg|png|gif|eot|svg|ttf|woff|woff2|mp4|webm)$"],
 		"import/extensions": [".js", ".jsx"],
@@ -91,10 +91,7 @@ module.exports = {
 		"semi-spacing": ["error", { before: false, after: true }],
 		"keyword-spacing": ["error", { before: true, after: true, overrides: {} }],
 		"space-before-blocks": "error",
-		"space-before-function-paren": [
-			"error",
-			{ named: "never", anonymous: "always", asyncArrow: "always" },
-		],
+		"space-before-function-paren": ["error", { named: "never", anonymous: "always", asyncArrow: "always" }],
 		"space-infix-ops": ["error", { int32Hint: false }],
 		"spaced-comment": ["error", "always", { exceptions: ["-"] }],
 	},

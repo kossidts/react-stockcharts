@@ -3,7 +3,7 @@ const config = {
 	tabWidth: 4,
 	useTabs: true,
 	trailingComma: "es5",
-	eslintIntegration: true,
+	// eslintIntegration: true,
 	arrowParens: "avoid",
 	printWidth: 115,
 	overrides: [
