@@ -30,7 +30,8 @@
 		"npm:publish:latest": "npm run release && cd build && npm publish",
 		"sourcemap:visualize": "source-map-explorer build/dist/react-stockcharts.min.js build/dist/react-stockcharts.min.js.map",
 		"test": "BABEL_ENV=es vitest",
-		"test:ui": "BABEL_ENV=es vitest --ui"
+		"test:ui": "BABEL_ENV=es vitest --ui",
+		"test:run": "BABEL_ENV=es vitest run"
 	},
 	"dependencies": {
 		"d3-array": "^2.12.1",
