@@ -1,4 +1,9 @@
-export default function Nav() {
+/**
+ * The main navbar for the documentation page
+ *
+ * @returns {JSX.Element}
+ */
+function Nav() {
 	return (
 		<nav className="navbar fixed-top" id="main-nav">
 			<div className="container-fluid">
@@ -13,3 +18,5 @@ export default function Nav() {
 		</nav>
 	);
 }
+
+export default Nav;

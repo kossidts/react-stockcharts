@@ -1,8 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+/**
+ * Row component to display a section with title and content.
+ * @param {Object} props
+ * @param {string} [props.title] - Title of the row.
+ * @param {string} [props.anchor] - Anchor ID for the title (used for linking).
+ * @param {JSX.Element} props.children - Content to be displayed within the section.
+ * @returns {JSX.Element}
+ */
 function Row({ title, anchor, children }) {
-	const anchor = anchor || title;
+	anchor = anchor || title;
 
 	return (
 		<div className="row">
@@ -17,10 +22,5 @@ function Row({ title, anchor, children }) {
 		</div>
 	);
 }
-
-Row.propTypes = {
-	title: PropTypes.string,
-	anchor: PropTypes.string,
-};
 
 export default Row;
