@@ -1,27 +1,22 @@
+/**
+ * Section component for representing sections with columns in a grid layout.
+ *
+ * @param {object} props - Component properties.
+ * @param {number} props.colSpan - Number of columns the section should span. (Required)
+ * @param {string} [props.title] - Title of the section. (Optional)
+ * @param {string} [props.className] - Additional CSS class names for the section. (Optional)
+ * @param {JSX.Element} props.children - Content to be displayed within the section.
+ * @returns {JSX.Element}
+ */
+function Section({ colSpan = 1, title, className, children }) {
+	className = `col-md-${6 * colSpan} ${className || ""}`.trim();
 
-import React from "react";
-import PropTypes from "prop-types";
-
-class Section extends React.Component {
-	render() {
-		const className = this.props.className + " col-md-" + (6 * this.props.colSpan);
-		const title = this.props.title ? <h4>{this.props.title}</h4> : null;
-		return (
-			<div className={className}>
-				{title}
-				{this.props.children}
-			</div>
-		);
-	}
+	return (
+		<div className={className}>
+			{title && <h4>{title}</h4>}
+			{children}
+		</div>
+	);
 }
-
-Section.propTypes = {
-	colSpan: PropTypes.number.isRequired,
-	title: PropTypes.string
-};
-
-Section.defaultProps = {
-	colSpan: 1
-};
 
 export default Section;
