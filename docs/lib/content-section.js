@@ -1,20 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-class ContentSection extends React.Component {
-	render() {
-		const { className } = this.props;
-		return (
-			<div id="ContentSection" className={`col-sm-9 offset-sm-3 col-md-10 offset-md-2 main ${className}`}>
-				{this.props.title && <h1 className="page-header">{this.props.title}</h1>}
-				{this.props.children}
-			</div>
-		);
-	}
+/**
+ * ContentSection component
+ *
+ * @param {object} props - Component properties.
+ * @param {string} [props.title] - Title of the section.
+ * * @param {JSX.Element} props.children - Content to be displayed within the section.
+ * @returns {JSX.Element}
+ */
+function ContentSection({ className, title, children }) {
+	return (
+		<div
+			id="ContentSection"
+			className={`col-sm-9 offset-sm-3 col-md-10 offset-md-2 main ${className || ""}`.trim()}
+		>
+			{title && <h1 className="page-header">{title}</h1>}
+			{children}
+		</div>
+	);
 }
-
-ContentSection.propTypes = {
-	title: PropTypes.string.isRequired,
-};
 
 export default ContentSection;
