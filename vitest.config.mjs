@@ -1,10 +1,6 @@
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-
 import { defineConfig } from "vitest/config";
+import { fileURLToPath, URL } from "url";
 import react from "@vitejs/plugin-react";
-
-// const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
 export default defineConfig({
 	test: {
@@ -12,13 +8,6 @@ export default defineConfig({
 		// setupFiles: ["./tests/setup.ts"],
 		// testMatch: ["./tests/**/*.test.tsx"],
 		// globals: true,
-	},
-	resolve: {
-		alias: {
-			"@/react-stockcharts": path.resolve(import.meta.dirname, "./src"),
-			// "@/react-stockcharts": path.resolve(__dirname, "./src"),
-			// "react-stockcharts": import.meta.resolve("./src"),
-		},
 	},
 
 	plugins: [
@@ -28,4 +17,14 @@ export default defineConfig({
 			},
 		}),
 	],
+	resolve: {
+		alias: {
+			"react-stockcharts": fileURLToPath(new URL("./src", import.meta.url)),
+			"@/react-stockcharts": fileURLToPath(new URL("./src", import.meta.url)),
+			"@/": fileURLToPath(new URL("./src/", import.meta.url)),
+			// "@/react-stockcharts": path.resolve(import.meta.dirname, "./src"),
+			// "@/react-stockcharts": path.resolve(__dirname, "./src"),
+			// "react-stockcharts": import.meta.resolve("./src"),
+		},
+	},
 });
