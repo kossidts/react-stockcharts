@@ -13,11 +13,8 @@ class BollingerBandOverlayPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithBollingerBandOverlay
-                                    data={this.props.someData}
-                                    type={type}
-                                />
+                            {type => (
+                                <CandleStickChartWithBollingerBandOverlay data={this.props.someData} type={type} />
                             )}
                         </TypeChooser>
                     </Section>
@@ -26,8 +23,7 @@ class BollingerBandOverlayPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/BOLLINGER-BAND-OVERLAY.md")
-                                    .default,
+                                __html: require("md/BOLLINGER-BAND-OVERLAY.md").default,
                             }}
                         ></aside>
                     </Section>

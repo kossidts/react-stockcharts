@@ -14,12 +14,7 @@ class AnnotationsPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
-                                <CandleStickChartWithAnnotation
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithAnnotation data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

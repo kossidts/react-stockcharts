@@ -1,9 +1,17 @@
 {
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
-	"[javascript]": {
-		"editor.formatOnSave": false
-	},
 	"editor.codeActionsOnSave": {
+		// "source.fixAll.eslint": "explicit",
 		"source.fixAll": "explicit"
-	}
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"prettier.configPath": ".prettierrc"
+	// "typescript.tsdk": "node_modules/typescript/lib",
+	// "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }]
 }

@@ -22,14 +22,7 @@ class HeikinAshiPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <TypeChooser>
-                            {(type) => (
-                                <HeikinAshi
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
-                        </TypeChooser>
+                        <TypeChooser>{type => <HeikinAshi data={this.props.someData} type={type} />}</TypeChooser>
                     </Section>
                 </Row>
             </ContentSection>

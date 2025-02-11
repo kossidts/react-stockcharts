@@ -14,7 +14,7 @@ class HorizontalBarChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
+                            {type => (
                                 <HorizontalStackedBarChart
                                     data={this.props.horizontalGroupedBarData}
                                     type={type}
@@ -27,8 +27,7 @@ class HorizontalBarChartPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/HORIZONTAL-STACKED-BAR-CHART.md")
-                                    .default,
+                                __html: require("md/HORIZONTAL-STACKED-BAR-CHART.md").default,
                             }}
                         ></aside>
                     </Section>

@@ -1,4 +1,6 @@
-[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickStockScaleChart.js) <!-- , [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChart) -->
+[source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/CandleStickStockScaleChart.js)
+
+<!-- , [codesandbox](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChart) -->
 
 That is better. let us see how to create it
 
@@ -30,42 +32,45 @@ tsv("path/to/data.tsv", function(err, data) {
 
 ```jsx
 <ChartCanvas
-    width={width}
-    height={400}
-    margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
-    type={type}
-    seriesName="MSFT"
-    data={data}
-    xAccessor={(d) => d.date}
-    xScaleProvider={discontinuousTimeScaleProvider}
-    xExtents={[new Date(2012, 0, 1), new Date(2012, 6, 2)]}
+	width={width}
+	height={400}
+	margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
+	type={type}
+	seriesName="MSFT"
+	data={data}
+	xAccessor={d => d.date}
+	xScaleProvider={discontinuousTimeScaleProvider}
+	xExtents={[new Date(2012, 0, 1), new Date(2012, 6, 2)]}
 >
-    <Chart id={1} yExtents={(d) => [d.high, d.low]}>
-        <XAxis axisAt="bottom" orient="bottom" ticks={6} />
-        <YAxis axisAt="left" orient="left" ticks={5} />
-        <CandlestickSeries />
-    </Chart>
+	<Chart id={1} yExtents={d => [d.high, d.low]}>
+		<XAxis axisAt="bottom" orient="bottom" ticks={6} />
+		<YAxis axisAt="left" orient="left" ticks={5} />
+		<CandlestickSeries />
+	</Chart>
 </ChartCanvas>
 ```
 
 Compare this with the simpler `AreaChart` example from before
 
 ```js
-xScaleProvider = { discontinuousTimeScaleProvider };
+xScaleProvider = { discontinuousTimeScaleProvider }
 ```
 
 is the only difference in `<ChartCanvas>`
 
-`xScale` is replaced with `xScaleProvider`, `discontinuousTimeScaleProvider` is a function which takes some pre calculated values and the data array to return a scale that removes the discontinuity, to and show a linear scale
+`xScale` is replaced with `xScaleProvider`, `discontinuousTimeScaleProvider` is a function which takes some pre
+calculated values and the data array to return a scale that removes the discontinuity, to and show a linear scale
 
 ```jsx
 <Chart id={1} yExtents={d => [d.high, d.low]}>
 ```
 
--   `yExtents` can accept
-    -   a function which returns a number / an object / an array of numbers. The min and max value of these are used to calculate the y domain
-    -   an array of functions - same as above
-    -   min and max values as number. Say you always want to show the y domain between 0 and 100, you may say `yExtents={[0, 100]}`
+- `yExtents` can accept
+  - a function which returns a number / an object / an array of numbers. The min and max value of these are used to
+    calculate the y domain
+  - an array of functions - same as above
+  - min and max values as number. Say you always want to show the y domain between 0 and 100, you may say
+    `yExtents={[0, 100]}`
 
 ```jsx
 <XAxis axisAt="bottom" orient="bottom" ticks={6}/>
@@ -96,8 +101,7 @@ Then, make sure to rendre the CandlestickSeries component as such:
 
 ```
 
-<CandlestickSeries
-{...candlesAppearance} />
+<CandlestickSeries {...candlesAppearance} />
 
 ```
 

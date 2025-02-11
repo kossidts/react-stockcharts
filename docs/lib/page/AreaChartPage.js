@@ -14,14 +14,7 @@ class OverviewPage extends React.Component {
             <ContentSection title={OverviewPage.title}>
                 <Row>
                     <Section colSpan={2}>
-                        <TypeChooser>
-                            {(type) => (
-                                <AreaChart
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
-                        </TypeChooser>
+                        <TypeChooser>{type => <AreaChart data={this.props.someData} type={type} />}</TypeChooser>
                     </Section>
                 </Row>
                 <Row>
@@ -35,10 +28,7 @@ class OverviewPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <AreaChartWithYPercent
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <AreaChartWithYPercent data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
             </ContentSection>

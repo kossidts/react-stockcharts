@@ -10,11 +10,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
-import {
-    CandlestickSeries,
-    BarSeries,
-    MACDSeries,
-} from "react-stockcharts/lib/series";
+import { CandlestickSeries, BarSeries, MACDSeries } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
     CrossHairCursor,
@@ -28,10 +24,7 @@ import { OHLCTooltip, MACDTooltip } from "react-stockcharts/lib/tooltip";
 import { macd } from "react-stockcharts/lib/indicator";
 
 import { fitWidth } from "react-stockcharts/lib/helper";
-import {
-    InteractiveYCoordinate,
-    DrawingObjectSelector,
-} from "react-stockcharts/lib/interactive";
+import { InteractiveYCoordinate, DrawingObjectSelector } from "react-stockcharts/lib/interactive";
 import { getMorePropsForChart } from "react-stockcharts/lib/interactive/utils";
 import { head, last, toObject } from "react-stockcharts/lib/utils";
 import { saveInteractiveNodes, getInteractiveNodes } from "./interactiveutils";
@@ -82,11 +75,7 @@ class Dialog extends React.Component {
                     <form>
                         <Form.Group controlId="text">
                             <Form.Label>Alert when crossing</Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={alert.yValue}
-                                onChange={this.handleChange}
-                            />
+                            <Form.Control type="number" value={alert.yValue} onChange={this.handleChange} />
                         </Form.Group>
                     </form>
                 </Modal.Body>
@@ -160,8 +149,7 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
             enableInteractiveObject: false,
             yCoordinateList_1: [
                 {
-                    ...InteractiveYCoordinate.defaultProps
-                        .defaultPriceCoordinate,
+                    ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
                     yValue: 55.9,
                     id: shortid.generate(),
                     draggable: true,
@@ -189,16 +177,11 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
     }
     handleSelection(interactives, moreProps, e) {
         if (this.state.enableInteractiveObject) {
-            const independentCharts = moreProps.currentCharts.filter(
-                (d) => d !== 2
-            );
+            const independentCharts = moreProps.currentCharts.filter(d => d !== 2);
             if (independentCharts.length > 0) {
                 const first = head(independentCharts);
 
-                const morePropsForChart = getMorePropsForChart(
-                    moreProps,
-                    first
-                );
+                const morePropsForChart = getMorePropsForChart(moreProps, first);
                 const {
                     mouseXY: [, mouseY],
                     chartConfig: { yScale },
@@ -206,15 +189,14 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
 
                 const yValue = round(yScale.invert(mouseY), 2);
                 const newAlert = {
-                    ...InteractiveYCoordinate.defaultProps
-                        .defaultPriceCoordinate,
+                    ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
                     yValue,
                     id: shortid.generate(),
                 };
                 this.handleChoosePosition(newAlert, morePropsForChart, e);
             }
         } else {
-            const state = toObject(interactives, (each) => {
+            const state = toObject(interactives, each => {
                 return [`yCoordinateList_${each.chartId}`, each.objects];
             });
             this.setState(state);
@@ -223,10 +205,7 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
     handleChoosePosition(alert, moreProps) {
         const { id: chartId } = moreProps.chartConfig;
         this.setState({
-            [`yCoordinateList_${chartId}`]: [
-                ...this.state[`yCoordinateList_${chartId}`],
-                alert,
-            ],
+            [`yCoordinateList_${chartId}`]: [...this.state[`yCoordinateList_${chartId}`], alert],
             enableInteractiveObject: false,
         });
     }
@@ -241,7 +220,7 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
     }
     handleChangeAlert(alert, chartId) {
         const yCoordinateList = this.state[`yCoordinateList_${chartId}`];
-        const newAlertList = yCoordinateList.map((d) => {
+        const newAlertList = yCoordinateList.map(d => {
             return d.id === alert.id ? alert : d;
         });
 
@@ -254,7 +233,7 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
     handleDeleteAlert() {
         const { alertToEdit } = this.state;
         const key = `yCoordinateList_${alertToEdit.chartId}`;
-        const yCoordinateList = this.state[key].filter((d) => {
+        const yCoordinateList = this.state[key].filter(d => {
             return d.id !== alertToEdit.alert.id;
         });
         this.setState({
@@ -265,7 +244,7 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
     }
     handleDialogClose() {
         // cancel alert edit
-        this.setState((state) => {
+        this.setState(state => {
             const { originalAlertList, alertToEdit } = state;
             const key = `yCoordinateList_${alertToEdit.chartId}`;
             const list = originalAlertList || state[key];
@@ -283,13 +262,13 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
         document.removeEventListener("keyup", this.onKeyPress);
     }
     onDelete(yCoordinate, moreProps) {
-        this.setState((state) => {
+        this.setState(state => {
             const chartId = moreProps.chartConfig.id;
             const key = `yCoordinateList_${chartId}`;
 
             const list = state[key];
             return {
-                [key]: list.filter((d) => d.id !== yCoordinate.id),
+                [key]: list.filter(d => d.id !== yCoordinate.id),
             };
         });
     }
@@ -318,12 +297,8 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
             case 46: {
                 // DEL
                 this.setState({
-                    yCoordinateList_1: this.state.yCoordinateList_1.filter(
-                        (d) => !d.selected
-                    ),
-                    yCoordinateList_3: this.state.yCoordinateList_3.filter(
-                        (d) => !d.selected
-                    ),
+                    yCoordinateList_1: this.state.yCoordinateList_1.filter(d => !d.selected),
+                    yCoordinateList_3: this.state.yCoordinateList_3.filter(d => !d.selected),
                 });
                 break;
             }
@@ -356,18 +331,15 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
             .merge((d, c) => {
                 d.macd = c;
             })
-            .accessor((d) => d.macd);
+            .accessor(d => d.macd);
 
         const { type, data: initialData, width, ratio } = this.props;
         const { showModal, alertToEdit } = this.state;
 
         const calculatedData = macdCalculator(initialData);
-        const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
-            (d) => d.date
-        );
+        const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
 
-        const { data, xScale, xAccessor, displayXAccessor } =
-            xScaleProvider(calculatedData);
+        const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(calculatedData);
 
         const start = xAccessor(last(data));
         const end = xAccessor(data[Math.max(0, data.length - 150)]);
@@ -390,24 +362,10 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
                     displayXAccessor={displayXAccessor}
                     xExtents={xExtents}
                 >
-                    <Chart
-                        id={1}
-                        height={400}
-                        yExtents={[(d) => [d.high, d.low]]}
-                        padding={{ top: 10, bottom: 20 }}
-                    >
-                        <XAxis
-                            axisAt="bottom"
-                            orient="bottom"
-                            showTicks={false}
-                            outerTickSize={0}
-                        />
+                    <Chart id={1} height={400} yExtents={[d => [d.high, d.low]]} padding={{ top: 10, bottom: 20 }}>
+                        <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} />
                         <YAxis axisAt="right" orient="right" ticks={5} />
-                        <MouseCoordinateY
-                            at="right"
-                            orient="right"
-                            displayFormat={format(".2f")}
-                        />
+                        <MouseCoordinateY at="right" orient="right" displayFormat={format(".2f")} />
 
                         <CandlestickSeries />
 
@@ -415,49 +373,28 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
                             itemType="last"
                             orient="right"
                             edgeAt="right"
-                            yAccessor={(d) => d.close}
-                            fill={(d) =>
-                                d.close > d.open ? "#6BA583" : "#FF0000"
-                            }
+                            yAccessor={d => d.close}
+                            fill={d => (d.close > d.open ? "#6BA583" : "#FF0000")}
                         />
 
                         <OHLCTooltip origin={[-40, 0]} />
 
                         <InteractiveYCoordinate
-                            ref={this.saveInteractiveNodes(
-                                "InteractiveYCoordinate",
-                                1
-                            )}
+                            ref={this.saveInteractiveNodes("InteractiveYCoordinate", 1)}
                             enabled={this.state.enableInteractiveObject}
                             onDragComplete={this.onDragComplete}
                             onDelete={this.onDelete}
                             yCoordinateList={this.state.yCoordinateList_1}
                         />
                     </Chart>
-                    <Chart
-                        id={2}
-                        height={150}
-                        yExtents={[(d) => d.volume]}
-                        origin={(w, h) => [0, h - 300]}
-                    >
-                        <YAxis
-                            axisAt="left"
-                            orient="left"
-                            ticks={5}
-                            tickFormat={format(".2s")}
-                        />
+                    <Chart id={2} height={150} yExtents={[d => d.volume]} origin={(w, h) => [0, h - 300]}>
+                        <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")} />
 
-                        <MouseCoordinateY
-                            at="left"
-                            orient="left"
-                            displayFormat={format(".4s")}
-                        />
+                        <MouseCoordinateY at="left" orient="left" displayFormat={format(".4s")} />
 
                         <BarSeries
-                            yAccessor={(d) => d.volume}
-                            fill={(d) =>
-                                d.close > d.open ? "#6BA583" : "#FF0000"
-                            }
+                            yAccessor={d => d.volume}
+                            fill={d => (d.close > d.open ? "#6BA583" : "#FF0000")}
                         />
                     </Chart>
                     <Chart
@@ -470,25 +407,14 @@ class CandleStickChartWithInteractiveYCoordinate extends React.Component {
                         <XAxis axisAt="bottom" orient="bottom" />
                         <YAxis axisAt="right" orient="right" ticks={2} />
 
-                        <MouseCoordinateXV2
-                            at="bottom"
-                            orient="bottom"
-                            displayFormat={timeFormat("%Y-%m-%d")}
-                        />
-                        <MouseCoordinateY
-                            at="right"
-                            orient="right"
-                            displayFormat={format(".2f")}
-                        />
+                        <MouseCoordinateXV2 at="bottom" orient="bottom" displayFormat={timeFormat("%Y-%m-%d")} />
+                        <MouseCoordinateY at="right" orient="right" displayFormat={format(".2f")} />
 
-                        <MACDSeries
-                            yAccessor={(d) => d.macd}
-                            {...macdAppearance}
-                        />
+                        <MACDSeries yAccessor={d => d.macd} {...macdAppearance} />
 
                         <MACDTooltip
                             origin={[-38, 15]}
-                            yAccessor={(d) => d.macd}
+                            yAccessor={d => d.macd}
                             options={macdCalculator.options()}
                             appearance={macdAppearance}
                         />

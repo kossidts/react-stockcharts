@@ -7,15 +7,15 @@
  * @returns {JSX.Element}
  */
 function ContentSection({ className, title, children }) {
-	return (
-		<div
-			id="ContentSection"
-			className={`col-sm-9 offset-sm-3 col-md-10 offset-md-2 main ${className || ""}`.trim()}
-		>
-			{title && <h1 className="page-header">{title}</h1>}
-			{children}
-		</div>
-	);
+    return (
+        <div
+            id="ContentSection"
+            className={`col-sm-9 offset-sm-3 col-md-10 offset-md-2 main ${className || ""}`.trim()}
+        >
+            {title && <h1 className="page-header">{title}</h1>}
+            {children}
+        </div>
+    );
 }
 
 export default ContentSection;

@@ -14,12 +14,7 @@ class BarChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
-                                <BarChart
-                                    data={this.props.barData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <BarChart data={this.props.barData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

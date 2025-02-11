@@ -15,8 +15,7 @@ class ForceIndexIndicatorPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/FORCE-INDEX-INDICATOR.md")
-                                    .default,
+                                __html: require("md/FORCE-INDEX-INDICATOR.md").default,
                             }}
                         ></aside>
                     </Section>
@@ -24,11 +23,8 @@ class ForceIndexIndicatorPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithForceIndexIndicator
-                                    data={this.props.someData}
-                                    type={type}
-                                />
+                            {type => (
+                                <CandleStickChartWithForceIndexIndicator data={this.props.someData} type={type} />
                             )}
                         </TypeChooser>
                     </Section>

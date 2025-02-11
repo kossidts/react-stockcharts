@@ -14,12 +14,7 @@ class LineAndScatterChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <LineAndScatterChart
-                                    data={this.props.compareData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <LineAndScatterChart data={this.props.compareData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

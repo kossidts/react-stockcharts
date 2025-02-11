@@ -11,10 +11,7 @@ class MousePointerPage extends React.Component {
             <ContentSection title={MousePointerPage.title}>
                 <Row>
                     <Section colSpan={2}>
-                        <CandleStickChartWithCHMousePointer
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickChartWithCHMousePointer data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>

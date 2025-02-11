@@ -13,12 +13,7 @@ class AxisPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <ChartWithAxis
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <ChartWithAxis data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

@@ -14,12 +14,7 @@ class VolumeProfileBySessionPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
-                                <VolumeProfileBySessionChart
-                                    data={this.props.lotsOfData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <VolumeProfileBySessionChart data={this.props.lotsOfData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>
@@ -27,8 +22,7 @@ class VolumeProfileBySessionPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/VOLUME-PROFILE-BY-SESSION.md")
-                                    .default,
+                                __html: require("md/VOLUME-PROFILE-BY-SESSION.md").default,
                             }}
                         ></aside>
                     </Section>

@@ -1,4 +1,3 @@
-
 export { default as ema } from "./ema";
 export { default as sma } from "./sma";
 export { default as wma } from "./wma";
@@ -22,7 +21,4 @@ export { default as compare } from "./compare";
 import * as defaultOptionsForComputation from "../calculator/defaultOptionsForComputation";
 import * as defaultOptionsForAppearance from "./defaultOptionsForAppearance";
 
-export {
-	defaultOptionsForComputation,
-	defaultOptionsForAppearance
-};
+export { defaultOptionsForComputation, defaultOptionsForAppearance };

@@ -14,7 +14,7 @@ class InteractiveYCoordinatePage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
+                            {type => (
                                 <CandleStickChartWithInteractiveYCoordinate
                                     data={this.props.someData}
                                     type={type}
@@ -27,8 +27,7 @@ class InteractiveYCoordinatePage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/INTERACTIVE-Y-COORDINATE.md")
-                                    .default,
+                                __html: require("md/INTERACTIVE-Y-COORDINATE.md").default,
                             }}
                         ></aside>
                     </Section>

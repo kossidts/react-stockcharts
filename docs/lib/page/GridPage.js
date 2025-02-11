@@ -36,8 +36,7 @@ class GridPage extends React.Component {
         this.handleGridChange = this.handleGridChange.bind(this);
         this.handleGridOpacityChange = this.handleGridOpacityChange.bind(this);
         this.handleGridWidthChange = this.handleGridWidthChange.bind(this);
-        this.handleInterpolationChange =
-            this.handleInterpolationChange.bind(this);
+        this.handleInterpolationChange = this.handleInterpolationChange.bind(this);
         this.handleSeriesTypeChange = this.handleSeriesTypeChange.bind(this);
         this.state = {
             tickStrokeDasharray: "Solid",
@@ -73,20 +72,14 @@ class GridPage extends React.Component {
         });
     }
     render() {
-        const {
-            tickStrokeDasharray,
-            tickStrokeOpacity,
-            tickStrokeWidth,
-            interpolation,
-            seriesType,
-        } = this.state;
+        const { tickStrokeDasharray, tickStrokeOpacity, tickStrokeWidth, interpolation, seriesType } = this.state;
 
         return (
             <ContentSection title={GridPage.title}>
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
+                            {type => (
                                 <LineAndScatterChartGrid
                                     gridProps={{
                                         tickStrokeOpacity,
@@ -105,10 +98,7 @@ class GridPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         Interpolation:
-                        <select
-                            onChange={this.handleInterpolationChange}
-                            value={interpolation}
-                        >
+                        <select onChange={this.handleInterpolationChange} value={interpolation}>
                             {Object.keys(options).map((each, idx) => (
                                 <option key={idx} value={each}>
                                     {each}
@@ -121,31 +111,21 @@ class GridPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         Grid style:
-                        <select
-                            onChange={this.handleGridChange}
-                            value={tickStrokeDasharray}
-                        >
+                        <select onChange={this.handleGridChange} value={tickStrokeDasharray}>
                             <option value="Solid">Solid</option>
                             <option value="ShortDash">ShortDash</option>
                             <option value="ShortDot">ShortDot</option>
                             <option value="ShortDashDot">ShortDashDot</option>
-                            <option value="ShortDashDotDot">
-                                ShortDashDotDot
-                            </option>
+                            <option value="ShortDashDotDot">ShortDashDotDot</option>
                             <option value="Dot">Dot</option>
                             <option value="Dash">Dash</option>
                             <option value="LongDash">LongDash</option>
                             <option value="DashDot">DashDot</option>
                             <option value="LongDashDot">LongDashDot</option>
-                            <option value="LongDashDotDot">
-                                LongDashDotDot
-                            </option>
+                            <option value="LongDashDotDot">LongDashDotDot</option>
                         </select>{" "}
                         Stroke opacity:
-                        <select
-                            onChange={this.handleGridOpacityChange}
-                            value={tickStrokeOpacity}
-                        >
+                        <select onChange={this.handleGridOpacityChange} value={tickStrokeOpacity}>
                             <option value="1">1</option>
                             <option value="0.9">0.9</option>
                             <option value="0.8">0.8</option>
@@ -158,16 +138,9 @@ class GridPage extends React.Component {
                             <option value="0.1">0.1</option>
                         </select>{" "}
                         Stroke width:
-                        <input
-                            type="number"
-                            value={tickStrokeWidth}
-                            onChange={this.handleGridWidthChange}
-                        />{" "}
+                        <input type="number" value={tickStrokeWidth} onChange={this.handleGridWidthChange} />{" "}
                         Series:
-                        <select
-                            onChange={this.handleSeriesTypeChange}
-                            value={seriesType}
-                        >
+                        <select onChange={this.handleSeriesTypeChange} value={seriesType}>
                             <option value="line">Line</option>
                             <option value="area">Area</option>
                         </select>

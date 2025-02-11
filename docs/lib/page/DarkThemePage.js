@@ -36,7 +36,7 @@ class DarkThemePage extends React.Component {
                 <Row>
                     <Section colSpan={2} className="dark">
                         <TypeChooser>
-                            {(type) => (
+                            {type => (
                                 <CandleStickChartWithDarkTheme
                                     ref={this.saveNode}
                                     data={this.props.someData}

@@ -22,14 +22,7 @@ class KagiPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <TypeChooser>
-                            {(type) => (
-                                <Kagi
-                                    data={this.props.lotsOfData}
-                                    type={type}
-                                />
-                            )}
-                        </TypeChooser>
+                        <TypeChooser>{type => <Kagi data={this.props.lotsOfData} type={type} />}</TypeChooser>
                     </Section>
                 </Row>
             </ContentSection>

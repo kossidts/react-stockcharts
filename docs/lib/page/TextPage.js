@@ -14,12 +14,7 @@ class TextPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithText
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithText data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>
@@ -27,8 +22,7 @@ class TextPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/INTERACTIVE-TEXT.md")
-                                    .default,
+                                __html: require("md/INTERACTIVE-TEXT.md").default,
                             }}
                         ></aside>
                     </Section>

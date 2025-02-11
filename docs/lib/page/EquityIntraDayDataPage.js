@@ -14,7 +14,7 @@ class IntraDayContinuousDataPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
+                            {type => (
                                 <CandleStickChartForDiscontinuousIntraDay
                                     data={this.props.intraDayDiscontinuousData}
                                     type={type}
@@ -27,8 +27,7 @@ class IntraDayContinuousDataPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/INTRA-DAY-DISCONTINUOUS.md")
-                                    .default,
+                                __html: require("md/INTRA-DAY-DISCONTINUOUS.md").default,
                             }}
                         ></aside>
                     </Section>

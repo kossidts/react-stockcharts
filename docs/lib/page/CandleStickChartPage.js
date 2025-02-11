@@ -12,10 +12,7 @@ class CandleStickChartPage extends React.Component {
             <ContentSection title={CandleStickChartPage.title}>
                 <Row title="">
                     <Section colSpan={2}>
-                        <CandleStickChart
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickChart data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>
@@ -29,18 +26,14 @@ class CandleStickChartPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <CandleStickStockScaleChart
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickStockScaleChart data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/CANDLESTICK-IMPROVED.md")
-                                    .default,
+                                __html: require("md/CANDLESTICK-IMPROVED.md").default,
                             }}
                         ></aside>
                     </Section>
@@ -49,8 +42,7 @@ class CandleStickChartPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/FINANCETIMESCALE.md")
-                                    .default,
+                                __html: require("md/FINANCETIMESCALE.md").default,
                             }}
                         ></aside>
                     </Section>

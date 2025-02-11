@@ -14,12 +14,7 @@ class BubbleChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
-                                <BubbleChart
-                                    data={this.props.bubbleData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <BubbleChart data={this.props.bubbleData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

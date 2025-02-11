@@ -36,12 +36,7 @@ class UpdatingDataPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <PointAndFigureWithUpdatingData
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <PointAndFigureWithUpdatingData data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

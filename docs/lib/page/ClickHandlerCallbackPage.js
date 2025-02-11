@@ -15,8 +15,7 @@ class ClickHandlerCallbackPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/CLICK-CALLBACK-INTERACTIVE-INDICATOR.md")
-                                    .default,
+                                __html: require("md/CLICK-CALLBACK-INTERACTIVE-INDICATOR.md").default,
                             }}
                         ></aside>
                     </Section>
@@ -24,11 +23,8 @@ class ClickHandlerCallbackPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithClickHandlerCallback
-                                    data={this.props.someData}
-                                    type={type}
-                                />
+                            {type => (
+                                <CandleStickChartWithClickHandlerCallback data={this.props.someData} type={type} />
                             )}
                         </TypeChooser>
                     </Section>

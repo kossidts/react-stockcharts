@@ -1,4 +1,3 @@
-
 #### Indicators/Overlays
 
 - ~~Exponential Moving Average (EMA)~~ - `v0.1`
@@ -30,9 +29,11 @@
 - ~~Save chart as image~~ - `v0.2.1`
 - ~~Render chart on server~~ - `v0.2.1`
 - ~~Improve performance of pan in firefox~~ - `v0.2.1`
-- ~~create a new mode `canvas` in addition to `svg` and `hybrid` eliminating all svg and use just canvas~~ (not doing) - `v0.3`
+- ~~create a new mode `canvas` in addition to `svg` and `hybrid` eliminating all svg and use just canvas~~ (not
+  doing) - `v0.3`
 - ~~Create example for data updating at regular intervals~~ - `v0.2.1`
-- Update `CurrentCoordinate` and `EdgeCoordinate` to deal with `DataSeries` which has a `yAccessor` which returns an object - `v0.3`
+- Update `CurrentCoordinate` and `EdgeCoordinate` to deal with `DataSeries` which has a `yAccessor` which returns
+  an object - `v0.3`
 - Add example for a darker background - `v0.3`
 
 #### Documentation
@@ -55,8 +56,8 @@
 #### Tech Tasks
 
 - Use ES6 Classes
-    - ~~Do not use EventCaptureMixin, ChartContainerMixin~~
-    - ~~Update examples to not use ChartWidthMixin~~ - Not doing
+  - ~~Do not use EventCaptureMixin, ChartContainerMixin~~
+  - ~~Update examples to not use ChartWidthMixin~~ - Not doing
 - ~~use babel~~
 - ~~change require to import~~
 - ~~execute lint & code style~~
@@ -68,5 +69,6 @@
 - Add tests and coverage - `v0.4`
 
 #### Dependencies
+
 - ~~Experiment with React 0.13 instead of React 0.14~~ - `v0.1`
 - ~~Remove Freezer-js dependency~~ - `v0.1`

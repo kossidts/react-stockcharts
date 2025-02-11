@@ -1,0 +1,37 @@
+{
+    "singleQuote": false,
+    "useTabs": false,
+    "tabWidth": 4,
+    "trailingComma": "es5",
+    "arrowParens": "avoid",
+    "printWidth": 115,
+    "semi": true,
+    "experimentalTernaries": false,
+    "overrides": [
+        {
+            "files": "*.json",
+            "options": {
+                "tabWidth": 4,
+                "useTabs": true
+            }
+        },
+        {
+            "files": "*.md",
+            "options": {
+                "proseWrap": "always",
+                "semi": false,
+                "useTabs": true,
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": "*.html",
+            "options": {
+                "proseWrap": "always",
+                "semi": false,
+                "useTabs": true,
+                "tabWidth": 4
+            }
+        }
+    ]
+}

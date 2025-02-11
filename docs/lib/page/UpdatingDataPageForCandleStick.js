@@ -17,12 +17,7 @@ class UpdatingDataPageForCandleStick extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithUpdatingData
-                                    data={this.props.lotsOfData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithUpdatingData data={this.props.lotsOfData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

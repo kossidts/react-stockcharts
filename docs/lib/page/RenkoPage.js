@@ -22,14 +22,7 @@ class RenkoPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <TypeChooser>
-                            {(type) => (
-                                <Renko
-                                    data={this.props.lotsOfData}
-                                    type={type}
-                                />
-                            )}
-                        </TypeChooser>
+                        <TypeChooser>{type => <Renko data={this.props.lotsOfData} type={type} />}</TypeChooser>
                     </Section>
                 </Row>
             </ContentSection>

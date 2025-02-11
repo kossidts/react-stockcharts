@@ -14,12 +14,7 @@ class GroupedBarChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser ref="container">
-                            {(type) => (
-                                <GroupedBarChart
-                                    data={this.props.groupedBarData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <GroupedBarChart data={this.props.groupedBarData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>
@@ -27,8 +22,7 @@ class GroupedBarChartPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/GROUPED-BAR-CHART.md")
-                                    .default,
+                                __html: require("md/GROUPED-BAR-CHART.md").default,
                             }}
                         ></aside>
                     </Section>

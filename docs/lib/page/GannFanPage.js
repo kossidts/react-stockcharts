@@ -23,12 +23,7 @@ class GannFanPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithGannFan
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithGannFan data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

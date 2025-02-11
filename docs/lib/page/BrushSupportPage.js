@@ -15,8 +15,7 @@ class BrushSupportPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/BRUSH-INTERACTIVE-INDICATOR.md")
-                                    .default,
+                                __html: require("md/BRUSH-INTERACTIVE-INDICATOR.md").default,
                             }}
                         ></aside>
                     </Section>
@@ -24,12 +23,7 @@ class BrushSupportPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithBrush
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithBrush data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

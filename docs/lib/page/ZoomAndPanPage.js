@@ -46,7 +46,7 @@ class ZoomAndPanPage extends React.Component {
         });
     }
     setZoomAnchor(e) {
-        console.log(e.target.value)
+        console.log(e.target.value);
         this.setState({
             zoomAnchor: e.target.value,
         });
@@ -59,7 +59,7 @@ class ZoomAndPanPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
+                            {type => (
                                 <CandleStickChartWithZoomPan
                                     ref={this.saveNode}
                                     data={this.props.lotsOfData}
@@ -68,9 +68,7 @@ class ZoomAndPanPage extends React.Component {
                                     zoomEvent={zoomEvent}
                                     clamp={clamp}
                                     type={type}
-                                    zoomAnchor={
-                                        zoomAnchor[this.state.zoomAnchor]
-                                    }
+                                    zoomAnchor={zoomAnchor[this.state.zoomAnchor]}
                                 />
                             )}
                         </TypeChooser>
@@ -79,44 +77,23 @@ class ZoomAndPanPage extends React.Component {
                 <Row>
                     <label>Zoom anchor</label>
                     <select value={this.state.zoomAnchor} onChange={this.setZoomAnchor}>
-                        <option value="mouseBasedZoomAnchor">
-                            Mouse position
-                        </option>
-                        <option value="lastVisibleItemBasedZoomAnchor">
-                            Last visible candle
-                        </option>
-                        <option value="rightDomainBasedZoomAnchor">
-                            Right extreme point
-                        </option>
+                        <option value="mouseBasedZoomAnchor">Mouse position</option>
+                        <option value="lastVisibleItemBasedZoomAnchor">Last visible candle</option>
+                        <option value="rightDomainBasedZoomAnchor">Right extreme point</option>
                     </select>
                 </Row>
                 <Row>
                     <div style={{ textAlign: "center" }}>
-                        <button
-                            type="button"
-                            onClick={this.toggleState.bind(
-                                this,
-                                "mouseMoveEvent"
-                            )}
-                        >
+                        <button type="button" onClick={this.toggleState.bind(this, "mouseMoveEvent")}>
                             {mouseMoveEvent ? "Disable" : "Enable"} Mouse Moves
                         </button>{" "}
-                        <button
-                            type="button"
-                            onClick={this.toggleState.bind(this, "panEvent")}
-                        >
+                        <button type="button" onClick={this.toggleState.bind(this, "panEvent")}>
                             {panEvent ? "Disable" : "Enable"} Pan
                         </button>{" "}
-                        <button
-                            type="button"
-                            onClick={this.toggleState.bind(this, "zoomEvent")}
-                        >
+                        <button type="button" onClick={this.toggleState.bind(this, "zoomEvent")}>
                             {zoomEvent ? "Disable" : "Enable"} Zoom
                         </button>{" "}
-                        <button
-                            type="button"
-                            onClick={this.toggleState.bind(this, "clamp")}
-                        >
+                        <button type="button" onClick={this.toggleState.bind(this, "clamp")}>
                             {clamp ? "Disable" : "Enable"} Clamp
                         </button>{" "}
                         <button type="button" onClick={this.resetYDomain}>

@@ -7,13 +7,17 @@
 
 Create highly customizable stock charts.
 
-**This is the rebirth of the [react-stockcharts](https://github.com/rrag/react-stockcharts) library**, which is mainly built with [React](https://react.dev/) and [D3.js](https://d3js.org/). The project has been abandoned, so I've cloned it in the hopes of updating it and making it work with updated dependencies.
+**This is the rebirth of the [react-stockcharts](https://github.com/rrag/react-stockcharts) library**, which is
+mainly built with [React](https://react.dev/) and [D3.js](https://d3js.org/). The project has been abandoned, so
+I've cloned it in the hopes of updating it and making it work with updated dependencies.
 
 ### Installation & Documentation
 
 coming soon...
 
 <!--
+- [ChartSchool | ChartSchool | StockCharts.com](https://chartschool.stockcharts.com/)
+
 If you like this project checkout <a href="https://gocharting.com" target="_blank">gocharting.com</a>
 
 -   integrates multiple charttypes
@@ -84,7 +88,9 @@ npm install  --save react-stockcharts
 
 ### Update and Future Plans
 
-The current version of **react-stockcharts** is no longer functioning properly due to outdated dependencies. This cloned repository aims to update the dependencies and make the library work again. I plan to add new features to the library in the future as well.
+The current version of **react-stockcharts** is no longer functioning properly due to outdated dependencies. This
+cloned repository aims to update the dependencies and make the library work again. I plan to add new features to
+the library in the future as well.
 
 <!--
 ### Contributing
@@ -113,8 +119,10 @@ If you have any suggestions for other improvements, please let us know!
 
 ### LICENSE
 
-**react-stockcharts** is licensed under the [MIT](./LICENSE) license. See the [LICENSE](./LICENSE) file for details.
+**react-stockcharts** is licensed under the [MIT](./LICENSE) license. See the [LICENSE](./LICENSE) file for
+details.
 
 ### Acknowledgements & Credits
 
-This project was originally developed and maintained by [Ragu Ramaswamy aka. rrag](https://github.com/rrag). Thanks to his work and the work of many other contributors, we have a starting point for our updates and improvements.
+This project was originally developed and maintained by [Ragu Ramaswamy aka. rrag](https://github.com/rrag). Thanks
+to his work and the work of many other contributors, we have a starting point for our updates and improvements.

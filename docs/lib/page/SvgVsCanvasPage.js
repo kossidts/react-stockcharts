@@ -23,12 +23,7 @@ class SvgVsCanvasPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser type="svg">
-                            {(type) => (
-                                <CandleStickChartWithZoomPan
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithZoomPan data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

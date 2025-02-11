@@ -14,12 +14,7 @@ class LoadMoreDataPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartPanToLoadMore
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartPanToLoadMore data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

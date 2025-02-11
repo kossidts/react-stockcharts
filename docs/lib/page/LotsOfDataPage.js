@@ -23,12 +23,7 @@ class LotsOfDataPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithEdge
-                                    data={this.props.lotsOfData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithEdge data={this.props.lotsOfData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

@@ -1,4 +1,3 @@
-
 import Renko from "./Renko";
 import updatingDataWrapper from "./updatingDataWrapper";
 

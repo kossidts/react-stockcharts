@@ -1,13 +1,13 @@
 function getExternalAssets(mode) {
-	if (mode.watch) {
-		return `<script src="react/umd/react.development.js"></script>
+    if (mode.watch) {
+        return `<script src="react/umd/react.development.js"></script>
 		<script src="react-dom/umd/react-dom.development.js"></script>
 
 		<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="prismjs/themes/prism.css" rel="stylesheet">`;
-	}
+    }
 
-	return `<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    return `<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 		<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 
 		<link href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,22 +25,22 @@ function getExternalAssets(mode) {
 }
 
 function getDocumentationContent() {
-	return `<span id="debug_here">.</span>
+    return `<span id="debug_here">.</span>
 		<span id="iconPreload" class="glyphicon glyphicon-arrow-down"></span>
 		<div id="chart-goes-here"></div>`;
 }
 
 module.exports = function (params) {
-	const {
-		options: { mode, page },
-		files,
-	} = params.htmlWebpackPlugin;
+    const {
+        options: { mode, page },
+        files,
+    } = params.htmlWebpackPlugin;
 
-	const pageName = page == "index" ? "docs" : page;
-	// const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
-	const chunkPath = files.js.find(f => f.includes(`-${pageName}.`));
+    const pageName = page == "index" ? "docs" : page;
+    // const chunkPath = files.js.find(f => f.endsWith(`${pageName}.js`));
+    const chunkPath = files.js.find(f => f.includes(`-${pageName}.`));
 
-	return `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">

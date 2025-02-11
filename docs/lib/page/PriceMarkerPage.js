@@ -13,12 +13,7 @@ class PriceMarkerPage extends React.Component {
                 <Row title="">
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <CandleStickChartWithPriceMarkers
-                                    data={this.props.someData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <CandleStickChartWithPriceMarkers data={this.props.someData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>

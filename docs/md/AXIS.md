@@ -1,7 +1,7 @@
 [source](https://github.com/kossidts/react-stockcharts/blob/master/docs/lib/charts/ChartWithAxis.js)
 
 ```js
-import { XAxis, YAxis } from "react-stockcharts/lib/axes";
+import { XAxis, YAxis } from "react-stockcharts/lib/axes"
 ```
 
 ```jsx

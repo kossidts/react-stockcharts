@@ -31,13 +31,10 @@ class StochasticIndicatorPage extends React.Component {
                             className="btn btn-success btn-lg pull-right"
                             onClick={this.saveChartAsImage}
                         >
-                            <span
-                                className="glyphicon glyphicon-floppy-save"
-                                aria-hidden="true"
-                            ></span>
+                            <span className="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
                         </button>
                         <TypeChooser>
-                            {(type) => (
+                            {type => (
                                 <CandleStickChartWithFullStochasticsIndicator
                                     ref={this.saveNode}
                                     data={this.props.someData}
@@ -51,8 +48,7 @@ class StochasticIndicatorPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/STOCHASTIC-INDICATOR.md")
-                                    .default,
+                                __html: require("md/STOCHASTIC-INDICATOR.md").default,
                             }}
                         ></aside>
                     </Section>

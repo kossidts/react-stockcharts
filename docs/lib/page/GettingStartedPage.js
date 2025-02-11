@@ -12,8 +12,7 @@ class GettingStartedPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/GETTING-STARTED.md")
-                                    .default,
+                                __html: require("md/GETTING-STARTED.md").default,
                             }}
                         ></aside>
                     </Section>

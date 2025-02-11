@@ -8,14 +8,14 @@
  * @returns {JSX.Element}
  */
 function MenuItem({ current = false, anchor, title }) {
-	const className = current ? "active" : "";
-	return (
-		<li className={`${className} nav-item`.trim()}>
-			<a href={"#/" + anchor} className="nav-link">
-				{title}
-			</a>
-		</li>
-	);
+    const className = current ? "active" : "";
+    return (
+        <li className={`${className} nav-item`.trim()}>
+            <a href={"#/" + anchor} className="nav-link">
+                {title}
+            </a>
+        </li>
+    );
 }
 
 export default MenuItem;

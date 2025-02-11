@@ -14,12 +14,7 @@ class HorizontalBarChartPage extends React.Component {
                 <Row>
                     <Section colSpan={2}>
                         <TypeChooser>
-                            {(type) => (
-                                <HorizontalBarChart
-                                    data={this.props.horizontalBarData}
-                                    type={type}
-                                />
-                            )}
+                            {type => <HorizontalBarChart data={this.props.horizontalBarData} type={type} />}
                         </TypeChooser>
                     </Section>
                 </Row>
@@ -27,8 +22,7 @@ class HorizontalBarChartPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/HORIZONTAL-BAR-CHART.md")
-                                    .default,
+                                __html: require("md/HORIZONTAL-BAR-CHART.md").default,
                             }}
                         ></aside>
                     </Section>

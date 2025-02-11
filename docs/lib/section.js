@@ -9,14 +9,14 @@
  * @returns {JSX.Element}
  */
 function Section({ colSpan = 1, title, className, children }) {
-	className = `col-md-${6 * colSpan} ${className || ""}`.trim();
+    className = `col-md-${6 * colSpan} ${className || ""}`.trim();
 
-	return (
-		<div className={className}>
-			{title && <h4>{title}</h4>}
-			{children}
-		</div>
-	);
+    return (
+        <div className={className}>
+            {title && <h4>{title}</h4>}
+            {children}
+        </div>
+    );
 }
 
 export default Section;

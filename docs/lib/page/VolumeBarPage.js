@@ -15,18 +15,14 @@ class VolumeBarPage extends React.Component {
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/VOLUME-BAR-INTRO.md")
-                                    .default,
+                                __html: require("md/VOLUME-BAR-INTRO.md").default,
                             }}
                         ></aside>
                     </Section>
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <CandleStickStockScaleChartWithVolumeBarV1
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickStockScaleChartWithVolumeBarV1 data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>
@@ -40,36 +36,28 @@ class VolumeBarPage extends React.Component {
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <CandleStickStockScaleChartWithVolumeBarV2
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickStockScaleChartWithVolumeBarV2 data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/VOLUME-BAR-Contd.md")
-                                    .default,
+                                __html: require("md/VOLUME-BAR-Contd.md").default,
                             }}
                         ></aside>
                     </Section>
                 </Row>
                 <Row>
                     <Section colSpan={2}>
-                        <CandleStickStockScaleChartWithVolumeBarV3
-                            data={this.props.someData}
-                            type="svg"
-                        />
+                        <CandleStickStockScaleChartWithVolumeBarV3 data={this.props.someData} type="svg" />
                     </Section>
                 </Row>
                 <Row>
                     <Section colSpan={2}>
                         <aside
                             dangerouslySetInnerHTML={{
-                                __html: require("md/VOLUME-BAR-Contd2.md")
-                                    .default,
+                                __html: require("md/VOLUME-BAR-Contd2.md").default,
                             }}
                         ></aside>
                     </Section>

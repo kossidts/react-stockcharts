@@ -7,20 +7,20 @@
  * @returns {JSX.Element}
  */
 function Row({ title, anchor, children }) {
-	anchor = anchor || title;
+    anchor = anchor || title;
 
-	return (
-		<div className="row">
-			{title && (
-				<h4>
-					<a id={anchor} href={`#${anchor}`}>
-						{title}
-					</a>
-				</h4>
-			)}
-			{children}
-		</div>
-	);
+    return (
+        <div className="row">
+            {title && (
+                <h4>
+                    <a id={anchor} href={`#${anchor}`}>
+                        {title}
+                    </a>
+                </h4>
+            )}
+            {children}
+        </div>
+    );
 }
 
 export default Row;
