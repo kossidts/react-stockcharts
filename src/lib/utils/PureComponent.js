@@ -1,7 +1,7 @@
-import React from "react";
+import { Component } from "react";
 import shallowEqual from "./shallowEqual";
 
-class PureComponent extends React.Component {
+class PureComponent extends Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         return (
             !shallowEqual(this.props, nextProps) ||

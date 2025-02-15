@@ -11,7 +11,7 @@ export const defaultFormatters = {
 };
 
 export const levelDefinition = [
-    /* eslint-disable no-unused-vars */
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     /* 19 */ (d, date, i) => d.startOfYear && date.getFullYear() % 12 === 0 && "yearFormat",
     /* 18 */ (d, date, i) => d.startOfYear && date.getFullYear() % 4 === 0 && "yearFormat",
     /* 17 */ (d, date, i) => d.startOfYear && date.getFullYear() % 2 === 0 && "yearFormat",
@@ -32,5 +32,5 @@ export const levelDefinition = [
     /*  2 */ (d, date, i) => d.startOfMinute && "minuteFormat",
     /*  1 */ (d, date, i) => d.startOf30Seconds && "secondFormat",
     /*  0 */ (d, date, i) => "secondFormat",
-    /* eslint-enable no-unused-vars */
+    /* eslint-enable @typescript-eslint/no-unused-vars */
 ];

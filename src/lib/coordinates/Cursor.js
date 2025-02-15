@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import GenericComponent, { getMouseCanvas } from "../GenericComponent";
 
@@ -108,9 +108,12 @@ class Cursor extends Component {
                         xShapeFill != null ? hexToRGBA(xShapeFill, xCursorShapeOpacity) : "rgba(0, 0, 0, 0)"; // ="transparent"
 
                     ctx.beginPath();
-                    xCursorShapeStrokeDasharray == null
-                        ? ctx.fillRect(xShape.xPos, 0, xShape.shapeWidth, xShape.height)
-                        : ctx.rect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+
+                    if (xCursorShapeStrokeDasharray == null) {
+                        ctx.fillRect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+                    } else {
+                        ctx.rect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+                    }
                     ctx.fill();
                 } else {
                     ctx.strokeStyle = hexToRGBA(line.stroke, line.opacity);

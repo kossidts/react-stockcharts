@@ -1,5 +1,5 @@
 import { format } from "d3-format";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import displayValuesFor from "./displayValuesFor";
 import GenericChartComponent from "../GenericChartComponent";

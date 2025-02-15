@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { forceSimulation, forceX, forceCollide } from "d3-force";
 import { range as d3Range } from "d3-array";
@@ -274,7 +274,6 @@ function tickHelper(props, scale) {
     };
 }
 
-/* eslint-disable react/prop-types */
 function axisLineSVG(props, range) {
     const { orient, outerTickSize } = props;
     const { domainClassName, fill, stroke, strokeWidth, opacity } = props;
@@ -300,7 +299,6 @@ function axisLineSVG(props, range) {
         ></path>
     );
 }
-/* eslint-enable react/prop-types */
 
 function drawAxisLine(ctx, props, range) {
     // props = { ...AxisLine.defaultProps, ...props };

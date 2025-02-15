@@ -12,7 +12,6 @@ export default function zipper() {
         if (!n) return [];
         const m = min(arguments, d3_zipLength);
 
-        // eslint-disable-next-line prefer-const
         let zips = new Array(m),
             i;
 

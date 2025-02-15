@@ -11,11 +11,9 @@ export default function () {
         const first = head(data);
         const b = base(first);
 
-        // eslint-disable-next-line prefer-const
         let firsts = {};
 
         const compareData = data.map(d => {
-            // eslint-disable-next-line prefer-const
             let result = {};
 
             mainKeys.forEach(key => {

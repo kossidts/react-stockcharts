@@ -7,15 +7,12 @@ const dy = 0;
 const SaveChartAsImage = {
     save(doc, container, background, cb) {
         saveAsPng.svgAsDataUri(container.getElementsByTagName("svg")[0], {}, function (uri) {
-            // eslint-disable-next-line prefer-const
             let image = new Image();
             image.onload = function () {
-                // eslint-disable-next-line prefer-const
                 let canvas = doc.createElement("canvas");
                 canvas.width = image.width;
                 canvas.height = image.height;
 
-                // eslint-disable-next-line prefer-const
                 let context = canvas.getContext("2d");
 
                 if (isDefined(background)) {

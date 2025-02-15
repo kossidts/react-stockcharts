@@ -1,8 +1,5 @@
-import React from "react";
-
 import { hexToRGBA, isDefined, getStrokeDasharray } from "../utils";
 
-/* eslint-disable react/prop-types */
 export function renderSVG(props) {
     const { className } = props;
 
@@ -91,7 +88,6 @@ export function renderSVG(props) {
         </g>
     );
 }
-/* eslint-enable react/prop-types */
 
 function helper(props) {
     const { coordinate: displayCoordinate, show, type, orient, edgeAt, hideLine, lineStrokeDasharray } = props;

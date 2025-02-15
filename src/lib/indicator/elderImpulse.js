@@ -42,7 +42,6 @@ export default function () {
             datum.elderImpulse = indicator;
         });
 
-    // eslint-disable-next-line prefer-const
     let indicator = function (data, options = { merge: true }) {
         const newData = options.merge ? mergedAlgorithm(data) : underlyingAlgorithm(data);
 

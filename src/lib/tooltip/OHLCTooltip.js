@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
@@ -112,9 +112,7 @@ OHLCTooltip.defaultProps = {
 };
 
 function defaultDisplay(props, moreProps, itemsToDisplay) {
-    /* eslint-disable */
     const { className, textFill, labelFill, onClick, fontFamily, fontSize, displayTexts } = props;
-    /* eslint-enable */
 
     const { displayDate, open, high, low, close, volume, x, y } = itemsToDisplay;
     return (

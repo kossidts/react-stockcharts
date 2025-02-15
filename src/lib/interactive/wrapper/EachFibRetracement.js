@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 import { head, last, noop } from "../../utils";
@@ -231,9 +231,7 @@ class EachFibRetracement extends Component {
                             />
                             <Text
                                 selected={selected}
-                                /* eslint-disable */
                                 xyProvider={xyProvider}
-                                /* eslint-enable */
                                 fontFamily={fontFamily}
                                 fontSize={fontSize}
                                 fill={fontFill}

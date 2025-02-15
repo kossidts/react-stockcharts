@@ -38,7 +38,6 @@ export default function () {
         skipInitial = 0,
         misc;
 
-    // eslint-disable-next-line prefer-const
     let slidingWindow = function (data) {
         const sourceFunction = source || path(sourcePath);
 

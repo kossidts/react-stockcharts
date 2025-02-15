@@ -9,7 +9,6 @@ export default function () {
         source = identity,
         skipInitial = 0;
 
-    // eslint-disable-next-line prefer-const
     let mappedSlidingWindow = function (data) {
         const size = functor(windowSize).apply(this, arguments);
         const windowData = [];

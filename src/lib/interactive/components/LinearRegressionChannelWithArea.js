@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { sum, deviation } from "d3-array";
 import { path as d3Path } from "d3-path";

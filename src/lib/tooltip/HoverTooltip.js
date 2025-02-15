@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import GenericComponent from "../GenericComponent";
 import { sum } from "d3-array";
@@ -101,7 +101,6 @@ const PADDING = 5;
 const X = 10;
 const Y = 10;
 
-/* eslint-disable react/prop-types */
 function backgroundShapeSVG({ fill, stroke, opacity }, { height, width }) {
     return <rect height={height} width={width} fill={fill} opacity={opacity} stroke={stroke} />;
 }
@@ -131,7 +130,6 @@ function tooltipSVG({ fontFamily, fontSize, fontFill }, content) {
         </text>
     );
 }
-/* eslint-enable react/prop-types */
 
 function backgroundShapeCanvas(props, { width, height }, ctx) {
     const { fill, stroke, opacity } = props;

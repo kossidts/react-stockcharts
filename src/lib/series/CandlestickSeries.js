@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { groups } from "d3-array";
 
@@ -103,9 +103,7 @@ function getWicksSVG(candleData) {
 }
 
 function getCandlesSVG(props, candleData) {
-    /* eslint-disable react/prop-types */
     const { opacity, candleStrokeWidth } = props;
-    /* eslint-enable react/prop-types */
 
     const candles = candleData.map((d, idx) => {
         if (d.width <= 1)
@@ -280,7 +278,6 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
     const trueOffset = 0.5 * width;
     const offset = trueOffset > 0.7 ? Math.round(trueOffset) : Math.floor(trueOffset);
 
-    // eslint-disable-next-line prefer-const
     let candles = [];
 
     for (let i = 0; i < plotData.length; i++) {

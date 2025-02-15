@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 import { merge, groups } from "d3-array";
@@ -69,9 +69,7 @@ export function identityStack() {
     let keys = [];
     function stack(data) {
         const response = keys.map((key, i) => {
-            // eslint-disable-next-line prefer-const
             let arrays = data.map(d => {
-                // eslint-disable-next-line prefer-const
                 let array = [0, d[key]];
                 array.data = d;
                 return array;
@@ -277,7 +275,6 @@ export function getBars(
     const offset = barWidth === 1 ? 0 : 0.5 * width;
 
     const ds = plotData.map(each => {
-        // eslint-disable-next-line prefer-const
         let d = {
             appearance: {},
             x: xAccessor(each),
@@ -306,7 +303,6 @@ export function getBars(
     const newData = data.map((each, i) => {
         const key = each.key;
         return each.map(d => {
-            // eslint-disable-next-line prefer-const
             let array = [d[0], d[1]];
             array.data = {
                 x: d.data.x,

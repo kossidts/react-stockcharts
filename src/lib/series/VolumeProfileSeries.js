@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { ascending, descending, sum, max, merge, zip, bin, rollups } from "d3-array";
 import { scaleLinear } from "d3-scale";
@@ -97,9 +97,7 @@ VolumeProfileSeries.defaultProps = {
     volume: d => d.volume,
     absoluteChange: d => d.absoluteChange,
     bySession: false,
-    /* eslint-disable no-unused-vars */
     sessionStart: ({ d, i, plotData }) => i > 0 && plotData[i - 1].date.getMonth() !== d.date.getMonth(),
-    /* eslint-enable no-unused-vars */
     orient: "left",
     // // fill: ({ type }) => { var c = type === "up" ? "#6BA583" : "#FF0000"; console.log(type, c); return c },
     // stroke: ({ type }) =>  type === "up" ? "#6BA583" : "#FF0000",

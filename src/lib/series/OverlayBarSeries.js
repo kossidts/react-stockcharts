@@ -1,6 +1,6 @@
 import { merge } from "d3-array";
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 import GenericChartComponent from "../GenericChartComponent";
@@ -90,7 +90,6 @@ function getBars(props, moreProps, yAccessor) {
     // console.log(xScale.domain(), yScale.domain());
 
     const bars = plotData.map(d => {
-        // eslint-disable-next-line prefer-const
         let innerBars = yAccessor
             .map((eachYAccessor, i) => {
                 const yValue = eachYAccessor(d);

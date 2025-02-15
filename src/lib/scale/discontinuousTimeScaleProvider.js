@@ -147,7 +147,6 @@ export function discontinuousTimeScaleProviderBuilder() {
 
     let currentFormatters = defaultFormatters;
 
-    // eslint-disable-next-line prefer-const
     let discontinuousTimeScaleProvider = function (data) {
         /*
 		console.warn("Are you sure you want to use a discontinuousTimeScale?"

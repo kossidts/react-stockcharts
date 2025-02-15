@@ -37,7 +37,6 @@ export default function () {
         discardTillStart = false,
         discardTillEnd = false;
 
-    // eslint-disable-next-line prefer-const
     let accumulatingWindow = function (data) {
         let accumulatedWindow = discardTillStart ? undefined : [];
         const response = [];

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-// import ReactDOM from "react-dom";
+import { Component } from "react";
 
 import { isDefined } from "../utils";
 
@@ -46,11 +45,9 @@ export default function fitWidth(WrappedComponent, withRef = true, minWidth = 10
         componentDidMount() {
             window.addEventListener("resize", this.handleWindowResize);
             this.handleWindowResize();
-            /* eslint-disable react/no-did-mount-set-state */
             this.setState({
                 ratio: this.getRatio(),
             });
-            /* eslint-enable react/no-did-mount-set-state */
         }
         componentWillUnmount() {
             window.removeEventListener("resize", this.handleWindowResize);

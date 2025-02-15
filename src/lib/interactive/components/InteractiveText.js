@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 import GenericChartComponent from "../../GenericChartComponent";
@@ -31,7 +31,7 @@ class InteractiveText extends Component {
         }
         return false;
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.calculateTextWidth =
             nextProps.text !== this.props.text ||
             nextProps.fontStyle !== this.props.fontStyle ||
