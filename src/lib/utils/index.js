@@ -18,10 +18,14 @@ export { default as PureComponent } from "./PureComponent";
 export * from "./barWidth";
 export * from "./strokeDasharray";
 
+/* global process */
+export const isProduction = process?.env?.NODE_ENV === "production";
+
+const logger = !isProduction ? (await import("debug")).default : noop;
+
 export function getLogger(prefix) {
-    let logger = noop;
-    if (process.env.NODE_ENV !== "production") {
-        logger = require("debug")("react-stockcharts:" + prefix);
+    if (!isProduction) {
+        return logger("react-stockcharts:" + prefix);
     }
     return logger;
 }
@@ -286,7 +290,6 @@ export function toObject(array, iteratee = identity) {
 // copied from https://github.com/lodash/lodash/blob/master/mapValue.js
 export function mapValue(object, iteratee) {
     object = Object(object);
-    // eslint-disable-next-line prefer-const
     let result = {};
 
     Object.keys(object).forEach(key => {
@@ -303,7 +306,6 @@ export function mapValue(object, iteratee) {
 export function mapObject(object = {}, iteratee = identity) {
     const props = Object.keys(object);
 
-    // eslint-disable-next-line prefer-const
     let result = new Array(props.length);
 
     props.forEach((key, index) => {

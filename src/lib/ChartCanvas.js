@@ -14,15 +14,10 @@ import {
     functor,
     getLogger,
     mayBeDeprecationMessage,
+    isProduction,
 } from "./utils";
 
-/* eslint-disable no-unused-vars */
-import {
-    mouseBasedZoomAnchor,
-    lastVisibleItemBasedZoomAnchor,
-    rightDomainBasedZoomAnchor,
-} from "./utils/zoomBehavior";
-/* eslint-enable no-unused-vars */
+import { mouseBasedZoomAnchor } from "./utils/zoomBehavior";
 
 import {
     getNewChartConfig,
@@ -174,9 +169,7 @@ function updateChart(newState, initialXScale, props, lastItemWasVisible, initial
     const lastItem = last(fullData);
     const [start, end] = initialXScale.domain();
 
-    if (process.env.NODE_ENV !== "production") {
-        log("TRIVIAL CHANGE");
-    }
+    log("TRIVIAL CHANGE");
 
     const { postCalculator, children, padding, flipXScale } = props;
     const { maintainPointsPerPixelOnResize } = props;
@@ -240,7 +233,7 @@ function updateChart(newState, initialXScale, props, lastItemWasVisible, initial
 function calculateState(props) {
     const { xAccessor: inputXAccesor, xExtents: xExtentsProp, data, padding, flipXScale } = props;
 
-    if (process.env.NODE_ENV !== "production" && isDefined(props.xScale?.invert)) {
+    if (!isProduction && isDefined(props.xScale?.invert)) {
         for (let i = 1; i < data.length; i++) {
             const prev = data[i - 1];
             const curr = data[i];
@@ -265,7 +258,7 @@ function calculateState(props) {
 
     const { plotData, domain } = filterData(fullData, extent, inputXAccesor, updatedXScale);
 
-    // if (process.env.NODE_ENV !== "production" && plotData.length <= 1) {
+    // if (!isProduction && plotData.length <= 1) {
     // 	throw new Error(`Showing ${plotData.length} datapoints, review the 'xExtents' prop of ChartCanvas`);
     // }
     return {
@@ -996,10 +989,12 @@ class ChartCanvas extends Component {
 
         let newState;
         if (!interaction || reset || !shallowEqual(this.props.xExtents, nextProps.xExtents)) {
-            if (process.env.NODE_ENV !== "production") {
-                if (!interaction) log("RESET CHART, changes to a non interactive chart");
-                else if (reset) log("RESET CHART, one or more of these props changed", CANDIDATES_FOR_RESET);
-                else log("xExtents changed");
+            if (!interaction) {
+                log("RESET CHART, changes to a non interactive chart");
+            } else if (reset) {
+                log("RESET CHART, one or more of these props changed", CANDIDATES_FOR_RESET);
+            } else {
+                log("xExtents changed");
             }
             // do reset
             newState = resetChart(nextProps);
@@ -1012,13 +1007,13 @@ class ChartCanvas extends Component {
             const { xAccessor } = calculatedState;
             const lastItemWasVisible = xAccessor(prevLastItem) <= end && xAccessor(prevLastItem) >= start;
 
-            if (process.env.NODE_ENV !== "production") {
-                if (this.props.data !== nextProps.data)
-                    log(
-                        "data is changed but seriesName did not, change the seriesName if you wish to reset the chart and lastItemWasVisible = ",
-                        lastItemWasVisible
-                    );
-                else log("Trivial change, may be width/height or type changed, but that does not matter");
+            if (this.props.data !== nextProps.data) {
+                log(
+                    "data is changed but seriesName did not, change the seriesName if you wish to reset the chart and lastItemWasVisible = ",
+                    lastItemWasVisible
+                );
+            } else {
+                log("Trivial change, may be width/height or type changed, but that does not matter");
             }
 
             newState = updateChart(
@@ -1033,9 +1028,7 @@ class ChartCanvas extends Component {
         const { fullData, ...state } = newState;
 
         if (this.panInProgress) {
-            if (process.env.NODE_ENV !== "production") {
-                log("Pan is in progress");
-            }
+            log("Pan is in progress");
         } else {
             /*
 			if (!reset) {
