@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import { Component, createRef } from "react";
 
 import { isDefined } from "../utils";
 
@@ -25,13 +24,11 @@ export default function fitDimensions(WrappedComponent, props = {}) {
             super(props);
             this.handleWindowResize = this.handleWindowResize.bind(this);
             this.getWrappedInstance = this.getWrappedInstance.bind(this);
-            this.saveNode = this.saveNode.bind(this);
             this.setTestCanvas = this.setTestCanvas.bind(this);
             this.state = {};
+            this.node = createRef();
         }
-        saveNode(node) {
-            this.node = node;
-        }
+
         setTestCanvas(node) {
             this.testCanvas = node;
         }
@@ -58,26 +55,21 @@ export default function fitDimensions(WrappedComponent, props = {}) {
             window.addEventListener("resize", this.handleWindowResize);
             const dimensions = getDimensions(this.node);
 
-            /* eslint-disable react/no-did-mount-set-state */
             this.setState({
                 ...dimensions,
                 ratio: isDefined(ratio) ? ratio : this.getRatio(),
             });
-            /* eslint-enable react/no-did-mount-set-state */
         }
         componentWillUnmount() {
             window.removeEventListener("resize", this.handleWindowResize);
         }
         handleWindowResize() {
-            const node = ReactDOM.findDOMNode(this.node); // eslint-disable-line react/no-find-dom-node
-            this.setState(getDimensions(node));
+            this.setState(getDimensions(this.node.current));
         }
         getWrappedInstance() {
             return this.node;
         }
         render() {
-            const ref = { ref: this.saveNode };
-
             if (this.state.width) {
                 return (
                     <WrappedComponent
@@ -85,12 +77,12 @@ export default function fitDimensions(WrappedComponent, props = {}) {
                         width={this.state.width}
                         ratio={this.state.ratio}
                         {...this.props}
-                        {...ref}
+                        ref={this.node}
                     />
                 );
             } else {
                 return (
-                    <div {...ref}>
+                    <div ref={this.node}>
                         <canvas ref={this.setTestCanvas} />
                     </div>
                 );
