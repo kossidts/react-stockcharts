@@ -52,13 +52,12 @@ class EventCapture extends Component {
             panInProgress: false,
         };
 
+        this.focus = this.props.focus;
     }
     saveNode(node) {
         this.node = node;
     }
-    UNSAFE_componentWillMount() {
-        this.focus = this.props.focus;
-    }
+
     componentDidMount() {
         if (this.node) {
             select(this.node).on(MOUSEENTER, this.handleEnter).on(MOUSELEAVE, this.handleLeave);

@@ -241,7 +241,17 @@ class GenericComponent extends Component {
             }
         }
     }
-    UNSAFE_componentWillMount() {
+
+    componentWillUnmount() {
+        const { unsubscribe } = this.context;
+        unsubscribe(this.suscriberId);
+        if (this.iSetTheCursorClass) {
+            const { setCursorClass } = this.context;
+            setCursorClass(null);
+        }
+    }
+
+    componentDidMount() {
         const { subscribe, chartId } = this.context;
         const { clip, edgeClip } = this.props;
 
@@ -253,22 +263,12 @@ class GenericComponent extends Component {
             draw: this.draw,
             getPanConditions: this.getPanConditions,
         });
-        this.UNSAFE_componentWillReceiveProps(this.props, this.context);
+
+        this.updateComponent();
     }
-    componentWillUnmount() {
-        const { unsubscribe } = this.context;
-        unsubscribe(this.suscriberId);
-        if (this.iSetTheCursorClass) {
-            const { setCursorClass } = this.context;
-            setCursorClass(null);
-        }
-    }
-    componentDidMount() {
-        this.componentDidUpdate(this.props);
-    }
+
     componentDidUpdate(prevProps) {
-        const { chartCanvasType } = this.context;
-        const { canvasDraw, selected, interactiveCursorClass } = this.props;
+        const { selected, interactiveCursorClass } = this.props;
 
         if (prevProps.selected !== selected) {
             const { setCursorClass } = this.context;
@@ -280,6 +280,13 @@ class GenericComponent extends Component {
                 setCursorClass(null);
             }
         }
+
+        this.updateComponent();
+    }
+
+    updateComponent() {
+        const { chartCanvasType, xScale, plotData, chartConfig, getMutableState } = this.context;
+        const { canvasDraw } = this.props;
         if (
             isDefined(canvasDraw) &&
             !this.evaluationInProgress &&
@@ -293,25 +300,22 @@ class GenericComponent extends Component {
             this.updateMoreProps(this.moreProps);
             this.drawOnCanvas();
         }
-    }
-    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
-        const { xScale, plotData, chartConfig, getMutableState } = nextContext;
 
-        this.props.debug(nextContext);
         this.moreProps = {
             ...this.moreProps,
             ...getMutableState(),
             /*
-			^ this is so
-			mouseXY, currentCharts, currentItem are available to
-			newly created components like MouseHoverText which
-			is created right after a new interactive object is drawn
-			*/
+        		^ this is so
+        		mouseXY, currentCharts, currentItem are available to
+        		newly created components like MouseHoverText which
+        		is created right after a new interactive object is drawn
+        		*/
             xScale,
             plotData,
             chartConfig,
         };
     }
+
     getMoreProps() {
         const { xScale, plotData, chartConfig, morePropsDecorator, xAccessor, displayXAccessor, width, height } =
             this.context;

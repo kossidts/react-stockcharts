@@ -352,7 +352,6 @@ class ChartCanvas extends Component {
             return this;
         }
 
-        // TODO: Maybe move to componentDidMount if DOM or async function needed
         const { fullData, ...state } = resetChart(props, true);
         if (!Array.isArray(state.plotData) || state.plotData.length <= 1) {
             this.state = { error: "No data to render" };
@@ -981,14 +980,14 @@ class ChartCanvas extends Component {
         };
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const reset = shouldResetChart(this.props, nextProps);
-
+    componentDidUpdate(prevProps) {
+        // Skip if props haven't changed
+        if (shallowEqual(prevProps, this.props)) {
+            return;
+        }
+        const reset = shouldResetChart(prevProps, this.props);
         const interaction = isInteractionEnabled(this.state.xScale, this.state.xAccessor, this.state.plotData);
-        const { chartConfig: initialChartConfig } = this.state;
-
-        let newState;
-        if (!interaction || reset || !shallowEqual(this.props.xExtents, nextProps.xExtents)) {
+        if (!interaction || reset || !shallowEqual(prevProps.xExtents, this.props.xExtents)) {
             if (!interaction) {
                 log("RESET CHART, changes to a non interactive chart");
             } else if (reset) {
@@ -997,17 +996,24 @@ class ChartCanvas extends Component {
                 log("xExtents changed");
             }
             // do reset
-            newState = resetChart(nextProps);
+            const { fullData, ...state } = resetChart(this.props);
             this.mutableState = {};
-        } else {
+            this.fullData = fullData;
+
+            if (!this.panInProgress) {
+                this.clearThreeCanvas();
+                this.setState(state);
+            }
+            return;
+        }
+
+        if (!this.panInProgress) {
             const [start, end] = this.state.xScale.domain();
             const prevLastItem = last(this.fullData);
-
-            const calculatedState = calculateFullData(nextProps);
+            const calculatedState = calculateFullData(this.props);
             const { xAccessor } = calculatedState;
             const lastItemWasVisible = xAccessor(prevLastItem) <= end && xAccessor(prevLastItem) >= start;
-
-            if (this.props.data !== nextProps.data) {
+            if (prevProps.data !== this.props.data) {
                 log(
                     "data is changed but seriesName did not, change the seriesName if you wish to reset the chart and lastItemWasVisible = ",
                     lastItemWasVisible
@@ -1015,45 +1021,19 @@ class ChartCanvas extends Component {
             } else {
                 log("Trivial change, may be width/height or type changed, but that does not matter");
             }
-
-            newState = updateChart(
+            const { fullData, ...state } = updateChart(
                 calculatedState,
                 this.state.xScale,
-                nextProps,
+                this.props,
                 lastItemWasVisible,
-                initialChartConfig
+                this.state.chartConfig
             );
-        }
-
-        const { fullData, ...state } = newState;
-
-        if (this.panInProgress) {
-            log("Pan is in progress");
-        } else {
-            /*
-			if (!reset) {
-				state.chartConfig
-					.forEach((each) => {
-						// const sourceChartConfig = initialChartConfig.filter(d => d.id === each.id);
-						const prevChartConfig = find(initialChartConfig, d => d.id === each.id);
-						if (isDefined(prevChartConfig) && prevChartConfig.yPanEnabled) {
-							each.yScale.domain(prevChartConfig.yScale.domain());
-							each.yPanEnabled = prevChartConfig.yPanEnabled;
-						}
-					});
-			}
-			*/
             this.clearThreeCanvas();
-
             this.setState(state);
+            this.fullData = fullData;
         }
-        this.fullData = fullData;
     }
-    /*
-	componentDidUpdate(prevProps, prevState) {
-		console.error(this.state.chartConfig, this.state.chartConfig.map(d => d.yScale.domain()));
-	}
-	*/
+
     resetYDomain(chartId) {
         const { chartConfig } = this.state;
         let changed = false;
@@ -1078,10 +1058,6 @@ class ChartCanvas extends Component {
                 chartConfig: newChartConfig,
             });
         }
-    }
-    shouldComponentUpdate() {
-        // console.log("Happneing.....", !this.panInProgress)
-        return !this.panInProgress;
     }
     render() {
         if (this.state.error) {

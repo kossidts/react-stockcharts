@@ -31,13 +31,13 @@ class InteractiveText extends Component {
         }
         return false;
     }
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
         this.calculateTextWidth =
-            nextProps.text !== this.props.text ||
-            nextProps.fontStyle !== this.props.fontStyle ||
-            nextProps.fontWeight !== this.props.fontWeight ||
-            nextProps.fontSize !== this.props.fontSize ||
-            nextProps.fontFamily !== this.props.fontFamily;
+            prevProps.text !== this.props.text ||
+            prevProps.fontStyle !== this.props.fontStyle ||
+            prevProps.fontWeight !== this.props.fontWeight ||
+            prevProps.fontSize !== this.props.fontSize ||
+            prevProps.fontFamily !== this.props.fontFamily;
     }
     drawOnCanvas(ctx, moreProps) {
         const {
